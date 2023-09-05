@@ -11,6 +11,9 @@ public class EnemyMove : MonoBehaviour
 
     TurnOrderController toc;
 
+    // 1 = Stationary, 2 = Rotating, 3 = Patroling, 4 = Wandering
+    public int enemyType;
+
     bool chasingPlayer = false;
 
     // 1 = N, 2 = E, 3 = S, 4 = W
