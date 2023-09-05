@@ -7,12 +7,15 @@ public class PlayerMovement : MonoBehaviour
     Transform tf;
     Rigidbody2D rb;
 
+    TurnOrderController toc;
+
     public float timingVar = 60;
 
     void Start()
     {
         tf = GetComponent<Transform>();
         rb = GetComponent<Rigidbody2D>();
+        toc = GameObject.Find("TurnController").GetComponent<TurnOrderController>();
 
         if (tf == null)
         {
@@ -22,6 +25,11 @@ public class PlayerMovement : MonoBehaviour
         if (rb == null)
         {
             Debug.LogError("PlayerMovement script cannot access a Rigidbody2D");
+        }
+
+        if (toc == null)
+        {
+            Debug.LogError("PlayerMovement script cannot access a TurnOrderController");
         }
     }
     
@@ -77,6 +85,8 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
         tf.position = new Vector2(Mathf.RoundToInt(tf.position.x), Mathf.RoundToInt(tf.position.y));
+
+        toc.updateCurrentTurnGO();
     }
 
     IEnumerator MoveNE()
@@ -87,6 +97,8 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
         tf.position = new Vector2(Mathf.RoundToInt(tf.position.x), Mathf.RoundToInt(tf.position.y));
+
+        toc.updateCurrentTurnGO();
     }
 
     IEnumerator MoveE()
@@ -97,6 +109,8 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
         tf.position = new Vector2(Mathf.RoundToInt(tf.position.x), Mathf.RoundToInt(tf.position.y));
+
+        toc.updateCurrentTurnGO();
     }
 
     IEnumerator MoveSE()
@@ -107,6 +121,8 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
         tf.position = new Vector2(Mathf.RoundToInt(tf.position.x), Mathf.RoundToInt(tf.position.y));
+
+        toc.updateCurrentTurnGO();
     }
 
     IEnumerator MoveS()
@@ -117,6 +133,8 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
         tf.position = new Vector2(Mathf.RoundToInt(tf.position.x), Mathf.RoundToInt(tf.position.y));
+
+        toc.updateCurrentTurnGO();
     }
 
     IEnumerator MoveSW()
@@ -127,6 +145,8 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
         tf.position = new Vector2(Mathf.RoundToInt(tf.position.x), Mathf.RoundToInt(tf.position.y));
+
+        toc.updateCurrentTurnGO();
     }
 
     IEnumerator MoveW()
@@ -137,6 +157,8 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
         tf.position = new Vector2(Mathf.RoundToInt(tf.position.x), Mathf.RoundToInt(tf.position.y));
+
+        toc.updateCurrentTurnGO();
     }
     
     IEnumerator MoveNW()
@@ -147,5 +169,7 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
         tf.position = new Vector2(Mathf.RoundToInt(tf.position.x), Mathf.RoundToInt(tf.position.y));
+
+        toc.updateCurrentTurnGO();
     }
 }

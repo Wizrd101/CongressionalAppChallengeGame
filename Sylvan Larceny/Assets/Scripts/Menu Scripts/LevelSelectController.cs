@@ -12,26 +12,31 @@ public class LevelSelectController : MonoBehaviour
 
     public void LevelOneSelect()
     {
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene("LevelOneScene");
     }
 
     public void LevelTwoSelect()
     {
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene("LevelTwoScene");
     }
 
     public void LevelThreeSelect()
     {
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene("LevelThreeScene");
     }
 
     public void LevelFourSelect()
     {
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene("LevelFourScene");
     }
 
     public void LevelFiveSelect()
     {
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene("LevelFiveScene");
     }
 }

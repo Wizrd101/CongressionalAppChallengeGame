@@ -7,6 +7,7 @@ public class MainMenuController : MonoBehaviour
 {
     public void StartButton()
     {
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene("LevelOneScene");
     }
 
