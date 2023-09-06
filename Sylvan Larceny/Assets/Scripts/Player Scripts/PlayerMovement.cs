@@ -1,20 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
     Transform tf;
     Rigidbody2D rb;
 
+    Slider moveSlider;
+
     public float timingVar = 60;
 
     public float moveTimer = 0;
+
+    int xMove;
+    int yMove;
 
     void Start()
     {
         tf = GetComponent<Transform>();
         rb = GetComponent<Rigidbody2D>();
+
+        moveSlider = GameObject.Find("MoveTimerSlider").GetComponent<Slider>();
 
         if (tf == null)
         {
@@ -25,6 +33,11 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.LogError("PlayerMovement script cannot access a Rigidbody2D");
         }
+
+        if (moveSlider == null)
+        {
+            Debug.LogError("PlayerMovement script cannot access a Move Slider");
+        }
     }
     
     // Input Detection
@@ -33,69 +46,42 @@ public class PlayerMovement : MonoBehaviour
         // If the move timer has hit 0, allow the player to input a movement
         if (moveTimer <= 0)
         {
-            if (Input.GetKey(KeyCode.W))
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
             {
+                if (Input.GetKey(KeyCode.D))
+                {
+                    //Debug.Log("D");
+                    xMove++;
+                }
+
                 if (Input.GetKey(KeyCode.A))
                 {
-                    StartCoroutine(MoveNW());
+                    //Debug.Log("A");
+                    xMove--;
                 }
-                else if (Input.GetKey(KeyCode.D))
-                {
-                    StartCoroutine(MoveNE());
-                }
-                else
-                {
-                    StartCoroutine(MoveN());
-                }
-            }
 
-            if (Input.GetKey(KeyCode.S))
-            {
-                if (Input.GetKey(KeyCode.A))
-                {
-                    StartCoroutine(MoveSW());
-                }
-                else if (Input.GetKey(KeyCode.D))
-                {
-                    StartCoroutine(MoveSE());
-                }
-                else
-                {
-                    StartCoroutine(MoveS());
-                }
-            }
-
-            if (Input.GetKey(KeyCode.A))
-            {
                 if (Input.GetKey(KeyCode.W))
                 {
-                    StartCoroutine(MoveNE());
+                    //Debug.Log("W");
+                    yMove++;
                 }
-                else if (Input.GetKey(KeyCode.S))
+
+                if (Input.GetKey(KeyCode.S))
                 {
-                    StartCoroutine(MoveSE());
+                    //Debug.Log("S");
+                    yMove--;
                 }
-                else
+
+                // Sends the move to the GeneralMove Coroutine if both the xMove and yMove are not 0
+                if (xMove != 0 || yMove != 0)
                 {
-                    StartCoroutine(MoveE());
+                    //Debug.Log(xMove + " " + yMove);
+                    StartCoroutine(GeneralMove(xMove, yMove));
                 }
             }
 
-            if (Input.GetKey(KeyCode.D))
-            {
-                if (Input.GetKey(KeyCode.W))
-                {
-                    StartCoroutine(MoveNW());
-                }
-                else if (Input.GetKey(KeyCode.S))
-                {
-                    StartCoroutine(MoveSW());
-                }
-                else
-                {
-                    StartCoroutine(MoveW());
-                }
-            }
+            xMove = 0;
+            yMove = 0;
         }
         // Otherwise, the movetimer is still active, so decrease it until it hits 0 (and clamp it there)
         else
@@ -103,85 +89,42 @@ public class PlayerMovement : MonoBehaviour
             moveTimer -= Time.deltaTime;
             Mathf.Clamp(moveTimer, 0f, Mathf.Infinity);
         }
+
+        // Updating the Move Slider to display time between actions
+        moveSlider.value = moveTimer;
     }
 
-    IEnumerator MoveN()
+    IEnumerator GeneralMove(int xValue, int yValue)
     {
+        UpdateTimer(2);
         for (int i = 0; i <= timingVar; i++)
         {
-            tf.position = new Vector2(tf.position.x, tf.position.y + (1/timingVar));
-            yield return null;
-        }
-        tf.position = new Vector2(Mathf.RoundToInt(tf.position.x), Mathf.RoundToInt(tf.position.y));
-    }
+            if (xValue == 1)
+            {
+                tf.position = new Vector2(tf.position.x + (1 / timingVar), tf.position.y);
+            }
+            else if (xValue == -1)
+            {
+                tf.position = new Vector2(tf.position.x - (1 / timingVar), tf.position.y);
+            }
 
-    IEnumerator MoveNE()
-    {
-        for (int i = 0; i <= timingVar; i++)
-        {
-            tf.position = new Vector2(tf.position.x - (1 / timingVar), tf.position.y + (1 / timingVar));
-            yield return null;
-        }
-        tf.position = new Vector2(Mathf.RoundToInt(tf.position.x), Mathf.RoundToInt(tf.position.y));
-    }
+            if (yValue == 1)
+            {
+                tf.position = new Vector2(tf.position.x, tf.position.y + (1 / timingVar));
+            }
+            else if (yValue == -1)
+            {
+                tf.position = new Vector2(tf.position.x, tf.position.y - (1 / timingVar));
+            }
 
-    IEnumerator MoveE()
-    {
-        for (int i = 0; i <= timingVar; i++)
-        {
-            tf.position = new Vector2(tf.position.x - (1 / timingVar), tf.position.y);
-            yield return null;
-        }
-        tf.position = new Vector2(Mathf.RoundToInt(tf.position.x), Mathf.RoundToInt(tf.position.y));
-    }
-
-    IEnumerator MoveSE()
-    {
-        for (int i = 0; i <= timingVar; i++)
-        {
-            tf.position = new Vector2(tf.position.x - (1 / timingVar), tf.position.y - (1 / timingVar));
             yield return null;
         }
         tf.position = new Vector2(Mathf.RoundToInt(tf.position.x), Mathf.RoundToInt(tf.position.y));
     }
 
-    IEnumerator MoveS()
+    public void UpdateTimer(float actionValue)
     {
-        for (int i = 0; i <= timingVar; i++)
-        {
-            tf.position = new Vector2(tf.position.x, tf.position.y - (1 / timingVar));
-            yield return null;
-        }
-        tf.position = new Vector2(Mathf.RoundToInt(tf.position.x), Mathf.RoundToInt(tf.position.y));
-    }
-
-    IEnumerator MoveSW()
-    {
-        for (int i = 0; i <= timingVar; i++)
-        {
-            tf.position = new Vector2(tf.position.x + (1 / timingVar), tf.position.y - (1 / timingVar));
-            yield return null;
-        }
-        tf.position = new Vector2(Mathf.RoundToInt(tf.position.x), Mathf.RoundToInt(tf.position.y));
-    }
-
-    IEnumerator MoveW()
-    {
-        for (int i = 0; i <= timingVar; i++)
-        {
-            tf.position = new Vector2(tf.position.x + (1 / timingVar), tf.position.y);
-            yield return null;
-        }
-        tf.position = new Vector2(Mathf.RoundToInt(tf.position.x), Mathf.RoundToInt(tf.position.y));
-    }
-    
-    IEnumerator MoveNW()
-    {
-        for (int i = 0; i <= timingVar; i++)
-        {
-            tf.position = new Vector2(tf.position.x + (1 / timingVar), tf.position.y + (1 / timingVar));
-            yield return null;
-        }
-        tf.position = new Vector2(Mathf.RoundToInt(tf.position.x), Mathf.RoundToInt(tf.position.y));
+        moveTimer = actionValue;
+        moveSlider.maxValue = actionValue;
     }
 }
