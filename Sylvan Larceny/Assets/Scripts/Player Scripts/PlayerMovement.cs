@@ -17,6 +17,9 @@ public class PlayerMovement : MonoBehaviour
     int xMove;
     int yMove;
 
+    RaycastHit2D hit;
+    bool moveLegal = true;
+
     void Start()
     {
         tf = GetComponent<Transform>();
@@ -96,7 +99,29 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator GeneralMove(int xValue, int yValue)
     {
+        // Update the action timer
         UpdateTimer(2);
+
+        // Collision detection, the code won't register an attempt to move into a wall as a move attempt
+        if (xValue != 0)
+        {
+            hit = Physics2D.Raycast(transform.position, new Vector2(xValue, 0), 1);
+            if (hit.collider != null)
+            {
+                moveLegal = false;
+            }
+        }
+
+        if (yValue != 0)
+        {
+            hit = Physics2D.Raycast(transform.position, new Vector2(0, yValue), 1);
+            if (hit.collider != null)
+            {
+                moveLegal = false;
+            }
+        }
+
+        // The actual movement part
         for (int i = 0; i <= timingVar; i++)
         {
             if (xValue == 1)
@@ -119,6 +144,8 @@ public class PlayerMovement : MonoBehaviour
 
             yield return null;
         }
+
+        // Rounds off the position, so the player can move around for forever and still be on tile-based movement
         tf.position = new Vector2(Mathf.RoundToInt(tf.position.x), Mathf.RoundToInt(tf.position.y));
     }
 
