@@ -7,15 +7,14 @@ public class PlayerMovement : MonoBehaviour
     Transform tf;
     Rigidbody2D rb;
 
-    TurnOrderController toc;
-
     public float timingVar = 60;
+
+    public float moveTimer = 0;
 
     void Start()
     {
         tf = GetComponent<Transform>();
         rb = GetComponent<Rigidbody2D>();
-        toc = GameObject.Find("TurnController").GetComponent<TurnOrderController>();
 
         if (tf == null)
         {
@@ -26,54 +25,83 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.LogError("PlayerMovement script cannot access a Rigidbody2D");
         }
-
-        if (toc == null)
-        {
-            Debug.LogError("PlayerMovement script cannot access a TurnOrderController");
-        }
     }
     
     // Input Detection
     void Update()
     {
-        if (Input.GetKey(KeyCode.W))
+        // If the move timer has hit 0, allow the player to input a movement
+        if (moveTimer <= 0)
         {
-            StartCoroutine(MoveN());
-        }
+            if (Input.GetKey(KeyCode.W))
+            {
+                if (Input.GetKey(KeyCode.A))
+                {
+                    StartCoroutine(MoveNW());
+                }
+                else if (Input.GetKey(KeyCode.D))
+                {
+                    StartCoroutine(MoveNE());
+                }
+                else
+                {
+                    StartCoroutine(MoveN());
+                }
+            }
 
-        if (Input.GetKey(KeyCode.Q))
-        {
-            StartCoroutine(MoveNE());
-        }
+            if (Input.GetKey(KeyCode.S))
+            {
+                if (Input.GetKey(KeyCode.A))
+                {
+                    StartCoroutine(MoveSW());
+                }
+                else if (Input.GetKey(KeyCode.D))
+                {
+                    StartCoroutine(MoveSE());
+                }
+                else
+                {
+                    StartCoroutine(MoveS());
+                }
+            }
 
-        if (Input.GetKey(KeyCode.A))
-        {
-            StartCoroutine(MoveE());
-        }
+            if (Input.GetKey(KeyCode.A))
+            {
+                if (Input.GetKey(KeyCode.W))
+                {
+                    StartCoroutine(MoveNE());
+                }
+                else if (Input.GetKey(KeyCode.S))
+                {
+                    StartCoroutine(MoveSE());
+                }
+                else
+                {
+                    StartCoroutine(MoveE());
+                }
+            }
 
-        if (Input.GetKey(KeyCode.Z))
-        {
-            StartCoroutine(MoveSE());
+            if (Input.GetKey(KeyCode.D))
+            {
+                if (Input.GetKey(KeyCode.W))
+                {
+                    StartCoroutine(MoveNW());
+                }
+                else if (Input.GetKey(KeyCode.S))
+                {
+                    StartCoroutine(MoveSW());
+                }
+                else
+                {
+                    StartCoroutine(MoveW());
+                }
+            }
         }
-
-        if (Input.GetKey(KeyCode.X))
+        // Otherwise, the movetimer is still active, so decrease it until it hits 0 (and clamp it there)
+        else
         {
-            StartCoroutine(MoveS());
-        }
-
-        if (Input.GetKey(KeyCode.C))
-        {
-            StartCoroutine(MoveSW());
-        }
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            StartCoroutine(MoveW());
-        }
-
-        if (Input.GetKey(KeyCode.E))
-        {
-            StartCoroutine(MoveNW());
+            moveTimer -= Time.deltaTime;
+            Mathf.Clamp(moveTimer, 0f, Mathf.Infinity);
         }
     }
 
@@ -85,8 +113,6 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
         tf.position = new Vector2(Mathf.RoundToInt(tf.position.x), Mathf.RoundToInt(tf.position.y));
-
-        toc.updateCurrentTurnGO();
     }
 
     IEnumerator MoveNE()
@@ -97,8 +123,6 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
         tf.position = new Vector2(Mathf.RoundToInt(tf.position.x), Mathf.RoundToInt(tf.position.y));
-
-        toc.updateCurrentTurnGO();
     }
 
     IEnumerator MoveE()
@@ -109,8 +133,6 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
         tf.position = new Vector2(Mathf.RoundToInt(tf.position.x), Mathf.RoundToInt(tf.position.y));
-
-        toc.updateCurrentTurnGO();
     }
 
     IEnumerator MoveSE()
@@ -121,8 +143,6 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
         tf.position = new Vector2(Mathf.RoundToInt(tf.position.x), Mathf.RoundToInt(tf.position.y));
-
-        toc.updateCurrentTurnGO();
     }
 
     IEnumerator MoveS()
@@ -133,8 +153,6 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
         tf.position = new Vector2(Mathf.RoundToInt(tf.position.x), Mathf.RoundToInt(tf.position.y));
-
-        toc.updateCurrentTurnGO();
     }
 
     IEnumerator MoveSW()
@@ -145,8 +163,6 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
         tf.position = new Vector2(Mathf.RoundToInt(tf.position.x), Mathf.RoundToInt(tf.position.y));
-
-        toc.updateCurrentTurnGO();
     }
 
     IEnumerator MoveW()
@@ -157,8 +173,6 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
         tf.position = new Vector2(Mathf.RoundToInt(tf.position.x), Mathf.RoundToInt(tf.position.y));
-
-        toc.updateCurrentTurnGO();
     }
     
     IEnumerator MoveNW()
@@ -169,7 +183,5 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
         tf.position = new Vector2(Mathf.RoundToInt(tf.position.x), Mathf.RoundToInt(tf.position.y));
-
-        toc.updateCurrentTurnGO();
     }
 }

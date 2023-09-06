@@ -9,8 +9,6 @@ public class EnemyMove : MonoBehaviour
 
     PolygonCollider2D detectCol;
 
-    TurnOrderController toc;
-
     // 1 = Stationary, 2 = Rotating, 3 = Patroling, 4 = Wandering
     public int enemyType;
 
@@ -24,7 +22,6 @@ public class EnemyMove : MonoBehaviour
         tf = GetComponent<Transform>();
         rb = GetComponent<Rigidbody2D>();
         detectCol = GetComponentInChildren<PolygonCollider2D>();
-        toc = GameObject.Find("TurnController").GetComponent<TurnOrderController>();
 
         if (tf == null)
         {
@@ -39,11 +36,6 @@ public class EnemyMove : MonoBehaviour
         if (detectCol == null)
         {
             Debug.LogError("EnemyMovement on " + this.name + "script cannot access a PolygonCollider2D");
-        }
-
-        if (toc == null)
-        {
-            Debug.LogError("EnemyMovement on " + this.name + "script cannot access a TurnOrderController");
         }
     }
 
