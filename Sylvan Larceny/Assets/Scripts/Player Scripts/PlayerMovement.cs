@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
 
     Slider moveSlider;
 
+    LayerMask playerMask;
+
     public float timingVar = 60;
 
     public float moveTimer = 0;
@@ -20,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     RaycastHit2D hit;
     bool moveLegal = true;
 
+    // Declaring Variables
     void Start()
     {
         tf = GetComponent<Transform>();
@@ -41,6 +44,8 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.LogError("PlayerMovement script cannot access a Move Slider");
         }
+
+        playerMask = LayerMask.GetMask("Player");
     }
     
     // Input Detection
@@ -97,53 +102,74 @@ public class PlayerMovement : MonoBehaviour
         moveSlider.value = moveTimer;
     }
 
+    // General Moving function
     IEnumerator GeneralMove(int xValue, int yValue)
     {
-        // Update the action timer
-        UpdateTimer(2);
-
         // Collision detection, the code won't register an attempt to move into a wall as a move attempt
+        // Side to Side
         if (xValue != 0)
         {
-            hit = Physics2D.Raycast(transform.position, new Vector2(xValue, 0), 1);
+            hit = Physics2D.Raycast(transform.position, new Vector2(xValue, 0), 1, ~playerMask);
             if (hit.collider != null)
             {
+                //Debug.Log("X check failed");
                 moveLegal = false;
             }
         }
 
+        // Up and Down
         if (yValue != 0)
         {
-            hit = Physics2D.Raycast(transform.position, new Vector2(0, yValue), 1);
+            hit = Physics2D.Raycast(transform.position, new Vector2(0, yValue), 1, ~playerMask);
             if (hit.collider != null)
             {
+                //Debug.Log("Y check failed");
                 moveLegal = false;
             }
         }
 
-        // The actual movement part
-        for (int i = 0; i <= timingVar; i++)
+        // Diagonals
+        if (xValue != 0 && yValue != 0)
         {
-            if (xValue == 1)
+            hit = Physics2D.Raycast(transform.position, new Vector2(xValue, yValue), Mathf.Sqrt(2), ~playerMask);
+            if (hit.collider != null)
             {
-                tf.position = new Vector2(tf.position.x + (1 / timingVar), tf.position.y);
+                //Debug.Log("Diagonal check failed");
+                moveLegal = false;
             }
-            else if (xValue == -1)
-            {
-                tf.position = new Vector2(tf.position.x - (1 / timingVar), tf.position.y);
-            }
-
-            if (yValue == 1)
-            {
-                tf.position = new Vector2(tf.position.x, tf.position.y + (1 / timingVar));
-            }
-            else if (yValue == -1)
-            {
-                tf.position = new Vector2(tf.position.x, tf.position.y - (1 / timingVar));
-            }
-
-            yield return null;
         }
+
+        if (moveLegal)
+        {
+            // Update the action timer
+            UpdateTimer(2);
+
+            // The actual movement part
+            for (int i = 0; i <= timingVar; i++)
+            {
+                if (xValue == 1)
+                {
+                    tf.position = new Vector2(tf.position.x + (1 / timingVar), tf.position.y);
+                }
+                else if (xValue == -1)
+                {
+                    tf.position = new Vector2(tf.position.x - (1 / timingVar), tf.position.y);
+                }
+
+                if (yValue == 1)
+                {
+                    tf.position = new Vector2(tf.position.x, tf.position.y + (1 / timingVar));
+                }
+                else if (yValue == -1)
+                {
+                    tf.position = new Vector2(tf.position.x, tf.position.y - (1 / timingVar));
+                }
+
+                yield return null;
+            }
+        }
+
+        moveLegal = true;
 
         // Rounds off the position, so the player can move around for forever and still be on tile-based movement
         tf.position = new Vector2(Mathf.RoundToInt(tf.position.x), Mathf.RoundToInt(tf.position.y));
