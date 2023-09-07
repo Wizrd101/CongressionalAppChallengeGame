@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
 
     Slider moveSlider;
 
+    AdrenalineMode AMscript;
+
     LayerMask playerMask;
 
     public float timingVar = 60;
@@ -27,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     {
         tf = GetComponent<Transform>();
         rb = GetComponent<Rigidbody2D>();
+        AMscript = GetComponent<AdrenalineMode>();
 
         moveSlider = GameObject.Find("MoveTimerSlider").GetComponent<Slider>();
 
@@ -38,6 +41,11 @@ public class PlayerMovement : MonoBehaviour
         if (rb == null)
         {
             Debug.LogError("PlayerMovement script cannot access a Rigidbody2D");
+        }
+
+        if (AMscript == null)
+        {
+            Debug.LogError("PlayerMovement script cannot access the AdrenalineMode script");
         }
 
         if (moveSlider == null)
@@ -98,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
             Mathf.Clamp(moveTimer, 0f, Mathf.Infinity);
         }
 
-        // Updating the Move Slider to display time between actions
+        // Updating the Move Slider to display time between actions, if the player is not in Adrenaline Mode
         moveSlider.value = moveTimer;
     }
 
@@ -142,7 +150,10 @@ public class PlayerMovement : MonoBehaviour
         if (moveLegal)
         {
             // Update the action timer
-            UpdateTimer(2);
+            if (!AMscript.inAM)
+            {
+                UpdateTimer(2);
+            }
 
             // The actual movement part
             for (int i = 0; i <= timingVar; i++)
