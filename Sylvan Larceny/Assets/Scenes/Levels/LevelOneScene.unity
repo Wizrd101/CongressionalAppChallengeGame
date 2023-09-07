@@ -1192,6 +1192,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1173639858}
   - component: {fileID: 1173639859}
+  - component: {fileID: 1173639860}
   m_Layer: 0
   m_Name: DetectionCollider
   m_TagString: Untagged
@@ -1264,6 +1265,18 @@ PolygonCollider2D:
       - {x: -1, y: 2}
       - {x: 1, y: 2}
   m_UseDelaunayMesh: 0
+--- !u!114 &1173639860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1173639857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df152a70d06b575459bd971682c3ebc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1553848014
 GameObject:
   m_ObjectHideFlags: 0
@@ -1454,6 +1467,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1368b95f5755b4648a9985c1c7783234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  state: 0
+  playerAndEnemy:
+    serializedVersion: 2
+    m_Bits: 0
   enemyType: 0
 --- !u!61 &1819413840
 BoxCollider2D:
@@ -1536,7 +1554,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1819413838}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
   m_LocalPosition: {x: 2, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1544,7 +1562,7 @@ Transform:
   - {fileID: 1553848015}
   - {fileID: 1173639858}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!1 &1997072974
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
 
     AdrenalineMode AMscript;
 
-    LayerMask playerMask;
+    public LayerMask playerAndEnemyMask;
 
     public float timingVar = 60;
 
@@ -55,7 +55,8 @@ public class PlayerMovement : MonoBehaviour
             Debug.LogError("PlayerMovement script cannot access a Move Slider");
         }
 
-        playerMask = LayerMask.GetMask("Player");
+        playerAndEnemyMask = LayerMask.GetMask("Player");
+        playerAndEnemyMask = LayerMask.GetMask("Enemy");
 
         moving = false;
     }
@@ -123,10 +124,11 @@ public class PlayerMovement : MonoBehaviour
         // Side to Side
         if (xValue != 0)
         {
-            hit = Physics2D.Raycast(transform.position, new Vector2(xValue, 0), 1, ~playerMask);
+            hit = Physics2D.Raycast(transform.position, new Vector2(xValue, 0), 1, ~playerAndEnemyMask);
             if (hit.collider != null)
             {
-                //Debug.Log("X check failed");
+                Debug.Log(hit.collider.tag);
+                Debug.Log("X check failed");
                 moveLegal = false;
             }
         }
@@ -134,7 +136,7 @@ public class PlayerMovement : MonoBehaviour
         // Up and Down
         if (yValue != 0)
         {
-            hit = Physics2D.Raycast(transform.position, new Vector2(0, yValue), 1, ~playerMask);
+            hit = Physics2D.Raycast(transform.position, new Vector2(0, yValue), 1, ~playerAndEnemyMask);
             if (hit.collider != null)
             {
                 //Debug.Log("Y check failed");
@@ -145,7 +147,7 @@ public class PlayerMovement : MonoBehaviour
         // Diagonals
         if (xValue != 0 && yValue != 0)
         {
-            hit = Physics2D.Raycast(transform.position, new Vector2(xValue, yValue), Mathf.Sqrt(2), ~playerMask);
+            hit = Physics2D.Raycast(transform.position, new Vector2(xValue, yValue), Mathf.Sqrt(2), ~playerAndEnemyMask);
             if (hit.collider != null)
             {
                 //Debug.Log("Diagonal check failed");

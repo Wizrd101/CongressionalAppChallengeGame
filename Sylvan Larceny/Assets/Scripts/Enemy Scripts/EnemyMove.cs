@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public enum EnemyState { PATROLING, CHASINGPLAYER, CHASINGLASTSEEN}
@@ -27,7 +28,14 @@ public class EnemyMove : MonoBehaviour
     // 1 = N, 2 = E, 3 = S, 4 = W
     int faceDir;
 
+    float maxChaseDist;
+
     RaycastHit2D hit;
+
+    Vector2 moveVectorRaw;
+    Vector2 moveVectorNormalized;
+
+    float moveAngle;
 
     void Start()
     {
@@ -68,6 +76,8 @@ public class EnemyMove : MonoBehaviour
 
         moving = false;
 
+        maxChaseDist = 10;
+
         playerAndEnemy = LayerMask.GetMask("Player");
         playerAndEnemy = LayerMask.GetMask("Enemy");
     }
@@ -80,7 +90,8 @@ public class EnemyMove : MonoBehaviour
         }
         else if (state == EnemyState.CHASINGPLAYER)
         {
-            hit = Physics2D.Raycast(transform.position, player.transform.position, Mathf.Infinity, ~playerAndEnemy);
+            hit = Physics2D.Raycast(transform.position, player.transform.position, maxChaseDist, ~playerAndEnemy);
+            
             while (hit.collider == null)
             {
                 if (!moving)
@@ -88,6 +99,10 @@ public class EnemyMove : MonoBehaviour
                     StartCoroutine(EnemyChaseMove(player.transform.position.x, player.transform.position.y));
                 }
             }
+
+            // Once the while loop ends and the Enemy can see the player, change states
+            ChaseLastSeenStateEnter();
+            state = EnemyState.CHASINGLASTSEEN;
         }
         else if (state == EnemyState.CHASINGLASTSEEN)
         {
@@ -108,8 +123,20 @@ public class EnemyMove : MonoBehaviour
     {
         moving = true;
 
+        Debug.Log("EnemyChaseMove called");
+
+        // Logic to determine which way to move
+        moveVectorRaw = new Vector2(targetX - transform.position.x,  targetY - transform.position.y);
+        moveAngle = Vector2.Angle(Vector2.up, moveVectorRaw);
+        Debug.Log(moveAngle);
+
         yield return null;
 
         moving = false;
+    }
+
+    void ChaseLastSeenStateEnter()
+    {
+
     }
 }

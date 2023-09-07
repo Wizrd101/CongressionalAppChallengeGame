@@ -42,18 +42,4 @@ public class EnemyDetectPlayer : MonoBehaviour
             }
         }
     }
-
-    // Logic for when the Enemy is in the other two states (CHASINGPLAYER and CHASINGLASTSEEN)
-    void Update()
-    {
-        if (eMoveScript.state == EnemyState.CHASINGPLAYER)
-        {
-
-        }
-        else if (eMoveScript.state == EnemyState.CHASINGLASTSEEN)
-        {
-
-        }
-    }
-
 }
