@@ -21,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     int xMove;
     int yMove;
 
+    bool moving;
+
     RaycastHit2D hit;
     bool moveLegal = true;
 
@@ -54,13 +56,15 @@ public class PlayerMovement : MonoBehaviour
         }
 
         playerMask = LayerMask.GetMask("Player");
+
+        moving = false;
     }
     
     // Input Detection
     void Update()
     {
         // If the move timer has hit 0, allow the player to input a movement
-        if (moveTimer <= 0)
+        if (moveTimer <= 0 && !moving)
         {
             if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
             {
@@ -113,6 +117,8 @@ public class PlayerMovement : MonoBehaviour
     // General Moving function
     IEnumerator GeneralMove(int xValue, int yValue)
     {
+        moving = true;
+
         // Collision detection, the code won't register an attempt to move into a wall as a move attempt
         // Side to Side
         if (xValue != 0)
@@ -184,6 +190,8 @@ public class PlayerMovement : MonoBehaviour
 
         // Rounds off the position, so the player can move around for forever and still be on tile-based movement
         tf.position = new Vector2(Mathf.RoundToInt(tf.position.x), Mathf.RoundToInt(tf.position.y));
+
+        moving = false;
     }
 
     public void UpdateTimer(float actionValue)
