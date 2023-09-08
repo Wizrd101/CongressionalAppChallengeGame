@@ -1453,7 +1453,7 @@ GameObject:
   - component: {fileID: 1819413839}
   m_Layer: 7
   m_Name: Enemy1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1475,7 +1475,8 @@ MonoBehaviour:
   playerAndEnemy:
     serializedVersion: 2
     m_Bits: 192
-  enemyType: 0
+  enemyType: 1
+  homeVector: {x: 0, y: 0}
 --- !u!61 &1819413840
 BoxCollider2D:
   m_ObjectHideFlags: 0

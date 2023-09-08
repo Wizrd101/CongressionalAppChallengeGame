@@ -4,6 +4,7 @@ using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 using static UnityEngine.Rendering.DebugUI;
 
 public enum EnemyState { PATROLING, CHASINGPLAYER, CHASINGLASTSEEN}
@@ -11,7 +12,7 @@ public enum EnemyState { PATROLING, CHASINGPLAYER, CHASINGLASTSEEN}
 public class EnemyMove : MonoBehaviour
 {
     Transform tf;
-    Rigidbody2D rb;
+    //Rigidbody2D rb;
 
     EnemyDetectPlayer detectScript;
 
@@ -30,6 +31,7 @@ public class EnemyMove : MonoBehaviour
 
     bool moving;
 
+    float baseSpeed = 80;
     float chaseSpeed = 40;
 
     int xMove;
@@ -43,6 +45,7 @@ public class EnemyMove : MonoBehaviour
     Vector2 homeVector;
 
     RaycastHit2D hit;
+    RaycastHit2D targetHome;
 
     Vector2 moveVectorRaw;
     Vector2 moveVectorNormalized;
@@ -52,7 +55,7 @@ public class EnemyMove : MonoBehaviour
     void Start()
     {
         tf = GetComponent<Transform>();
-        rb = GetComponent<Rigidbody2D>();
+        //rb = GetComponent<Rigidbody2D>();
 
         detectScript = GetComponentInChildren<EnemyDetectPlayer>();
 
@@ -92,7 +95,7 @@ public class EnemyMove : MonoBehaviour
             // Stationary and Rotating (they do mostly the same thing)
             if (enemyType == 1 || enemyType == 2 || enemyType == 4)
             {
-                GoToCoord(tf.position.x, tf.position.y, homeVector.x, homeVector.y);
+                StartCoroutine(GoToCoord(homeVector.x, homeVector.y));
 
                 if (enemyType == 1)
                 {
@@ -127,7 +130,6 @@ public class EnemyMove : MonoBehaviour
                 ChaseLastSeenStateEnter();
                 state = EnemyState.CHASINGLASTSEEN;
             }
-
         }
         else if (state == EnemyState.CHASINGLASTSEEN)
         {
@@ -135,9 +137,48 @@ public class EnemyMove : MonoBehaviour
         }
     }
 
-    void GoToCoord(float xPosStart, float yPosStart, float xPosFin, float yPosFin)
+    IEnumerator GoToCoord(float homeX, float homeY)
     {
+        Debug.Log("Go home coroutine triggered");
 
+        moving = true;
+
+        while (tf.position.x != homeX || tf.position.y != homeY)
+        {
+            CalculateMoveDir(homeX, homeY);
+
+            for (int i = 0; i <= baseSpeed; i++)
+            {
+                if (xMove == 1)
+                {
+                    tf.position = new Vector2(tf.position.x + (1 / baseSpeed), tf.position.y);
+                }
+                else if (xMove == -1)
+                {
+
+                    tf.position = new Vector2(tf.position.x - (1 / baseSpeed), tf.position.y);
+                }
+
+                if (yMove == 1)
+                {
+                    tf.position = new Vector2(tf.position.x, tf.position.y + (1 / baseSpeed));
+                }
+                else if (yMove == -1)
+                {
+                    tf.position = new Vector2(tf.position.x, tf.position.y - (1 / baseSpeed));
+                }
+
+                yield return null;
+            }
+
+            tf.position = new Vector2(Mathf.RoundToInt(tf.position.x), Mathf.RoundToInt(tf.position.y));
+        }
+
+        ResetVars();
+
+        moving = false;
+
+        Debug.Log("Go home coroutine finished");
     }
 
     IEnumerator EnemyChaseMove(float playerX, float playerY)
@@ -147,6 +188,7 @@ public class EnemyMove : MonoBehaviour
         //Debug.Log("EnemyChaseMove called");
 
         CalculateMoveDir(playerX, playerY);
+        CheckIfHomeInSightForNextMove(tf.position.x + xMove, tf.position.y + yMove, xMove, yMove);
 
         for (int i = 0; i <= chaseSpeed; i++)
         {
@@ -182,6 +224,7 @@ public class EnemyMove : MonoBehaviour
     {
         moveVectorRaw = new Vector2(targetX - transform.position.x,  targetY - transform.position.y);
         moveAngle = Vector2.Angle(Vector2.up, moveVectorRaw);
+        
         //Debug.Log(moveAngle);
 
         /*
@@ -246,6 +289,16 @@ public class EnemyMove : MonoBehaviour
         else
         {
             Debug.LogError("moveAngle not calculated correctly: " + moveAngle);
+        }
+    }
+
+    void CheckIfHomeInSightForNextMove(float nextMoveX, float nextMoveY, float homeX, float homeY)
+    {
+        targetHome = Physics2D.Raycast(new Vector2(nextMoveX, nextMoveY), new Vector2 (homeX, homeY), Mathf.Infinity, ~playerAndEnemy);
+
+        if (targetHome.collider != null)
+        {
+            // Make an illegal move
         }
     }
 
