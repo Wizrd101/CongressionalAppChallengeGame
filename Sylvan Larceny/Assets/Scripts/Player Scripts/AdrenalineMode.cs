@@ -36,16 +36,6 @@ public class AdrenalineMode : MonoBehaviour
 
         AMSlider = GameObject.Find("AdrenalineModeSlider").GetComponent<Slider>();
 
-        if (moveScript == null)
-        {
-            Debug.LogError("AdrenalineMode could not access the PlayerMovement script");
-        }
-
-        if (AMSlider == null)
-        {
-            Debug.LogError("AdrenalineMode could not access an AMSlider");
-        }
-
         inAM = false;
 
         curAdr = maxAdr;

@@ -16,16 +16,6 @@ public class EnemyDetectPlayer : MonoBehaviour
         detectCol = GetComponent<PolygonCollider2D>();
 
         eMoveScript = GetComponentInParent<EnemyMove>();
-
-        if (detectCol == null)
-        {
-            Debug.LogError("EnemyDetectPlayer cannot access a PolygonCollider2D");
-        }
-
-        if (detectCol == null)
-        {
-            Debug.LogError("EnemyDetectPlayer cannot access an EnemyMoveScript");
-        }
     }
 
     // Logic for when the Enemy is in the PATROLING state (or the CHASINGLASTSEEN ig)
@@ -35,10 +25,15 @@ public class EnemyDetectPlayer : MonoBehaviour
         {
             // Check to make sure that the player didn't hit the collider through a wall or something
             hit = Physics2D.Raycast(transform.position, eMoveScript.player.transform.position, Mathf.Infinity, ~eMoveScript.playerAndEnemy);
-            
+
             if (hit.collider == null)
             {
+                Debug.Log("no collider detected");
                 eMoveScript.state = EnemyState.CHASINGPLAYER;
+            }
+            else
+            {
+                Debug.Log(hit.collider.name);
             }
         }
     }

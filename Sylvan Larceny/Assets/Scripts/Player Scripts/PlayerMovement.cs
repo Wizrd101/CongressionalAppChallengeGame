@@ -35,29 +35,6 @@ public class PlayerMovement : MonoBehaviour
 
         moveSlider = GameObject.Find("MoveTimerSlider").GetComponent<Slider>();
 
-        if (tf == null)
-        {
-            Debug.LogError("PlayerMovement script cannot access a Transform");
-        }
-
-        if (rb == null)
-        {
-            Debug.LogError("PlayerMovement script cannot access a Rigidbody2D");
-        }
-
-        if (AMscript == null)
-        {
-            Debug.LogError("PlayerMovement script cannot access the AdrenalineMode script");
-        }
-
-        if (moveSlider == null)
-        {
-            Debug.LogError("PlayerMovement script cannot access a Move Slider");
-        }
-
-        playerAndEnemyMask = LayerMask.GetMask("Player");
-        playerAndEnemyMask = LayerMask.GetMask("Enemy");
-
         moving = false;
     }
     
@@ -71,32 +48,27 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (Input.GetKey(KeyCode.D))
                 {
-                    //Debug.Log("D");
                     xMove++;
                 }
 
                 if (Input.GetKey(KeyCode.A))
                 {
-                    //Debug.Log("A");
                     xMove--;
                 }
 
                 if (Input.GetKey(KeyCode.W))
                 {
-                    //Debug.Log("W");
                     yMove++;
                 }
 
                 if (Input.GetKey(KeyCode.S))
                 {
-                    //Debug.Log("S");
                     yMove--;
                 }
 
                 // Sends the move to the GeneralMove Coroutine if both the xMove and yMove are not 0
                 if (xMove != 0 || yMove != 0)
                 {
-                    //Debug.Log(xMove + " " + yMove);
                     StartCoroutine(GeneralMove(xMove, yMove));
                 }
             }
@@ -127,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
             hit = Physics2D.Raycast(transform.position, new Vector2(xValue, 0), 1, ~playerAndEnemyMask);
             if (hit.collider != null)
             {
-                Debug.Log(hit.collider.tag);
+                //Debug.Log(hit.collider.name);
                 Debug.Log("X check failed");
                 moveLegal = false;
             }
@@ -139,7 +111,6 @@ public class PlayerMovement : MonoBehaviour
             hit = Physics2D.Raycast(transform.position, new Vector2(0, yValue), 1, ~playerAndEnemyMask);
             if (hit.collider != null)
             {
-                //Debug.Log("Y check failed");
                 moveLegal = false;
             }
         }
@@ -150,7 +121,6 @@ public class PlayerMovement : MonoBehaviour
             hit = Physics2D.Raycast(transform.position, new Vector2(xValue, yValue), Mathf.Sqrt(2), ~playerAndEnemyMask);
             if (hit.collider != null)
             {
-                //Debug.Log("Diagonal check failed");
                 moveLegal = false;
             }
         }
