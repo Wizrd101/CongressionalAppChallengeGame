@@ -17,7 +17,6 @@ public class EnemyMove : MonoBehaviour
     EnemyDetectPlayer detectScript;
 
     public GameObject player;
-    AdrenalineMode AMScript;
 
     public EnemyState state;
 
@@ -29,6 +28,7 @@ public class EnemyMove : MonoBehaviour
 
     bool triggerPatrolingStateChange;
 
+    bool moveLegal;
     bool moving;
 
     float baseSpeed = 80;
@@ -60,7 +60,6 @@ public class EnemyMove : MonoBehaviour
         detectScript = GetComponentInChildren<EnemyDetectPlayer>();
 
         player = GameObject.FindGameObjectWithTag("Player");
-        AMScript = player.GetComponent<AdrenalineMode>();
 
         state = EnemyState.PATROLING;
 
@@ -68,6 +67,7 @@ public class EnemyMove : MonoBehaviour
 
         triggerPatrolingStateChange = false;
 
+        moveLegal = true;
         moving = false;
 
         maxChaseDist = 10;
@@ -190,30 +190,33 @@ public class EnemyMove : MonoBehaviour
         CalculateMoveDir(playerX, playerY);
         CheckIfHomeInSightForNextMove(tf.position.x + xMove, tf.position.y + yMove, xMove, yMove);
 
-        for (int i = 0; i <= chaseSpeed; i++)
+        if (moveLegal)
         {
-            if (playerX == 1)
+            for (int i = 0; i <= chaseSpeed; i++)
             {
-                tf.position = new Vector2(tf.position.x + (1 / chaseSpeed), tf.position.y);
-            }
-            else if (playerX == -1)
-            {
-                tf.position = new Vector2(tf.position.x - (1 / chaseSpeed), tf.position.y);
-            }
+                if (playerX == 1)
+                {
+                    tf.position = new Vector2(tf.position.x + (1 / chaseSpeed), tf.position.y);
+                }
+                else if (playerX == -1)
+                {
+                    tf.position = new Vector2(tf.position.x - (1 / chaseSpeed), tf.position.y);
+                }
 
-            if (playerY == 1)
-            {
-                tf.position = new Vector2(tf.position.x, tf.position.y + (1 / chaseSpeed));
-            }
-            else if (playerY == -1)
-            {
-                tf.position = new Vector2(tf.position.x, tf.position.y - (1 / chaseSpeed));
-            }
+                if (playerY == 1)
+                {
+                    tf.position = new Vector2(tf.position.x, tf.position.y + (1 / chaseSpeed));
+                }
+                else if (playerY == -1)
+                {
+                    tf.position = new Vector2(tf.position.x, tf.position.y - (1 / chaseSpeed));
+                }
 
-            yield return null;
-        }
+                yield return null;
+            }
 
         tf.position = new Vector2(Mathf.RoundToInt(tf.position.x), Mathf.RoundToInt(tf.position.y));
+        }
 
         ResetVars();
 
@@ -298,7 +301,8 @@ public class EnemyMove : MonoBehaviour
 
         if (targetHome.collider != null)
         {
-            // Make an illegal move
+            Debug.Log(this.gameObject.name + " has attempted an illegal move to (" + nextMoveX + ", " + nextMoveY + ")");
+            moveLegal = false;
         }
     }
 
@@ -311,5 +315,7 @@ public class EnemyMove : MonoBehaviour
     {
         xMove = 0;
         yMove = 0;
+
+        moveLegal = true;
     }
 }
