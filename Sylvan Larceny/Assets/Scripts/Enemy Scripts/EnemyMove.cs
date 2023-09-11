@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
@@ -12,7 +13,6 @@ public enum EnemyState { PATROLING, CHASINGPLAYER, CHASINGLASTSEEN}
 public class EnemyMove : MonoBehaviour
 {
     Transform tf;
-    //Rigidbody2D rb;
 
     EnemyDetectPlayer detectScript;
 
@@ -27,6 +27,7 @@ public class EnemyMove : MonoBehaviour
     public int enemyType;
 
     bool triggerPatrolingStateChange;
+    bool triggerPatrolingLogic;
 
     bool moveLegal;
     bool moving;
@@ -52,10 +53,36 @@ public class EnemyMove : MonoBehaviour
 
     float moveAngle;
 
+    [Header("EnemyType 1 Variables")]
+    float startingRotation;
+
+    [Header("EnemyType 2 Variables")]
+    float randomRotTimer;
+    float curRotTimer;
+    bool triggerRotTimerReset;
+    int randomRotDir;
+
+    [Header ("EnemyType 3 Variables")]
+    Transform[] waypoints;
+    int waypointIndex;
+
+    [Header("EnemyType 4 Variables")]
+    RaycastHit2D leftCast;
+    RaycastHit2D frontCast;
+    RaycastHit2D rightCast;
+    RaycastHit2D leftFrontCast;
+    RaycastHit2D rightFrontCast;
+    bool leftValid;
+    bool frontValid;
+    bool rightValid;
+    bool leftFrontValid;
+    bool rightFrontValid;
+    int legalMovesCounter;
+    int whichMove;
+
     void Start()
     {
         tf = GetComponent<Transform>();
-        //rb = GetComponent<Rigidbody2D>();
 
         detectScript = GetComponentInChildren<EnemyDetectPlayer>();
 
@@ -66,23 +93,24 @@ public class EnemyMove : MonoBehaviour
         noEnemy = LayerMask.GetMask("Enemy");
 
         triggerPatrolingStateChange = false;
+        triggerPatrolingLogic = true;
 
         moveLegal = true;
         moving = false;
 
         maxChaseDist = 10;
 
-        if (enemyType == 1 || enemyType == 2 || enemyType == 4)
+        if (enemyType == 1 || enemyType == 2)
         {
             homeVector = new Vector2(tf.position.x, tf.position.y);
             if (enemyType == 1)
             {
-                // Call a starting rotation here
+                startingRotation = tf.rotation.z;
             }
         }
         else if (enemyType == 3)
         {
-
+            waypointIndex = 0;
         }
     }
 
@@ -91,25 +119,145 @@ public class EnemyMove : MonoBehaviour
         if (state == EnemyState.PATROLING && triggerPatrolingStateChange)
         {
             triggerPatrolingStateChange = false;
+            triggerPatrolingLogic = false;
 
-            // Stationary and Rotating (they do mostly the same thing)
-            if (enemyType == 1 || enemyType == 2 || enemyType == 4)
+            PatrolingStateEnter();
+        }
+        else if (state == EnemyState.PATROLING && triggerPatrolingLogic)
+        {
+            if (enemyType == 2)
             {
-                StartCoroutine(GoToCoord(homeVector.x, homeVector.y));
-
-                if (enemyType == 1)
+                if (triggerRotTimerReset)
                 {
-                    // Use the starting rotation here
+                    triggerRotTimerReset = false;
+                    randomRotTimer = Random.Range(2f, 7f);
+                    curRotTimer = 0;
+                }
+                else
+                {
+                    curRotTimer += Time.deltaTime;
+                    if (curRotTimer >= randomRotTimer)
+                    {
+                        randomRotDir = Random.Range(1, 3);
+                        if (randomRotDir == 1)
+                        {
+                            StartCoroutine(RotateTo(tf.rotation.z - 90, 3f));
+                        }
+                        else
+                        {
+                            StartCoroutine(RotateTo(tf.rotation.z + 90, 3f));
+                        }
+                        triggerRotTimerReset = true;
+                    }
                 }
             }
-            // Patroling
             else if (enemyType == 3)
             {
-                // Go to the next point on their patrol route
+                if (new Vector2(tf.position.x, tf.position.y) == new Vector2(waypoints[waypointIndex].position.x, waypoints[waypointIndex].position.y))
+                {
+                    waypointIndex++;
+                    if (waypointIndex > waypoints.Length)
+                    {
+                        waypointIndex = 0;
+                    }
+                    StartCoroutine(GoToCoord(waypoints[waypointIndex].position.x, waypoints[waypointIndex].position.y));
+                }
             }
-            else if (enemyType != 4)
+            else if (enemyType == 4)
             {
-                Debug.LogError(this.name + " does not have it's enemyType set");
+                if (!moving)
+                {
+                    // Determining which moves are legal
+                    legalMovesCounter = 0;
+
+                    leftCast = Physics2D.Raycast(new Vector2(tf.position.x, tf.position.y), Vector2.left, 1, ~playerAndEnemy);
+                    frontCast = Physics2D.Raycast(new Vector2(tf.position.x, tf.position.y), Vector2.up, 1, ~playerAndEnemy);
+                    rightCast = Physics2D.Raycast(new Vector2(tf.position.x, tf.position.y), Vector2.right, 1, ~playerAndEnemy);
+                    
+                    if (leftCast.collider == null)
+                    {
+                        leftValid = true;
+                        legalMovesCounter++;
+                    }
+                    else
+                    {
+                        leftValid = false;
+                    }
+
+                    if (frontCast.collider == null)
+                    {
+                        frontValid = true;
+                        legalMovesCounter++;
+                    }
+                    else
+                    {
+                        frontValid = false;
+                    }
+                    
+                    if (rightCast.collider == null)
+                    {
+                        rightValid = true;
+                        legalMovesCounter++;
+                    }
+                    else
+                    {
+                        rightValid = false;
+                    }
+
+                    if (leftValid && frontValid)
+                    {
+                        leftFrontCast = Physics2D.Raycast(new Vector2(tf.position.x, tf.position.y), Vector2.left + Vector2.up, 1, ~playerAndEnemy);
+
+                        if (leftFrontCast.collider == null)
+                        {
+                            leftFrontValid = true;
+                            legalMovesCounter++;
+                        }
+                        else
+                        {
+                            leftFrontValid = false;
+                        }
+                    }
+                    else
+                    {
+                        leftFrontValid = false;
+                    }
+
+                    if (rightValid && frontValid)
+                    {
+                        rightFrontCast = Physics2D.Raycast(new Vector2(tf.position.x, tf.position.y), Vector2.right + Vector2.up, 1, ~playerAndEnemy);
+
+                        if (rightFrontCast.collider == null)
+                        {
+                            rightFrontValid = true;
+                            legalMovesCounter++;
+                        }
+                        else
+                        {
+                            rightFrontValid = false;
+                        }
+                    }
+                    else
+                    {
+                        rightFrontValid = false;
+                    }
+                    
+                    // Picking a random move to do
+                    if (legalMovesCounter > 0)
+                    {
+
+                    }
+                    // Must've hit a dead end, turn around and go back
+                    else if (legalMovesCounter == 0)
+                    {
+                        StartCoroutine(RotateTo(tf.rotation.z, 5f));
+                        //StartCoroutine(GoToCoord());
+                    }
+                }
+            }
+            else if (enemyType != 1)
+            {
+                Debug.LogError(this.gameObject.name + " is in state: PATROLING, and has no idea what to do");
             }
         }
         else if (state == EnemyState.CHASINGPLAYER)
@@ -137,10 +285,34 @@ public class EnemyMove : MonoBehaviour
         }
     }
 
+    void PatrolingStateEnter()
+    {
+        // Stationary and Rotating (they do mostly the same thing)
+        if (enemyType == 1 || enemyType == 2)
+        {
+            StartCoroutine(GoToCoord(homeVector.x, homeVector.y));
+        }
+        // Patroling
+        else if (enemyType == 3)
+        {
+            // Go to the next point on their patrol route
+            StartCoroutine(GoToCoord(waypoints[waypointIndex].position.x, waypoints[waypointIndex].position.y));
+        }
+        // Note: enemyType 4 doesn't need any starting logic, so just make sure it isn't mistaken for no type
+        else if (enemyType != 4)
+        {
+            Debug.LogError(this.name + " does not have it's enemyType set");
+        }
+    }
+
+    // NOT FINISHED
+    IEnumerator RotateTo(float finalRot, float rotSpeed)
+    {
+        yield return null;
+    }
+
     IEnumerator GoToCoord(float homeX, float homeY)
     {
-        Debug.Log("Go home coroutine triggered");
-
         moving = true;
 
         while (tf.position.x != homeX || tf.position.y != homeY)
@@ -174,11 +346,18 @@ public class EnemyMove : MonoBehaviour
             tf.position = new Vector2(Mathf.RoundToInt(tf.position.x), Mathf.RoundToInt(tf.position.y));
         }
 
+        if (enemyType == 1 && tf.rotation.z != startingRotation)
+        {
+            StartCoroutine(RotateTo(startingRotation, 5f));
+        }
+
+        triggerPatrolingLogic = true;
+
         ResetVars();
 
         moving = false;
 
-        Debug.Log("Go home coroutine finished");
+        //Debug.Log("Go home coroutine finished");
     }
 
     IEnumerator EnemyChaseMove(float playerX, float playerY)
@@ -301,7 +480,7 @@ public class EnemyMove : MonoBehaviour
 
         if (targetHome.collider != null)
         {
-            Debug.Log(this.gameObject.name + " has attempted an illegal move to (" + nextMoveX + ", " + nextMoveY + ")");
+            //Debug.Log(this.gameObject.name + " has attempted an illegal move to (" + nextMoveX + ", " + nextMoveY + ")");
             moveLegal = false;
         }
     }
