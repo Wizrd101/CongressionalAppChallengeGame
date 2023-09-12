@@ -39,7 +39,7 @@ public class EnemyMove : MonoBehaviour
     int yMove;
 
     // 1 = N, 2 = E, 3 = S, 4 = W
-    //int faceDir;
+    int faceDir;
 
     float maxChaseDist;
 
@@ -179,29 +179,17 @@ public class EnemyMove : MonoBehaviour
                         leftValid = true;
                         legalMovesCounter++;
                     }
-                    else
-                    {
-                        leftValid = false;
-                    }
 
                     if (frontCast.collider == null)
                     {
                         frontValid = true;
                         legalMovesCounter++;
                     }
-                    else
-                    {
-                        frontValid = false;
-                    }
                     
                     if (rightCast.collider == null)
                     {
                         rightValid = true;
                         legalMovesCounter++;
-                    }
-                    else
-                    {
-                        rightValid = false;
                     }
 
                     if (leftValid && frontValid)
@@ -213,14 +201,6 @@ public class EnemyMove : MonoBehaviour
                             leftFrontValid = true;
                             legalMovesCounter++;
                         }
-                        else
-                        {
-                            leftFrontValid = false;
-                        }
-                    }
-                    else
-                    {
-                        leftFrontValid = false;
                     }
 
                     if (rightValid && frontValid)
@@ -232,27 +212,99 @@ public class EnemyMove : MonoBehaviour
                             rightFrontValid = true;
                             legalMovesCounter++;
                         }
-                        else
-                        {
-                            rightFrontValid = false;
-                        }
-                    }
-                    else
-                    {
-                        rightFrontValid = false;
                     }
                     
                     // Picking a random move to do
                     if (legalMovesCounter > 0)
                     {
+                        whichMove = Random.Range(0, legalMovesCounter);
+                        
+                        if (whichMove == 0)
+                        {
+                            if (legalMovesCounter == 1)
+                            {
 
+                            }
+                            else if (legalMovesCounter == 2)
+                            {
+
+                            }
+                            else if (legalMovesCounter == 3)
+                            {
+
+                            }
+                            else if (legalMovesCounter == 4)
+                            {
+
+                            }
+                            else if (legalMovesCounter == 5)
+                            {
+
+                            }
+                        }
+                        else if (whichMove == 1)
+                        {
+                            if (legalMovesCounter == 2)
+                            {
+
+                            }
+                            else if (legalMovesCounter == 3)
+                            {
+
+                            }
+                            else if (legalMovesCounter == 4)
+                            {
+
+                            }
+                            else if (legalMovesCounter == 5)
+                            {
+
+                            }
+                        }
+                        else if (whichMove == 2)
+                        {
+                            if (legalMovesCounter == 3)
+                            {
+
+                            }
+                            else if (legalMovesCounter == 4)
+                            {
+
+                            }
+                            else if (legalMovesCounter == 5)
+                            {
+
+                            }
+                        }
+                        else if (whichMove == 3)
+                        {
+                            if (legalMovesCounter == 4)
+                            {
+
+                            }
+                            else if (legalMovesCounter == 5)
+                            {
+
+                            }
+
+                        }
+                        else if (whichMove == 4)
+                        {
+                            // legalMovesCounter must be 5
+                        }
+                        else
+                        {
+                            Debug.LogError(this.gameObject.name + " cannot think of which move to do in EnemyMove under ET 4");
+                        }
                     }
                     // Must've hit a dead end, turn around and go back
                     else if (legalMovesCounter == 0)
                     {
                         StartCoroutine(RotateTo(tf.rotation.z, 5f));
-                        //StartCoroutine(GoToCoord());
+                        StartCoroutine(MoveForward());
                     }
+
+                    ResetETFourVars();
                 }
             }
             else if (enemyType != 1)
@@ -496,5 +548,95 @@ public class EnemyMove : MonoBehaviour
         yMove = 0;
 
         moveLegal = true;
+    }
+
+    void ResetETFourVars()
+    {
+        leftValid = false;
+        leftFrontValid = false;
+        frontValid = false;
+        rightFrontValid = false;
+        rightValid = false;
+
+        legalMovesCounter = 0;
+        whichMove = 0;
+    }
+
+    // This Coroutine takes in no variables, instead, it's based off of the player's rotation.
+    /*
+    Angle Notes: value between 0-180
+    0 - Straight up
+    22.5
+    45 - Diagonally up and to either the left or right
+    67.5
+    90 - Straight left or right
+    112.5
+    135 - Diagonally down and to either the left or right
+    157.5
+    180 - Straight down
+
+    Rotates counterclockwise
+     */
+    IEnumerator MoveForward()
+    {
+        moving = true;
+
+        // xMove
+        if (tf.rotation.z >= 22.5 && tf.rotation.z <= 157.5)
+        {
+            xMove = -1;
+        }
+        else if (tf.rotation.z >= 202.5 && tf.rotation.z <= 337.5)
+        {
+            xMove = 1;
+        }
+        else
+        {
+            xMove = 0;
+        }
+
+        // yMove
+        if (tf.rotation.z >= 112.5 && tf.rotation.z <= 247.5)
+        {
+            yMove = -1;
+        }
+        else if (tf.rotation.z >= 67.5 && tf.rotation.z <= 292.5)
+        {
+            yMove = 1;
+        }
+        else
+        {
+            yMove = 0;
+        }
+
+        for (int i = 0; i <= baseSpeed; i++)
+        {
+            if (xMove == 1)
+            {
+                tf.position = new Vector2(tf.position.x + (1 / baseSpeed), tf.position.y);
+            }
+            else if (xMove == -1)
+            {
+
+                tf.position = new Vector2(tf.position.x - (1 / baseSpeed), tf.position.y);
+            }
+
+            if (yMove == 1)
+            {
+                tf.position = new Vector2(tf.position.x, tf.position.y + (1 / baseSpeed));
+            }
+            else if (yMove == -1)
+            {
+                tf.position = new Vector2(tf.position.x, tf.position.y - (1 / baseSpeed));
+            }
+
+            yield return null;
+        }
+
+        tf.position = new Vector2(Mathf.RoundToInt(tf.position.x), Mathf.RoundToInt(tf.position.y));
+
+        ResetVars();
+
+        moving = false;
     }
 }
