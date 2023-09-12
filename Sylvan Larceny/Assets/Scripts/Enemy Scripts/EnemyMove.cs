@@ -28,6 +28,7 @@ public class EnemyMove : MonoBehaviour
 
     bool triggerPatrolingStateChange;
     bool triggerPatrolingLogic;
+    bool triggerChaseLastSeenStateChange;
 
     bool moveLegal;
     bool moving;
@@ -49,6 +50,8 @@ public class EnemyMove : MonoBehaviour
     Vector2 moveVectorNormalized;
 
     float moveAngle;
+
+    Vector2 lastSawPlayer;
 
     [Header("EnemyType 1 Variables")]
     float startingRotation;
@@ -377,13 +380,13 @@ public class EnemyMove : MonoBehaviour
             }
             else
             {
-                ChaseLastSeenStateEnter();
+                lastSawPlayer = new Vector2(Mathf.RoundToInt(player.transform.position.x), Mathf.RoundToInt(player.transform.position.y));
                 state = EnemyState.CHASINGLASTSEEN;
             }
         }
         else if (state == EnemyState.CHASINGLASTSEEN)
         {
-
+            StartCoroutine(GoToCoord(lastSawPlayer.x, lastSawPlayer.y));
         }
     }
 
@@ -585,11 +588,6 @@ public class EnemyMove : MonoBehaviour
             //Debug.Log(this.gameObject.name + " has attempted an illegal move to (" + nextMoveX + ", " + nextMoveY + ")");
             moveLegal = false;
         }
-    }
-
-    void ChaseLastSeenStateEnter()
-    {
-
     }
 
     void ResetVars()
