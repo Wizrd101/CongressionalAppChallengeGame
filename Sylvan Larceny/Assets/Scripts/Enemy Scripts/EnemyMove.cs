@@ -79,6 +79,7 @@ public class EnemyMove : MonoBehaviour
     bool rightFrontValid;
     int legalMovesCounter;
     int whichMove;
+    float rotateToAngle;
 
     void Start()
     {
@@ -179,17 +180,29 @@ public class EnemyMove : MonoBehaviour
                         leftValid = true;
                         legalMovesCounter++;
                     }
+                    else
+                    {
+                        leftValid = false;
+                    }
 
                     if (frontCast.collider == null)
                     {
                         frontValid = true;
                         legalMovesCounter++;
                     }
+                    else
+                    {
+                        frontValid = false;
+                    }
                     
                     if (rightCast.collider == null)
                     {
                         rightValid = true;
                         legalMovesCounter++;
+                    }
+                    else
+                    {
+                        rightValid = false;
                     }
 
                     if (leftValid && frontValid)
@@ -201,6 +214,14 @@ public class EnemyMove : MonoBehaviour
                             leftFrontValid = true;
                             legalMovesCounter++;
                         }
+                        else
+                        {
+                            leftFrontValid = false;
+                        }
+                    }
+                    else
+                    {
+                        leftFrontValid = false;
                     }
 
                     if (rightValid && frontValid)
@@ -212,97 +233,129 @@ public class EnemyMove : MonoBehaviour
                             rightFrontValid = true;
                             legalMovesCounter++;
                         }
+                        else
+                        {
+                            rightFrontValid = false;
+                        }
+                    }
+                    else
+                    {
+                        rightFrontValid = false;
                     }
                     
                     // Picking a random move to do
+
+                    /*
+                    Random Logic Notes:
+                    Left:
+                        if whichMove = 0
+                    LeftFront:
+                        if whichMove = 1
+                        if whichMove = 0 && !Left
+                    Front:
+                        if whichMove = 2
+                        if whichMove = 1 || 0 && !LeftFront
+                    RightFront:
+                        if whichMove = 3
+                        if whichMove = 2 || 1 || 0 && !Front
+                    Right:
+                        if !RightFront
+                    */ 
                     if (legalMovesCounter > 0)
                     {
                         whichMove = Random.Range(0, legalMovesCounter);
-                        
+
                         if (whichMove == 0)
                         {
-                            if (legalMovesCounter == 1)
+                            if (leftValid)
                             {
-
+                                rotateToAngle = tf.rotation.z + 90;
                             }
-                            else if (legalMovesCounter == 2)
+                            else if (leftFrontValid)
                             {
-
+                                rotateToAngle = tf.rotation.z + 45;
                             }
-                            else if (legalMovesCounter == 3)
+                            else if (frontValid)
                             {
-
+                                rotateToAngle = tf.rotation.z;
                             }
-                            else if (legalMovesCounter == 4)
+                            else if (rightFrontValid)
                             {
-
+                                rotateToAngle = tf.rotation.z - 45;
                             }
-                            else if (legalMovesCounter == 5)
+                            else
                             {
-
+                                rotateToAngle = tf.rotation.z - 90;
                             }
                         }
                         else if (whichMove == 1)
                         {
-                            if (legalMovesCounter == 2)
+                            if (leftFrontValid)
                             {
-
+                                rotateToAngle = tf.rotation.z + 45;
                             }
-                            else if (legalMovesCounter == 3)
+                            else if (frontValid)
                             {
-
+                                rotateToAngle = tf.rotation.z;
                             }
-                            else if (legalMovesCounter == 4)
+                            else if (rightFrontValid)
                             {
-
+                                rotateToAngle = tf.rotation.z - 45;
                             }
-                            else if (legalMovesCounter == 5)
+                            else
                             {
-
+                                rotateToAngle = tf.rotation.z - 90;
                             }
                         }
                         else if (whichMove == 2)
                         {
-                            if (legalMovesCounter == 3)
+                            if (frontValid)
                             {
-
+                                rotateToAngle = tf.rotation.z;
                             }
-                            else if (legalMovesCounter == 4)
+                            else if (rightFrontValid)
                             {
-
+                                rotateToAngle = tf.rotation.z - 45;
                             }
-                            else if (legalMovesCounter == 5)
+                            else
                             {
-
+                                rotateToAngle = tf.rotation.z - 90;
                             }
                         }
                         else if (whichMove == 3)
                         {
-                            if (legalMovesCounter == 4)
+                            if (rightFrontValid)
                             {
-
+                                rotateToAngle = tf.rotation.z - 45;
                             }
-                            else if (legalMovesCounter == 5)
+                            else
                             {
-
+                                rotateToAngle = tf.rotation.z - 90;
                             }
-
                         }
                         else if (whichMove == 4)
                         {
-                            // legalMovesCounter must be 5
+                            // The only valid move is Right
+                            rotateToAngle = tf.rotation.z - 90;
                         }
                         else
                         {
                             Debug.LogError(this.gameObject.name + " cannot think of which move to do in EnemyMove under ET 4");
                         }
+
+                        
                     }
                     // Must've hit a dead end, turn around and go back
                     else if (legalMovesCounter == 0)
                     {
-                        StartCoroutine(RotateTo(tf.rotation.z, 5f));
-                        StartCoroutine(MoveForward());
+                        rotateToAngle = tf.rotation.z - 180;
                     }
+
+                    if (rotateToAngle != transform.rotation.z)
+                    {
+                        StartCoroutine(RotateTo(rotateToAngle, baseSpeed));
+                    }
+                    StartCoroutine(MoveForward());
 
                     ResetETFourVars();
                 }
@@ -553,9 +606,7 @@ public class EnemyMove : MonoBehaviour
     void ResetETFourVars()
     {
         leftValid = false;
-        leftFrontValid = false;
         frontValid = false;
-        rightFrontValid = false;
         rightValid = false;
 
         legalMovesCounter = 0;
@@ -609,31 +660,34 @@ public class EnemyMove : MonoBehaviour
             yMove = 0;
         }
 
-        for (int i = 0; i <= baseSpeed; i++)
+        if (moveLegal)
         {
-            if (xMove == 1)
+            for (int i = 0; i <= baseSpeed; i++)
             {
-                tf.position = new Vector2(tf.position.x + (1 / baseSpeed), tf.position.y);
-            }
-            else if (xMove == -1)
-            {
+                if (xMove == 1)
+                {
+                    tf.position = new Vector2(tf.position.x + (1 / baseSpeed), tf.position.y);
+                }
+                else if (xMove == -1)
+                {
 
-                tf.position = new Vector2(tf.position.x - (1 / baseSpeed), tf.position.y);
+                    tf.position = new Vector2(tf.position.x - (1 / baseSpeed), tf.position.y);
+                }
+
+                if (yMove == 1)
+                {
+                    tf.position = new Vector2(tf.position.x, tf.position.y + (1 / baseSpeed));
+                }
+                else if (yMove == -1)
+                {
+                    tf.position = new Vector2(tf.position.x, tf.position.y - (1 / baseSpeed));
+                }
+
+                yield return null;
             }
 
-            if (yMove == 1)
-            {
-                tf.position = new Vector2(tf.position.x, tf.position.y + (1 / baseSpeed));
-            }
-            else if (yMove == -1)
-            {
-                tf.position = new Vector2(tf.position.x, tf.position.y - (1 / baseSpeed));
-            }
-
-            yield return null;
+            tf.position = new Vector2(Mathf.RoundToInt(tf.position.x), Mathf.RoundToInt(tf.position.y));
         }
-
-        tf.position = new Vector2(Mathf.RoundToInt(tf.position.x), Mathf.RoundToInt(tf.position.y));
 
         ResetVars();
 
