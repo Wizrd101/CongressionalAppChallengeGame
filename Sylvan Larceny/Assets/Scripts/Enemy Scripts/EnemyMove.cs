@@ -38,9 +38,6 @@ public class EnemyMove : MonoBehaviour
     int xMove;
     int yMove;
 
-    // 1 = N, 2 = E, 3 = S, 4 = W
-    int faceDir;
-
     float maxChaseDist;
 
     Vector2 homeVector;
