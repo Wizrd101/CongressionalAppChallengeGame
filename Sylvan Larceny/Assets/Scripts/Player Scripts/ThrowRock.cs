@@ -86,6 +86,9 @@ public class ThrowRock : MonoBehaviour
             }
 
             rm.SetDir(spawnX, spawnY, throwCharge);
+            rm.ActivateProjectile();
+
+            rm = null;
         }
     }
 }
