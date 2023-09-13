@@ -21,6 +21,9 @@ public class PlayerMovement : MonoBehaviour
     int xMove;
     int yMove;
 
+    // 1 = N, 2 = NE, 3 = E, 4 = SE, 5 = S, 6 = SW, 7 = W, 8 = NW
+    public int faceDir;
+
     bool moving;
 
     RaycastHit2D hit;
@@ -64,6 +67,49 @@ public class PlayerMovement : MonoBehaviour
                 if (Input.GetKey(KeyCode.S))
                 {
                     yMove--;
+                }
+
+                // Figuring out FaceDir (Needed for the ThrowRock script and Animations)
+                if (xMove == 1)
+                {
+                    if (yMove == 1)
+                    {
+                        faceDir = 2;
+                    }
+                    else if (yMove == -1)
+                    {
+                        faceDir = 4;
+                    }
+                    else
+                    {
+                        faceDir = 3;
+                    }
+                }
+                else if (xMove == -1)
+                {
+                    if (yMove == 1)
+                    {
+                        faceDir = 8;
+                    }
+                    else if (yMove == -1)
+                    {
+                        faceDir = 6;
+                    }
+                    else
+                    {
+                        faceDir = 7;
+                    }
+                }
+                else
+                {
+                    if (yMove == 1)
+                    {
+                        faceDir = 1;
+                    }
+                    else
+                    {
+                        faceDir = 5;
+                    }
                 }
 
                 // Sends the move to the GeneralMove Coroutine if both the xMove and yMove are not 0

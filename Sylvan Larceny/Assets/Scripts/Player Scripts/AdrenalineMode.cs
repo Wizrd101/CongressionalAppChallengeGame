@@ -15,7 +15,8 @@ using UnityEngine.SceneManagement;
 
     Ideas:
  (DONE) 1. Include a cooldown timer for when you trigger AM manually
- (DONE) 2. Make it so that you cannot turn AM off manually as long as you are in sight of an enemy 
+ (DONE) 2. Make it so that you cannot turn AM off manually as long as you are in sight of an enemy
+        3. Make Rocks charge ridiculously fast
 */
 
 public class AdrenalineMode : MonoBehaviour
