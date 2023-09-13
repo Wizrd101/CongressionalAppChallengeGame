@@ -566,6 +566,7 @@ GameObject:
   - component: {fileID: 377557007}
   - component: {fileID: 377557006}
   - component: {fileID: 377557010}
+  - component: {fileID: 377557011}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -699,6 +700,19 @@ MonoBehaviour:
   AMTurnOffTimerBase: 0.5
   AMTurnOffTimer: 0.5
   manualTurnOffAllowed: 0
+--- !u!114 &377557011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377557005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa643e82416d77d4aa99d3e4eea90f74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gemCollected: 0
 --- !u!1 &391488422
 GameObject:
   m_ObjectHideFlags: 0

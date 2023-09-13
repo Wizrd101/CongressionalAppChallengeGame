@@ -37,8 +37,8 @@ public class AdrenalineMode : MonoBehaviour
     float baseTimingVar;
 
     [SerializeField] float AMTurnOffTimerBase = 0.5f;
-    [SerializeField] float AMTurnOffTimer;
-    [SerializeField] bool manualTurnOffAllowed;
+    float AMTurnOffTimer;
+    bool manualTurnOffAllowed;
 
     void Start()
     {
