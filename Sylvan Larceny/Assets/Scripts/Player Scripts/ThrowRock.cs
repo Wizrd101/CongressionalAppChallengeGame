@@ -10,15 +10,20 @@ public class ThrowRock : MonoBehaviour
 
     PlayerMovement pm;
 
+    ActionTimerUpdate atu;
+
     public GameObject rockPrefab;
     GameObject rockSpawn;
 
-    int rockSupply;
+    public int rockSupply;
 
     int spawnX;
     int spawnY;
 
     float throwCharge;
+    [SerializeField] float chargeIncrement = 0.01f;
+
+    [SerializeField] float atuIncrement = 3f;
 
     void Start()
     {
@@ -26,6 +31,8 @@ public class ThrowRock : MonoBehaviour
         throwSlider = rtCv.GetComponentInChildren<Slider>();
 
         pm = GetComponent<PlayerMovement>();
+
+        atu = GameObject.Find("ActionTimerController").GetComponent<ActionTimerUpdate>();
 
         rtCv.enabled = false;
 
@@ -36,13 +43,17 @@ public class ThrowRock : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            rtCv.enabled = true;
-            throwCharge = 0;
+            if (rockSupply > 0)
+            {
+                rtCv.enabled = true;
+                throwCharge = 0;
+            }
         }
 
         if (Input.GetKey(KeyCode.E))
         {
-            throwCharge++;
+            throwCharge += chargeIncrement;
+            Mathf.Clamp01(throwCharge);
         }
 
         if (Input.GetKeyUp(KeyCode.E))
@@ -80,15 +91,18 @@ public class ThrowRock : MonoBehaviour
             rockSpawn = Instantiate(rockPrefab, new Vector2(transform.position.x + spawnX, transform.position.y + spawnY), Quaternion.identity);
             
             RockMove rm = rockSpawn.GetComponent<RockMove>();
-            if (rm != null)
+            if (rm == null)
             {
                 Debug.LogError("ThrowRock script on player cannot access RockMove on a rock prefab: " + rockSpawn.gameObject.name);
             }
 
+            rm.SetUpProjectile();
             rm.SetDir(spawnX, spawnY, throwCharge);
             rm.ActivateProjectile();
 
             rm = null;
+
+            atu.UpdateTimer(throwCharge * atuIncrement);
         }
     }
 }

@@ -9,14 +9,13 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody2D rb;
 
     Slider moveSlider;
+    ActionTimerUpdate atu;
 
     AdrenalineMode AMscript;
 
     public LayerMask playerAndEnemyMask;
 
     public float timingVar = 60;
-
-    public float moveTimer = 0;
 
     int xMove;
     int yMove;
@@ -36,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         AMscript = GetComponent<AdrenalineMode>();
 
-        moveSlider = GameObject.Find("MoveTimerSlider").GetComponent<Slider>();
+        atu = GameObject.Find("ActionTimerController").GetComponent<ActionTimerUpdate>();
 
         moving = false;
     }
@@ -45,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         // If the move timer has hit 0, allow the player to input a movement
-        if (moveTimer <= 0 && !moving)
+        if (atu.actionTimer <= 0 && !moving)
         {
             if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
             {
@@ -115,26 +114,17 @@ public class PlayerMovement : MonoBehaviour
                 // Sends the move to the GeneralMove Coroutine if both the xMove and yMove are not 0
                 if (xMove != 0 || yMove != 0)
                 {
-                    StartCoroutine(GeneralMove(xMove, yMove));
+                    StartCoroutine(PlayerMove(xMove, yMove));
                 }
             }
 
             xMove = 0;
             yMove = 0;
         }
-        // Otherwise, the movetimer is still active, so decrease it until it hits 0 (and clamp it there)
-        else
-        {
-            moveTimer -= Time.deltaTime;
-            Mathf.Clamp(moveTimer, 0f, Mathf.Infinity);
-        }
-
-        // Updating the Move Slider to display time between actions, if the player is not in Adrenaline Mode
-        moveSlider.value = moveTimer;
     }
 
     // General Moving function
-    IEnumerator GeneralMove(int xValue, int yValue)
+    IEnumerator PlayerMove(int xValue, int yValue)
     {
         moving = true;
 
@@ -176,7 +166,7 @@ public class PlayerMovement : MonoBehaviour
             // Update the action timer
             if (!AMscript.inAM)
             {
-                UpdateTimer(2);
+                atu.UpdateTimer(2);
             }
 
             // The actual movement part
@@ -210,11 +200,5 @@ public class PlayerMovement : MonoBehaviour
         tf.position = new Vector2(Mathf.RoundToInt(tf.position.x), Mathf.RoundToInt(tf.position.y));
 
         moving = false;
-    }
-
-    public void UpdateTimer(float actionValue)
-    {
-        moveTimer = actionValue;
-        moveSlider.maxValue = actionValue;
     }
 }

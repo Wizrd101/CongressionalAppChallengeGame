@@ -10,16 +10,26 @@ using UnityEngine;
 
 public class RockMove : MonoBehaviour
 {
-    Rigidbody2D rb;
+    public Rigidbody2D rb;
+
+    ThrowRock tr;
 
     [SerializeField] float powerCoefficient;
     [SerializeField] float wallFrictionCoefficient;
 
+    bool rockMoving;
+
     int xDir;
     int yDir;
     float rockVelo;
+    Vector2 tempVelo;
 
-    void Start()
+    void Update()
+    {
+        
+    }
+
+    public void SetUpProjectile()
     {
         rb = GetComponent<Rigidbody2D>();
 
@@ -27,6 +37,8 @@ public class RockMove : MonoBehaviour
         {
             powerCoefficient = 1;
         }
+
+        tempVelo = Vector2.zero;
     }
 
     public void SetDir(int xMove, int yMove, float power)
@@ -41,8 +53,17 @@ public class RockMove : MonoBehaviour
         rb.velocity = new Vector2(xDir * rockVelo, yDir * rockVelo);
     }
 
-    public void OnCollisionEnter2D(Collision2D other)
+    void OnCollisionEnter2D(Collision2D other)
     {
-        
+        tempVelo = new Vector2(rb.velocityX, rb.velocityY);
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Player")
+        {
+            tr.rockSupply++;
+            Destroy(this.gameObject);
+        }
     }
 }
