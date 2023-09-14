@@ -3679,6 +3679,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2341230920546486867, guid: 46483fa5018deb44ab2ce05fd704f0cd, type: 3}
+      propertyPath: powerCoefficient
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6276909929035848747, guid: 46483fa5018deb44ab2ce05fd704f0cd, type: 3}
       propertyPath: m_Name
       value: RockPrefab
