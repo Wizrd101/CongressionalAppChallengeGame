@@ -888,6 +888,7 @@ GameObject:
   - component: {fileID: 377557010}
   - component: {fileID: 377557012}
   - component: {fileID: 377557011}
+  - component: {fileID: 377557013}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -1048,6 +1049,18 @@ MonoBehaviour:
   rockSupply: 0
   chargeIncrement: 0.01
   atuIncrement: 3
+--- !u!114 &377557013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377557005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b342ba4604d3ed647aa8b636884091c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &391488422
 GameObject:
   m_ObjectHideFlags: 0
@@ -2149,7 +2162,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 657441905}
   m_HandleRect: {fileID: 0}
@@ -2915,6 +2928,7 @@ GameObject:
   - component: {fileID: 1819413841}
   - component: {fileID: 1819413840}
   - component: {fileID: 1819413839}
+  - component: {fileID: 1819413843}
   m_Layer: 7
   m_Name: Enemy1
   m_TagString: Enemy
@@ -3030,6 +3044,18 @@ Transform:
   - {fileID: 1173639858}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+--- !u!114 &1819413843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819413838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b342ba4604d3ed647aa8b636884091c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1820101785
 GameObject:
   m_ObjectHideFlags: 0

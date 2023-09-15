@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 /*
@@ -32,10 +33,6 @@ public class RockMove : MonoBehaviour
     RaycastHit2D rightCheck;
     RaycastHit2D upCheck;
     RaycastHit2D downCheck;
-    bool leftCol;
-    bool rightCol;
-    bool upCol;
-    bool downCol;
 
     // Rock velocity info
     int xDir;
@@ -44,45 +41,14 @@ public class RockMove : MonoBehaviour
     Vector2 tempPos;
     Vector2 tempVelo;
 
-    // FixedUpdate is for checking if the rock is still moving, and decreasing it's velocity if it is (so it can eventually stop moving)
+    // FixedUpdate is for checking if the rock is still moving
     void FixedUpdate()
     {
-        if (rockMoving)
-        {
-            if (rb.velocityX > 0)
-            {
-                rb.velocityX -= dropOffCoefficient;
-                Mathf.Clamp(rb.velocityX, 0, Mathf.Infinity);
-            }
-            else if (rb.velocityX < 0)
-            {
-                rb.velocityX += dropOffCoefficient;
-                Mathf.Clamp(rb.velocityX, Mathf.NegativeInfinity, 0);
-            }
-            else
-            {
-                xMoveCheck = true;
-            }
+        DecreaseVelocity(dropOffCoefficient);
 
-            if (rb.velocityY > 0)
-            {
-                rb.velocityY -= dropOffCoefficient;
-                Mathf.Clamp(rb.velocityY, 0, Mathf.Infinity);
-            }
-            else if (rb.velocityY < 0)
-            {
-                rb.velocityY += dropOffCoefficient;
-                Mathf.Clamp(rb.velocityY, Mathf.NegativeInfinity, 0);
-            }
-            else
-            {
-                yMoveCheck = true;
-            }
-            
-            if (xMoveCheck && yMoveCheck)
-            {
-                RockStopMoving();
-            }
+        if (rockMoving && xMoveCheck && yMoveCheck)
+        {
+            RockStopMoving();
         }
     }
 
@@ -117,6 +83,40 @@ public class RockMove : MonoBehaviour
         rb.velocity = new Vector2(xDir * rockVelo, yDir * rockVelo);
     }
 
+    // Method that decreases the velocity by a certain amount
+    void DecreaseVelocity(float decreaseAmount)
+    {
+        if (rb.velocityX > 0)
+        {
+            rb.velocityX -= decreaseAmount;
+            Mathf.Clamp(rb.velocityX, 0, Mathf.Infinity);
+        }
+        else if (rb.velocityX < 0)
+        {
+            rb.velocityX += decreaseAmount;
+            Mathf.Clamp(rb.velocityX, Mathf.NegativeInfinity, 0);
+        }
+        else
+        {
+            xMoveCheck = true;
+        }
+
+        if (rb.velocityY > 0)
+        {
+            rb.velocityY -= decreaseAmount;
+            Mathf.Clamp(rb.velocityY, 0, Mathf.Infinity);
+        }
+        else if (rb.velocityY < 0)
+        {
+            rb.velocityY += decreaseAmount;
+            Mathf.Clamp(rb.velocityY, Mathf.NegativeInfinity, 0);
+        }
+        else
+        {
+            yMoveCheck = true;
+        }
+    }
+
     // Void that is called when the rock stops moving (to turn it's collider into a trigger,
     void RockStopMoving()
     {
@@ -124,6 +124,7 @@ public class RockMove : MonoBehaviour
         bc.isTrigger = true;
     }
 
+    // For while the rock is in motion, so it can bounce off walls, players, and enemies
     void OnCollisionEnter2D(Collision2D other)
     {
         // Aquiring the current position and velocity and storing it in temporary variables
@@ -136,12 +137,32 @@ public class RockMove : MonoBehaviour
         upCheck = Physics2D.Raycast(tempPos, tempPos + Vector2.up, 1f);
         downCheck = Physics2D.Raycast(tempPos, tempPos + Vector2.down, 1f);
 
-        if (leftCheck.collider != null)
+        // Checks for the proper direction and velocity
+        if (leftCheck.collider != null && rb.velocityX < 0 ^ rightCheck.collider != null && rb.velocityX > 0)
         {
-
+            tempVelo.x = -tempVelo.x;
         }
+
+        if (upCheck.collider != null && rb.velocityY > 0 ^ downCheck.collider != null && rb.velocityY < 0)
+        {
+            tempVelo.y = -tempVelo.y;
+        }
+
+        // If the object that the rock collided with can be stunned, stun them
+        if (other.gameObject.GetComponent<StunController>() != null)
+        {
+            StartCoroutine(other.gameObject.GetComponent<StunController>().StunThisGO());
+        }
+
+        if (other.gameObject.GetComponent<PlayerHealth>() != null)
+        {
+            other.gameObject.GetComponent<PlayerHealth>().curHealth--;
+        }
+
+        DecreaseVelocity(wallFrictionCoefficient);
     }
 
+    // For after the rock stops moving, so the player can pick it up again
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")

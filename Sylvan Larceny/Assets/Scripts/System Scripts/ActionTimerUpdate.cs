@@ -7,11 +7,15 @@ public class ActionTimerUpdate : MonoBehaviour
 {
     Slider actionSlider;
 
+    AdrenalineMode am;
+
     public float actionTimer;
 
     void Start()
     {
         actionSlider = GameObject.Find("ActionTimerSlider").GetComponent<Slider>();
+        
+        am = GameObject.Find("Player").GetComponent<AdrenalineMode>();
     }
     
     void Update()
@@ -27,7 +31,10 @@ public class ActionTimerUpdate : MonoBehaviour
 
     public void UpdateTimer(float actionValue)
     {
-        actionTimer = actionValue;
-        actionSlider.maxValue = actionValue;
+        if (!am.inAM)
+        {
+            actionTimer = actionValue;
+            actionSlider.maxValue = actionValue;
+        }
     }
 }
