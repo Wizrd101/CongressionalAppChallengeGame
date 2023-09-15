@@ -27,10 +27,21 @@ public class RockMove : MonoBehaviour
     bool xMoveCheck;
     bool yMoveCheck;
 
+    // Raycast to help detect collision side
+    RaycastHit2D leftCheck;
+    RaycastHit2D rightCheck;
+    RaycastHit2D upCheck;
+    RaycastHit2D downCheck;
+    bool leftCol;
+    bool rightCol;
+    bool upCol;
+    bool downCol;
+
     // Rock velocity info
     int xDir;
     int yDir;
     float rockVelo;
+    Vector2 tempPos;
     Vector2 tempVelo;
 
     // FixedUpdate is for checking if the rock is still moving, and decreasing it's velocity if it is (so it can eventually stop moving)
@@ -115,7 +126,20 @@ public class RockMove : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
+        // Aquiring the current position and velocity and storing it in temporary variables
+        tempPos = new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.y);
         tempVelo = new Vector2(rb.velocityX, rb.velocityY);
+
+        // Checking which angle collided with something
+        leftCheck = Physics2D.Raycast(tempPos, tempPos + Vector2.left, 1f);
+        rightCheck = Physics2D.Raycast(tempPos, tempPos + Vector2.right, 1f);
+        upCheck = Physics2D.Raycast(tempPos, tempPos + Vector2.up, 1f);
+        downCheck = Physics2D.Raycast(tempPos, tempPos + Vector2.down, 1f);
+
+        if (leftCheck.collider != null)
+        {
+
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
