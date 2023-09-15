@@ -8,7 +8,7 @@ public class PlayerHealth : MonoBehaviour
     public int curHealth;
     public int maxHealth;
 
-    void Start()
+    void Awake()
     {
         if (maxHealth == 0)
         {
@@ -16,6 +16,11 @@ public class PlayerHealth : MonoBehaviour
         }
 
         curHealth = maxHealth;
+    }
+
+    void Start()
+    {
+        // Here, put the health UI markers
     }
 
     void Update()

@@ -168,6 +168,7 @@ public class RockMove : MonoBehaviour
         if (other.tag == "Player")
         {
             tr.rockSupply++;
+            tr.rockText.text = "x " + tr.rockSupply;
             Destroy(this.gameObject);
         }
     }

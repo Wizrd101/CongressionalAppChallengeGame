@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ThrowRock : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class ThrowRock : MonoBehaviour
     PlayerMovement pm;
 
     ActionTimerUpdate atu;
+
+    public TextMeshProUGUI rockText;
 
     public GameObject rockPrefab;
     GameObject rockSpawn;
@@ -25,7 +28,7 @@ public class ThrowRock : MonoBehaviour
 
     [SerializeField] float atuIncrement = 3f;
 
-    void Start()
+    void Awake()
     {
         rtCv = GameObject.Find("RockThrowBarCanvas").GetComponent<Canvas>();
         throwSlider = rtCv.GetComponentInChildren<Slider>();
@@ -33,6 +36,13 @@ public class ThrowRock : MonoBehaviour
         pm = GetComponent<PlayerMovement>();
 
         atu = GameObject.Find("ActionTimerController").GetComponent<ActionTimerUpdate>();
+
+        rockText = GameObject.Find("RockText").GetComponent<TextMeshProUGUI>();
+    }
+
+    void Start()
+    {
+        rockText.text = "x " + rockSupply;
 
         rtCv.enabled = false;
 
@@ -103,6 +113,8 @@ public class ThrowRock : MonoBehaviour
                 rm = null;
 
                 atu.UpdateTimer(throwCharge * atuIncrement);
+
+                rockText.text = "x " + rockSupply;
             }
         }
     }
