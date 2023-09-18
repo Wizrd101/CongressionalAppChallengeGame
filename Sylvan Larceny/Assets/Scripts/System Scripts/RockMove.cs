@@ -12,11 +12,11 @@ using UnityEngine;
 public class RockMove : MonoBehaviour
 {
     // Rock Components
-    Rigidbody2D rb;
+    public Rigidbody2D rb;
     BoxCollider2D bc;
 
     // The Player's Rock-Throwing script
-    ThrowRock tr;
+    public ThrowRock tr;
 
     // Different Coefficients that are needed for calculations
     float startPowerCoefficient;
