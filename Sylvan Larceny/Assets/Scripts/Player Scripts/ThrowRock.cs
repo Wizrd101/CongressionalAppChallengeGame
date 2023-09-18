@@ -42,11 +42,11 @@ public class ThrowRock : MonoBehaviour
 
     void Start()
     {
+        rockSupply = 2;
+
         rockText.text = "x " + rockSupply;
 
         rtCv.enabled = false;
-
-        rockSupply = 2;
     }
 
     void Update()
