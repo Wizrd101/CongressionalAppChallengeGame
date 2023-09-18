@@ -18,15 +18,18 @@ public class ThrowRock : MonoBehaviour
     public GameObject rockPrefab;
     GameObject rockSpawn;
 
+    float keyHeldTimer;
+    [SerializeField] float keyHeldTimerIncrement;
+
     public int rockSupply;
 
     int spawnX;
     int spawnY;
 
     float throwCharge;
-    [SerializeField] float chargeIncrement = 0.01f;
+    float chargeIncrement = 0.005f;
 
-    [SerializeField] float atuIncrement = 3f;
+    float atuIncrement = 0.8f;
 
     void Awake()
     {
@@ -47,6 +50,8 @@ public class ThrowRock : MonoBehaviour
         rockText.text = "x " + rockSupply;
 
         rtCv.enabled = false;
+
+        keyHeldTimerIncrement = 1 / 20;
     }
 
     void Update()
@@ -55,19 +60,28 @@ public class ThrowRock : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
+                Debug.Log("E pressed");
                 rtCv.enabled = true;
+                throwCharge += chargeIncrement;
                 throwCharge = 0;
+                keyHeldTimer = 0;
             }
 
-            if (Input.GetKey(KeyCode.E))
+            keyHeldTimer += Time.deltaTime;
+
+            if (Input.GetKey(KeyCode.E) && keyHeldTimer >= keyHeldTimerIncrement)
             {
+                Debug.Log("E held");
+                keyHeldTimer = 0;
                 throwCharge += chargeIncrement;
-                Mathf.Clamp01(throwCharge);
+                throwCharge = Mathf.Clamp01(throwCharge);
                 throwSlider.value = throwCharge;
+                Debug.Log(throwCharge);
             }
 
             if (Input.GetKeyUp(KeyCode.E))
             {
+                Debug.Log("E released");
                 rtCv.enabled = false;
                 rockSupply--;
 
@@ -112,8 +126,9 @@ public class ThrowRock : MonoBehaviour
 
                 rm = null;
 
+                Debug.Log(throwCharge);
+                Debug.Log(throwCharge * atuIncrement);
                 atu.UpdateTimer(throwCharge * atuIncrement);
-
                 rockText.text = "x " + rockSupply;
             }
         }

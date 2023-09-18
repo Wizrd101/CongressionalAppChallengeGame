@@ -24,7 +24,7 @@ public class RockMove : MonoBehaviour
     float wallFrictionCoefficient;
 
     // Different checks to determine when the rock stops moving
-    bool rockMoving;
+    public bool rockMoving;
     bool xMoveCheck;
     bool yMoveCheck;
 
@@ -58,10 +58,12 @@ public class RockMove : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
 
+        tr = GameObject.FindGameObjectWithTag("Player").GetComponent<ThrowRock>();
+
         startPowerCoefficient = 3;
         dropOffCoefficient = 0.1f;
-        wallFrictionCoefficient = 2;
-
+        wallFrictionCoefficient = 0.5f;
+        
         rockMoving = true;
         xMoveCheck = false;
         yMoveCheck = false;
@@ -86,6 +88,11 @@ public class RockMove : MonoBehaviour
     // Method that decreases the velocity by a certain amount
     void DecreaseVelocity(float decreaseAmount)
     {
+        if (Mathf.Abs(rb.velocityX) < decreaseAmount)
+        {
+            rb.velocityX = 0;
+            xMoveCheck = true;
+        }
         if (rb.velocityX > 0)
         {
             rb.velocityX -= decreaseAmount;
@@ -101,6 +108,11 @@ public class RockMove : MonoBehaviour
             xMoveCheck = true;
         }
 
+        if (Mathf.Abs(rb.velocityY) < decreaseAmount)
+        {
+            rb.velocityY = 0;
+            yMoveCheck = true;
+        }
         if (rb.velocityY > 0)
         {
             rb.velocityY -= decreaseAmount;
@@ -132,21 +144,25 @@ public class RockMove : MonoBehaviour
         tempVelo = new Vector2(rb.velocityX, rb.velocityY);
 
         // Checking which angle collided with something
-        leftCheck = Physics2D.Raycast(tempPos, tempPos + Vector2.left, 1f);
-        rightCheck = Physics2D.Raycast(tempPos, tempPos + Vector2.right, 1f);
-        upCheck = Physics2D.Raycast(tempPos, tempPos + Vector2.up, 1f);
-        downCheck = Physics2D.Raycast(tempPos, tempPos + Vector2.down, 1f);
+        leftCheck = Physics2D.Raycast(tempPos, tempPos + Vector2.left, 0.5f);
+        rightCheck = Physics2D.Raycast(tempPos, tempPos + Vector2.right, 0.5f);
+        upCheck = Physics2D.Raycast(tempPos, tempPos + Vector2.up, 0.5f);
+        downCheck = Physics2D.Raycast(tempPos, tempPos + Vector2.down, 0.5f);
 
         // Checks for the proper direction and velocity
         if (leftCheck.collider != null && rb.velocityX < 0 ^ rightCheck.collider != null && rb.velocityX > 0)
         {
+            Debug.Log("Bounce X");
             tempVelo.x = -tempVelo.x;
         }
 
         if (upCheck.collider != null && rb.velocityY > 0 ^ downCheck.collider != null && rb.velocityY < 0)
         {
+            Debug.Log("Bounce Y");
             tempVelo.y = -tempVelo.y;
         }
+
+        rb.velocity = tempVelo;
 
         // If the object that the rock collided with can be stunned, stun them
         if (other.gameObject.GetComponent<StunController>() != null)
