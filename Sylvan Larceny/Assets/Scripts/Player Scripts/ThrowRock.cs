@@ -29,7 +29,7 @@ public class ThrowRock : MonoBehaviour
     float throwCharge;
     float chargeIncrement = 0.005f;
 
-    float atuIncrement = 0.8f;
+    float atuIncrement = 1.2f;
 
     void Awake()
     {

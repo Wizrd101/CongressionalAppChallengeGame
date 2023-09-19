@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 8778567652852276049}
   - component: {fileID: 6850894825251408083}
   - component: {fileID: 2341230920546486867}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RockPrefab
-  m_TagString: Untagged
+  m_TagString: Rock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -61,7 +61,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &6850894825251408083
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -120,8 +120,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08db6c16da614c14fb14d4e7b87c9004, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerCoefficient: 0
-  wallFrictionCoefficient: 0
+  rb: {fileID: 0}
+  tr: {fileID: 0}
+  rockMoving: 0
+  tempVelo: {x: 0, y: 0}
 --- !u!1 &7613234351314682681
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,9 +134,9 @@ GameObject:
   m_Component:
   - component: {fileID: 40874151490499456}
   - component: {fileID: 6072930481370071970}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RockSprite
-  m_TagString: Untagged
+  m_TagString: Rock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

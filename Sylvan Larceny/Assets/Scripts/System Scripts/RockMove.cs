@@ -34,17 +34,21 @@ public class RockMove : MonoBehaviour
     RaycastHit2D upCheck;
     RaycastHit2D downCheck;
 
+    LayerMask rockMask;
+
     // Rock velocity info
     int xDir;
     int yDir;
     float rockVelo;
     Vector2 tempPos;
-    Vector2 tempVelo;
+    public Vector2 tempVelo;
 
     // FixedUpdate is for checking if the rock is still moving
     void FixedUpdate()
     {
         DecreaseVelocity(dropOffCoefficient);
+
+        tempVelo = new Vector2(rb.velocityX, rb.velocityY);
 
         if (rockMoving && xMoveCheck && yMoveCheck)
         {
@@ -60,13 +64,15 @@ public class RockMove : MonoBehaviour
 
         tr = GameObject.FindGameObjectWithTag("Player").GetComponent<ThrowRock>();
 
-        startPowerCoefficient = 3;
+        startPowerCoefficient = 8;
         dropOffCoefficient = 0.1f;
-        wallFrictionCoefficient = 0.5f;
+        wallFrictionCoefficient = 0.2f;
         
         rockMoving = true;
         xMoveCheck = false;
         yMoveCheck = false;
+
+        rockMask = LayerMask.GetMask("Rock");
         
         tempVelo = Vector2.zero;
     }
@@ -139,21 +145,45 @@ public class RockMove : MonoBehaviour
     // For while the rock is in motion, so it can bounce off walls, players, and enemies
     void OnCollisionEnter2D(Collision2D other)
     {
-        // Aquiring the current position and velocity and storing it in temporary variables
+        // Aquiring the current position and storing it in a temporary variable
         tempPos = new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.y);
-        tempVelo = new Vector2(rb.velocityX, rb.velocityY);
+
+        Debug.Log(tempVelo);
 
         // Checking which angle collided with something
-        leftCheck = Physics2D.Raycast(tempPos, tempPos + Vector2.left, 0.5f);
-        rightCheck = Physics2D.Raycast(tempPos, tempPos + Vector2.right, 0.5f);
-        upCheck = Physics2D.Raycast(tempPos, tempPos + Vector2.up, 0.5f);
-        downCheck = Physics2D.Raycast(tempPos, tempPos + Vector2.down, 0.5f);
+        leftCheck = Physics2D.Raycast(tempPos + new Vector2(-0.1f, 0), tempPos + Vector2.left, 0.5f, ~rockMask);
+        rightCheck = Physics2D.Raycast(tempPos + new Vector2(0.1f, 0), tempPos + Vector2.right, 0.5f, ~rockMask);
+        upCheck = Physics2D.Raycast(tempPos + new Vector2(0, 0.1f), tempPos + Vector2.up, 0.5f, ~rockMask);
+        downCheck = Physics2D.Raycast(tempPos + new Vector2(0, -0.1f), tempPos + Vector2.down, 0.5f, ~rockMask);
+
 
         // Checks for the proper direction and velocity
-        if (leftCheck.collider != null && rb.velocityX < 0 ^ rightCheck.collider != null && rb.velocityX > 0)
+        if (leftCheck.collider != null && tempVelo.x < 0)
         {
-            Debug.Log("Bounce X");
+            Debug.Log("Bounce X 1");
             tempVelo.x = -tempVelo.x;
+            Debug.Log("Left: " + leftCheck.collider);
+            Debug.Log("Right: " + rightCheck.collider);
+            Debug.Log("Before Line 1: " + tempPos);
+            Debug.DrawRay(tempPos, tempPos + new Vector2(0.5f, 0), Color.green, Mathf.Infinity);
+            Debug.Log(tempPos + new Vector2(0.5f, 0));
+            Debug.Log("Between Lines: " + tempPos);
+            Debug.DrawRay(tempPos, tempPos + new Vector2(-0.5f, 0), Color.red, Mathf.Infinity);
+            Debug.Log(tempPos + new Vector2(-0.5f, 0));
+            Debug.Log("After Lines: " + tempPos);
+        }
+        else if (rightCheck.collider != null && tempVelo.x > 0)
+        {
+            Debug.Log("Bounce X 2");
+            tempVelo.x = -tempVelo.x;
+            Debug.Log(leftCheck.collider);
+            Debug.Log(rightCheck.collider);
+        }
+        else
+        {
+            Debug.Log("No Bounce X");
+            Debug.Log(leftCheck.collider);
+            Debug.Log(rightCheck.collider);
         }
 
         if (upCheck.collider != null && rb.velocityY > 0 ^ downCheck.collider != null && rb.velocityY < 0)
@@ -161,9 +191,17 @@ public class RockMove : MonoBehaviour
             Debug.Log("Bounce Y");
             tempVelo.y = -tempVelo.y;
         }
+        else
+        {
+            Debug.Log("No Bounce Y");
+        }
+
+        Debug.Log(tempVelo);
 
         rb.velocity = tempVelo;
 
+        Debug.Log(rb.velocity);
+        
         // If the object that the rock collided with can be stunned, stun them
         if (other.gameObject.GetComponent<StunController>() != null)
         {
@@ -175,7 +213,7 @@ public class RockMove : MonoBehaviour
             other.gameObject.GetComponent<PlayerHealth>().curHealth--;
         }
 
-        DecreaseVelocity(wallFrictionCoefficient);
+        DecreaseVelocity(rb.velocity.magnitude / wallFrictionCoefficient);
     }
 
     // For after the rock stops moving, so the player can pick it up again
