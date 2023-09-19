@@ -164,26 +164,19 @@ public class RockMove : MonoBehaviour
             tempVelo.x = -tempVelo.x;
             Debug.Log("Left: " + leftCheck.collider);
             Debug.Log("Right: " + rightCheck.collider);
-            Debug.Log("Before Line 1: " + tempPos);
             Debug.DrawRay(tempPos, tempPos + new Vector2(0.5f, 0), Color.green, Mathf.Infinity);
             Debug.Log(tempPos + new Vector2(0.5f, 0));
-            Debug.Log("Between Lines: " + tempPos);
             Debug.DrawRay(tempPos, tempPos + new Vector2(-0.5f, 0), Color.red, Mathf.Infinity);
             Debug.Log(tempPos + new Vector2(-0.5f, 0));
-            Debug.Log("After Lines: " + tempPos);
         }
         else if (rightCheck.collider != null && tempVelo.x > 0)
         {
             Debug.Log("Bounce X 2");
             tempVelo.x = -tempVelo.x;
-            Debug.Log(leftCheck.collider);
-            Debug.Log(rightCheck.collider);
         }
         else
         {
             Debug.Log("No Bounce X");
-            Debug.Log(leftCheck.collider);
-            Debug.Log(rightCheck.collider);
         }
 
         if (upCheck.collider != null && rb.velocityY > 0 ^ downCheck.collider != null && rb.velocityY < 0)
