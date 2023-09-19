@@ -7,7 +7,10 @@ using UnityEngine.Rendering;
 public class StunController : MonoBehaviour
 {
     PlayerMovement pm;
+    ThrowRock ptr;
+
     EnemyMove em;
+    EnemyDetectPlayer edp;
 
     float playerStunTime;
     float enemyStunTime;
@@ -22,12 +25,14 @@ public class StunController : MonoBehaviour
         if (this.gameObject.tag == "Player")
         {
             pm = GetComponent<PlayerMovement>();
+            ptr = GetComponent<ThrowRock>();
 
             isPlayer = true;
         }
         else
         {
             em = GetComponent<EnemyMove>();
+            edp = GetComponentInChildren<EnemyDetectPlayer>();
             
             isPlayer = false;
         }
@@ -38,14 +43,18 @@ public class StunController : MonoBehaviour
         if (isPlayer)
         {
             pm.enabled = false;
+            ptr.enabled = false;
             yield return new WaitForSeconds(playerStunTime);
             pm.enabled = true;
+            ptr.enabled = true;
         }
         else
         {
             em.enabled = false;
+            edp.enabled = false;
             yield return new WaitForSeconds(enemyStunTime);
             em.enabled = true;
+            edp.enabled = true;
         }
     }
 }

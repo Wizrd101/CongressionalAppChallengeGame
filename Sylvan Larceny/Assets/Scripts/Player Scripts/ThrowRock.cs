@@ -56,11 +56,13 @@ public class ThrowRock : MonoBehaviour
 
     void Update()
     {
+        rtCv.transform.position = this.gameObject.transform.position;
+
         if (rockSupply > 0)
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                Debug.Log("E pressed");
+                //Debug.Log("E pressed");
                 rtCv.enabled = true;
                 throwCharge += chargeIncrement;
                 throwCharge = 0;
@@ -71,17 +73,17 @@ public class ThrowRock : MonoBehaviour
 
             if (Input.GetKey(KeyCode.E) && keyHeldTimer >= keyHeldTimerIncrement)
             {
-                Debug.Log("E held");
+                //Debug.Log("E held");
                 keyHeldTimer = 0;
                 throwCharge += chargeIncrement;
                 throwCharge = Mathf.Clamp01(throwCharge);
                 throwSlider.value = throwCharge;
-                Debug.Log(throwCharge);
+                //Debug.Log(throwCharge);
             }
 
             if (Input.GetKeyUp(KeyCode.E))
             {
-                Debug.Log("E released");
+                //Debug.Log("E released");
                 rtCv.enabled = false;
                 rockSupply--;
 
@@ -126,8 +128,8 @@ public class ThrowRock : MonoBehaviour
 
                 rm = null;
 
-                Debug.Log(throwCharge);
-                Debug.Log(throwCharge * atuIncrement);
+                //Debug.Log(throwCharge);
+                //Debug.Log(throwCharge * atuIncrement);
                 atu.UpdateTimer(throwCharge * atuIncrement);
                 rockText.text = "x " + rockSupply;
             }
