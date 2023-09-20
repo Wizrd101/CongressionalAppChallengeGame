@@ -12,13 +12,19 @@ public class StunController : MonoBehaviour
     EnemyMove em;
     EnemyDetectPlayer edp;
 
+    Animator anim;
+
     float playerStunTime;
     float enemyStunTime;
 
     bool isPlayer;
 
+    public bool stunned;
+
     void Start()
     {
+        anim = GetComponentInChildren<Animator>();
+
         playerStunTime = 1f;
         enemyStunTime = 1.5f;
 
@@ -36,10 +42,16 @@ public class StunController : MonoBehaviour
             
             isPlayer = false;
         }
+
+        stunned = false;
     }
 
     public IEnumerator StunThisGO()
     {
+        Debug.Log("Stunned: " + this.gameObject.name);
+
+        stunned = true;
+
         if (isPlayer)
         {
             pm.enabled = false;
@@ -56,5 +68,7 @@ public class StunController : MonoBehaviour
             em.enabled = true;
             edp.enabled = true;
         }
+
+        stunned = false;
     }
 }

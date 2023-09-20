@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
@@ -21,7 +22,7 @@ public class RockMove : MonoBehaviour
     // Different Coefficients that are needed for calculations
     float startPowerCoefficient;
     float dropOffCoefficient;
-    float wallFrictionCoefficient;
+    public float wallFrictionCoefficient;
 
     // Different checks to determine when the rock stops moving
     public bool rockMoving;
@@ -40,7 +41,7 @@ public class RockMove : MonoBehaviour
     int xDir;
     int yDir;
     float rockVelo;
-    Vector2 tempPos;
+    public Vector2 tempPos;
     public Vector2 tempVelo;
 
     // FixedUpdate is for checking if the rock is still moving
@@ -75,6 +76,14 @@ public class RockMove : MonoBehaviour
         rockMask = LayerMask.GetMask("Rock");
         
         tempVelo = Vector2.zero;
+
+        foreach (Transform bounceScript in transform)
+        {
+            if (bounceScript.gameObject.GetComponent<RockBounce>() != null)
+            {
+                bounceScript.gameObject.GetComponent<RockBounce>().SetUpBounceScript();
+            }
+        }
     }
 
     // Sets the movement direction and power that the rock will be thrown
@@ -92,7 +101,7 @@ public class RockMove : MonoBehaviour
     }
 
     // Method that decreases the velocity by a certain amount
-    void DecreaseVelocity(float decreaseAmount)
+    public void DecreaseVelocity(float decreaseAmount)
     {
         if (Mathf.Abs(rb.velocityX) < decreaseAmount)
         {
@@ -142,77 +151,10 @@ public class RockMove : MonoBehaviour
         bc.isTrigger = true;
     }
 
-    // For while the rock is in motion, so it can bounce off walls, players, and enemies
-    void OnCollisionEnter2D(Collision2D other)
-    {
-        // Aquiring the current position and storing it in a temporary variable
-        tempPos = new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.y);
-
-        Debug.Log(tempVelo);
-
-        // Checking which angle collided with something
-        leftCheck = Physics2D.Raycast(tempPos + new Vector2(-0.1f, 0), tempPos + Vector2.left, 0.5f, ~rockMask);
-        rightCheck = Physics2D.Raycast(tempPos + new Vector2(0.1f, 0), tempPos + Vector2.right, 0.5f, ~rockMask);
-        upCheck = Physics2D.Raycast(tempPos + new Vector2(0, 0.1f), tempPos + Vector2.up, 0.5f, ~rockMask);
-        downCheck = Physics2D.Raycast(tempPos + new Vector2(0, -0.1f), tempPos + Vector2.down, 0.5f, ~rockMask);
-
-
-        // Checks for the proper direction and velocity
-        if (leftCheck.collider != null && tempVelo.x < 0)
-        {
-            Debug.Log("Bounce X 1");
-            tempVelo.x = -tempVelo.x;
-            Debug.Log("Left: " + leftCheck.collider);
-            Debug.Log("Right: " + rightCheck.collider);
-            Debug.DrawRay(tempPos, tempPos + new Vector2(0.5f, 0), Color.green, Mathf.Infinity);
-            Debug.Log(tempPos + new Vector2(0.5f, 0));
-            Debug.DrawRay(tempPos, tempPos + new Vector2(-0.5f, 0), Color.red, Mathf.Infinity);
-            Debug.Log(tempPos + new Vector2(-0.5f, 0));
-        }
-        else if (rightCheck.collider != null && tempVelo.x > 0)
-        {
-            Debug.Log("Bounce X 2");
-            tempVelo.x = -tempVelo.x;
-        }
-        else
-        {
-            Debug.Log("No Bounce X");
-        }
-
-        if (upCheck.collider != null && rb.velocityY > 0 ^ downCheck.collider != null && rb.velocityY < 0)
-        {
-            Debug.Log("Bounce Y");
-            tempVelo.y = -tempVelo.y;
-        }
-        else
-        {
-            Debug.Log("No Bounce Y");
-        }
-
-        Debug.Log(tempVelo);
-
-        rb.velocity = tempVelo;
-
-        Debug.Log(rb.velocity);
-        
-        // If the object that the rock collided with can be stunned, stun them
-        if (other.gameObject.GetComponent<StunController>() != null)
-        {
-            StartCoroutine(other.gameObject.GetComponent<StunController>().StunThisGO());
-        }
-
-        if (other.gameObject.GetComponent<PlayerHealth>() != null)
-        {
-            other.gameObject.GetComponent<PlayerHealth>().curHealth--;
-        }
-
-        DecreaseVelocity(rb.velocity.magnitude / wallFrictionCoefficient);
-    }
-
     // For after the rock stops moving, so the player can pick it up again
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player" && !rockMoving)
         {
             tr.rockSupply++;
             tr.rockText.text = "x " + tr.rockSupply;
