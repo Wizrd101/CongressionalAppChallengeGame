@@ -38,6 +38,11 @@ public class RockBounce : MonoBehaviour
             Debug.LogWarning("Extra RockBounce called");
         }
 
+        if (other.gameObject.GetComponent<StunController>() != null)
+        {
+            StartCoroutine(other.gameObject.GetComponent<StunController>().StunThisGO());
+        }
+
         rockMoveScript.DecreaseVelocity(rockMoveScript.wallFrictionCoefficient / rockRb.velocity.magnitude);
     }
 }
