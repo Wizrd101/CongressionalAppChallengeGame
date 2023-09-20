@@ -1092,6 +1092,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b342ba4604d3ed647aa8b636884091c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stunned: 0
 --- !u!1 &391488422
 GameObject:
   m_ObjectHideFlags: 0
@@ -2755,6 +2756,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1553848015}
   - component: {fileID: 1553848016}
+  - component: {fileID: 1553848017}
   m_Layer: 7
   m_Name: EnemySprite
   m_TagString: Untagged
@@ -2829,6 +2831,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1553848017
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553848014}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1611922509
 GameObject:
   m_ObjectHideFlags: 0
@@ -3342,6 +3366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b342ba4604d3ed647aa8b636884091c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stunned: 0
 --- !u!1 &1820101785
 GameObject:
   m_ObjectHideFlags: 0
