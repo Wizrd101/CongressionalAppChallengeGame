@@ -603,6 +603,8 @@ public class EnemyMove : MonoBehaviour
         leftValid = false;
         frontValid = false;
         rightValid = false;
+        leftFrontValid = false;
+        rightFrontValid = false;
 
         legalMovesCounter = 0;
         whichMove = 0;
