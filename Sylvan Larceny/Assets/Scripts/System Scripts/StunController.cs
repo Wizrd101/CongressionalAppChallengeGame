@@ -3,16 +3,23 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 public class StunController : MonoBehaviour
 {
     PlayerMovement pm;
     ThrowRock ptr;
+    AdrenalineMode am;
 
     EnemyMove em;
     EnemyDetectPlayer edp;
 
     Animator anim;
+
+    Image atsFill;
+
+    [SerializeField] Color baseColor;
+    [SerializeField] Color stunColor;
 
     float playerStunTime;
     float enemyStunTime;
@@ -32,7 +39,8 @@ public class StunController : MonoBehaviour
         {
             pm = GetComponent<PlayerMovement>();
             ptr = GetComponent<ThrowRock>();
-
+            am = GetComponent<AdrenalineMode>();
+            atsFill = GameObject.Find("ActionTimerSlider").transform.GetChild(0).transform.GetChild(0).GetComponent<Image>();
             isPlayer = true;
         }
         else
@@ -42,6 +50,9 @@ public class StunController : MonoBehaviour
             
             isPlayer = false;
         }
+
+        baseColor = new Color(83/255f, 221/255f, 51/255f);
+        stunColor = new Color(26/255f, 68/255f, 17/255f);
 
         stunned = false;
     }
@@ -54,11 +65,17 @@ public class StunController : MonoBehaviour
 
         if (isPlayer)
         {
-            pm.enabled = false;
-            ptr.enabled = false;
-            yield return new WaitForSeconds(playerStunTime);
-            pm.enabled = true;
-            ptr.enabled = true;
+            Debug.Log("Hit Player");
+            if (!am.inAM)
+            {
+                pm.enabled = false;
+                ptr.enabled = false;
+                atsFill.color = stunColor;
+                yield return new WaitForSeconds(playerStunTime);
+                pm.enabled = true;
+                ptr.enabled = true;
+                atsFill.color = baseColor;
+            }
         }
         else
         {
