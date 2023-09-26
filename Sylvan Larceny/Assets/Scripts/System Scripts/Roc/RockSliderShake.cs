@@ -7,11 +7,11 @@ public class RockSliderShake : MonoBehaviour
     RectTransform sliderTf;
 
     Vector2 originalPos;
+    
+    public bool shaking;
 
     float shakeTimer;
     [SerializeField] float shakeTimerTrigger;
-
-    public bool shaking;
 
     float randomX;
     float randomY;
@@ -41,12 +41,12 @@ public class RockSliderShake : MonoBehaviour
 
         if (rangeX == 0)
         {
-            rangeX = 0.5f;
+            rangeX = 2f;
         }
 
         if (rangeY == 0)
         {
-            rangeY = 0.5f;
+            rangeY = 2f;
         }
     }
 
