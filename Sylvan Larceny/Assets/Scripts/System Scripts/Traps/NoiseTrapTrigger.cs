@@ -6,13 +6,15 @@ public class NoiseTrapTrigger : MonoBehaviour
 {
     AudioSource m_as;
 
-    GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+    GameObject[] enemies;
 
     [SerializeField] float noiseRadius;
 
     void Start()
     {
         m_as = GetComponent<AudioSource>();
+
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
         noiseRadius = 5f;
     }

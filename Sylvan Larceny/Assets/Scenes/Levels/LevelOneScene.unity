@@ -1005,6 +1005,13 @@ MonoBehaviour:
   rockPrefab: {fileID: 6276909929035848747, guid: 46483fa5018deb44ab2ce05fd704f0cd, type: 3}
   keyHeldTimerIncrement: 0
   rockSupply: 0
+  rockArray:
+  - {fileID: 1252243683051303324, guid: b889941b634f4ae40abe78d91692457c, type: 3}
+  - {fileID: 6781167332700664777, guid: b889941b634f4ae40abe78d91692457c, type: 3}
+  - {fileID: -3548031942192175384, guid: b889941b634f4ae40abe78d91692457c, type: 3}
+  - {fileID: 4206860055589038045, guid: b889941b634f4ae40abe78d91692457c, type: 3}
+  - {fileID: 2013881728091588454, guid: b889941b634f4ae40abe78d91692457c, type: 3}
+  - {fileID: -3893359675434764019, guid: b889941b634f4ae40abe78d91692457c, type: 3}
 --- !u!114 &377557013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1017,6 +1024,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b342ba4604d3ed647aa8b636884091c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseColor: {r: 0, g: 0, b: 0, a: 0}
+  stunColor: {r: 0, g: 0, b: 0, a: 0}
   stunned: 0
 --- !u!1 &391488422
 GameObject:
@@ -2411,8 +2420,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f028a750e5e997544a7184a9afba1f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shakeTimerTrigger: 0
   shaking: 0
+  shakeTimerTrigger: 0
   rangeX: 0
   rangeY: 0
 --- !u!1 &1258329156
@@ -3470,6 +3479,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b342ba4604d3ed647aa8b636884091c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseColor: {r: 0, g: 0, b: 0, a: 0}
+  stunColor: {r: 0, g: 0, b: 0, a: 0}
   stunned: 0
 --- !u!1 &1820101785
 GameObject:
@@ -4124,6 +4135,7 @@ GameObject:
   - component: {fileID: 2014266086}
   - component: {fileID: 2014266085}
   - component: {fileID: 2014266084}
+  - component: {fileID: 2014266087}
   m_Layer: 0
   m_Name: NoiseTrap
   m_TagString: Untagged
@@ -4300,6 +4312,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &2014266087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014266082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0068dce1ed2031141b74ef7f28c744af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  noiseRadius: 0
 --- !u!1 &2089765546
 GameObject:
   m_ObjectHideFlags: 0
@@ -4312,6 +4337,7 @@ GameObject:
   - component: {fileID: 2089765549}
   - component: {fileID: 2089765550}
   - component: {fileID: 2089765548}
+  - component: {fileID: 2089765551}
   m_Layer: 0
   m_Name: ArrowTrap
   m_TagString: Untagged
@@ -4488,6 +4514,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2089765551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2089765546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4057d6903264c6499590bb8916056ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 0
+  arrowPrefab: {fileID: 0}
+  velocityCoefficent: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

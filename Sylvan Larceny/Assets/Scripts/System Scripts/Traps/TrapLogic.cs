@@ -20,7 +20,7 @@ public class TrapLogic : MonoBehaviour
         }
         else if (att == null &&  ntt == null)
         {
-            Debug.LogError("Trap: " + this.gameObject.name + " has both an ArrowTrapTrigger and a NoiseTrapTrigger attatched");
+            Debug.LogError("Trap: " + this.gameObject.name + " has neither an ArrowTrapTrigger and a NoiseTrapTrigger attatched");
         }
 
         trapTriggered = false;

@@ -30,6 +30,9 @@ public class ThrowRock : MonoBehaviour
     float throwCharge;
     float chargeIncrement = 0.005f;
 
+    int randomSprite;
+    public Sprite[] rockArray; 
+
     float atuIncrement = 1.2f;
 
     void Awake()
@@ -127,16 +130,22 @@ public class ThrowRock : MonoBehaviour
                     rockSpawn = Instantiate(rockPrefab, new Vector2(transform.position.x + spawnX, transform.position.y + spawnY), Quaternion.identity);
             
                     RockMove rm = rockSpawn.GetComponent<RockMove>();
-                    if (rm == null)
-                    {
-                        Debug.LogError("ThrowRock script on player cannot access RockMove on a rock prefab: " + rockSpawn.gameObject.name);
-                    }
 
                     rm.SetUpProjectile();
                     rm.SetDir(spawnX, spawnY, throwCharge);
                     rm.ActivateProjectile();
 
                     rm = null;
+
+                    SpriteRenderer sr = rockSpawn.GetComponentInChildren<SpriteRenderer>();
+                    if (sr == null)
+                    {
+                        Debug.Log("ThrowRock couldn't find a SpriteRenderer in rockSpawn's children.");
+                    }
+
+                    randomSprite = Random.Range(0, 6);
+                    Debug.Log("Sprite Chosen: " + randomSprite);
+                    sr.sprite = rockArray[randomSprite];
 
                     //Debug.Log(throwCharge);
                     //Debug.Log(throwCharge * atuIncrement);
