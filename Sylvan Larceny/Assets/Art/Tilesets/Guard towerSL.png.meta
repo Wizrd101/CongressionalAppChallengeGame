@@ -128,7 +128,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Guard towerSL_0: -7001581801870428771
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
