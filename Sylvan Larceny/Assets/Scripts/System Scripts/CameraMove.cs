@@ -6,10 +6,14 @@ public class CameraMove : MonoBehaviour
 {
     Camera cam;
     Transform camTf;
-    
+
     Transform playerTf;
 
-    Vector3 playerRelPos;
+    Vector2 playerRelPos;
+
+    [SerializeField] float edgeDetectConstant;
+
+    [SerializeField] float cameraMoveTimer;
 
     void Start()
     {
@@ -17,15 +21,69 @@ public class CameraMove : MonoBehaviour
         camTf = GetComponent<Transform>();
 
         playerTf = GameObject.FindWithTag("Player").GetComponent<Transform>();
+
+        if (cameraMoveTimer == 0)
+        {
+            cameraMoveTimer = 60;
+        }
     }
 
     void Update()
     {
-        playerRelPos = cam.ScreenToWorldPoint(new Vector3(playerTf.position.x, playerTf.position.y, 0));
+        playerRelPos = cam.WorldToViewportPoint(playerTf.position);
+
+        // Left
+        if (playerRelPos.x <= 0)
+        {
+            StartCoroutine(CameraMovePosition(1));
+        }
+        // Right
+        else if (playerRelPos.x >= 1)
+        {
+            StartCoroutine(CameraMovePosition(2));
+        }
+        // Top
+        else if (playerRelPos.y >= 1)
+        {
+            StartCoroutine(CameraMovePosition(3));
+        }
+        // Bottom
+        else if (playerRelPos.y <= 0)
+        {
+            StartCoroutine(CameraMovePosition(4));
+        }
     }
 
-    IEnumerator CameraMovePosition()
+    IEnumerator CameraMovePosition(int camMoveDir)
     {
-        yield return null;
+        Time.timeScale = 0;
+
+        for (float i = 0; i >= cameraMoveTimer; i++)
+        {
+            // Left
+            if (camMoveDir == 1)
+            {
+                camTf.position = new Vector2(camTf.position.x - 1 / cameraMoveTimer, camTf.position.y);
+            }
+            // Right
+            else if (camMoveDir == 2)
+            {
+                camTf.position = new Vector2(camTf.position.x + 1 / cameraMoveTimer, camTf.position.y);
+            }
+            // Top
+            else if (camMoveDir == 3)
+            {
+                camTf.position = new Vector2(camTf.position.x, camTf.position.y + 1 / cameraMoveTimer);
+            }
+            // Bottom
+            else
+            {
+                camTf.position = new Vector2(camTf.position.x, camTf.position.y - 1 / cameraMoveTimer);
+            }
+
+            yield return new WaitForSecondsRealtime(0.02f);
+        }
+
+        Time.timeScale = 1;
     }
 }
