@@ -20,7 +20,7 @@ public class GemCollect : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "GemShard")
+        if (other.gameObject.tag == "GemShard")
         {
             gemCollected = true;
             Destroy(other.gameObject);

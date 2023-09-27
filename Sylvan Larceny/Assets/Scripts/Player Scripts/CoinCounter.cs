@@ -11,11 +11,6 @@ public class CoinCounter : MonoBehaviour
         coinCount = PlayerPrefs.GetInt("coins", 0);
     }
 
-    void Update()
-    {
-        
-    }
-
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Coin")
@@ -25,7 +20,7 @@ public class CoinCounter : MonoBehaviour
         }
     }
 
-    void OnApplicationQuit()
+    public void SaveCoins()
     {
         PlayerPrefs.SetInt("coins", coinCount);
     }
