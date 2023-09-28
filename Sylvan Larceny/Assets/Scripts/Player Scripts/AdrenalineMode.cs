@@ -103,7 +103,7 @@ public class AdrenalineMode : MonoBehaviour
             }
         }
 
-        if (inAM)
+        if (inAM && Time.timeScale != 0)
         {
             curAdr -= Time.deltaTime;
             Mathf.Clamp(curAdr, 0, maxAdr);

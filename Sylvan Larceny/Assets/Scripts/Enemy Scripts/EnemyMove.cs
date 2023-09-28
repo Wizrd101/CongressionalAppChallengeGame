@@ -117,276 +117,279 @@ public class EnemyMove : MonoBehaviour
 
     void Update()
     {
-        if (state == EnemyState.PATROLING && triggerPatrolingStateChange)
+        if (Time.timeScale != 0)
         {
-            triggerPatrolingStateChange = false;
-            triggerPatrolingLogic = false;
-
-            PatrolingStateEnter();
-        }
-        else if (state == EnemyState.PATROLING && triggerPatrolingLogic)
-        {
-            if (enemyType == 2)
+            if (state == EnemyState.PATROLING && triggerPatrolingStateChange)
             {
-                if (triggerRotTimerReset)
+                triggerPatrolingStateChange = false;
+                triggerPatrolingLogic = false;
+
+                PatrolingStateEnter();
+            }
+            else if (state == EnemyState.PATROLING && triggerPatrolingLogic)
+            {
+                if (enemyType == 2)
                 {
-                    triggerRotTimerReset = false;
-                    randomRotTimer = Random.Range(2f, 7f);
-                    curRotTimer = 0;
-                }
-                else
-                {
-                    curRotTimer += Time.deltaTime;
-                    if (curRotTimer >= randomRotTimer)
+                    if (triggerRotTimerReset)
                     {
-                        randomRotDir = Random.Range(1, 3);
-                        if (randomRotDir == 1)
+                        triggerRotTimerReset = false;
+                        randomRotTimer = Random.Range(2f, 7f);
+                        curRotTimer = 0;
+                    }
+                    else
+                    {
+                        curRotTimer += Time.deltaTime;
+                        if (curRotTimer >= randomRotTimer)
                         {
-                            StartCoroutine(RotateTo(tf.rotation.z - 90, 3f));
+                            randomRotDir = Random.Range(1, 3);
+                            if (randomRotDir == 1)
+                            {
+                                StartCoroutine(RotateTo(tf.rotation.z - 90, 3f));
+                            }
+                            else
+                            {
+                                StartCoroutine(RotateTo(tf.rotation.z + 90, 3f));
+                            }
+                            triggerRotTimerReset = true;
+                        }
+                    }
+                }
+                else if (enemyType == 3)
+                {
+                    if (new Vector2(tf.position.x, tf.position.y) == new Vector2(waypoints[waypointIndex].position.x, waypoints[waypointIndex].position.y))
+                    {
+                        waypointIndex++;
+                        if (waypointIndex > waypoints.Length)
+                        {
+                            waypointIndex = 0;
+                        }
+                        StartCoroutine(GoToCoord(waypoints[waypointIndex].position.x, waypoints[waypointIndex].position.y));
+                    }
+                }
+                else if (enemyType == 4)
+                {
+                    if (!moving)
+                    {
+                        // Determining which moves are legal
+                        legalMovesCounter = 0;
+
+                        leftCast = Physics2D.Raycast(new Vector2(tf.position.x, tf.position.y), Vector2.left, 1, ~playerAndEnemy);
+                        frontCast = Physics2D.Raycast(new Vector2(tf.position.x, tf.position.y), Vector2.up, 1, ~playerAndEnemy);
+                        rightCast = Physics2D.Raycast(new Vector2(tf.position.x, tf.position.y), Vector2.right, 1, ~playerAndEnemy);
+                    
+                        if (leftCast.collider == null)
+                        {
+                            leftValid = true;
+                            legalMovesCounter++;
                         }
                         else
                         {
-                            StartCoroutine(RotateTo(tf.rotation.z + 90, 3f));
+                            leftValid = false;
                         }
-                        triggerRotTimerReset = true;
-                    }
-                }
-            }
-            else if (enemyType == 3)
-            {
-                if (new Vector2(tf.position.x, tf.position.y) == new Vector2(waypoints[waypointIndex].position.x, waypoints[waypointIndex].position.y))
-                {
-                    waypointIndex++;
-                    if (waypointIndex > waypoints.Length)
-                    {
-                        waypointIndex = 0;
-                    }
-                    StartCoroutine(GoToCoord(waypoints[waypointIndex].position.x, waypoints[waypointIndex].position.y));
-                }
-            }
-            else if (enemyType == 4)
-            {
-                if (!moving)
-                {
-                    // Determining which moves are legal
-                    legalMovesCounter = 0;
 
-                    leftCast = Physics2D.Raycast(new Vector2(tf.position.x, tf.position.y), Vector2.left, 1, ~playerAndEnemy);
-                    frontCast = Physics2D.Raycast(new Vector2(tf.position.x, tf.position.y), Vector2.up, 1, ~playerAndEnemy);
-                    rightCast = Physics2D.Raycast(new Vector2(tf.position.x, tf.position.y), Vector2.right, 1, ~playerAndEnemy);
-                    
-                    if (leftCast.collider == null)
-                    {
-                        leftValid = true;
-                        legalMovesCounter++;
-                    }
-                    else
-                    {
-                        leftValid = false;
-                    }
-
-                    if (frontCast.collider == null)
-                    {
-                        frontValid = true;
-                        legalMovesCounter++;
-                    }
-                    else
-                    {
-                        frontValid = false;
-                    }
-                    
-                    if (rightCast.collider == null)
-                    {
-                        rightValid = true;
-                        legalMovesCounter++;
-                    }
-                    else
-                    {
-                        rightValid = false;
-                    }
-
-                    if (leftValid && frontValid)
-                    {
-                        leftFrontCast = Physics2D.Raycast(new Vector2(tf.position.x, tf.position.y), Vector2.left + Vector2.up, 1, ~playerAndEnemy);
-
-                        if (leftFrontCast.collider == null)
+                        if (frontCast.collider == null)
                         {
-                            leftFrontValid = true;
+                            frontValid = true;
                             legalMovesCounter++;
+                        }
+                        else
+                        {
+                            frontValid = false;
+                        }
+                    
+                        if (rightCast.collider == null)
+                        {
+                            rightValid = true;
+                            legalMovesCounter++;
+                        }
+                        else
+                        {
+                            rightValid = false;
+                        }
+
+                        if (leftValid && frontValid)
+                        {
+                            leftFrontCast = Physics2D.Raycast(new Vector2(tf.position.x, tf.position.y), Vector2.left + Vector2.up, 1, ~playerAndEnemy);
+
+                            if (leftFrontCast.collider == null)
+                            {
+                                leftFrontValid = true;
+                                legalMovesCounter++;
+                            }
+                            else
+                            {
+                                leftFrontValid = false;
+                            }
                         }
                         else
                         {
                             leftFrontValid = false;
                         }
-                    }
-                    else
-                    {
-                        leftFrontValid = false;
-                    }
 
-                    if (rightValid && frontValid)
-                    {
-                        rightFrontCast = Physics2D.Raycast(new Vector2(tf.position.x, tf.position.y), Vector2.right + Vector2.up, 1, ~playerAndEnemy);
-
-                        if (rightFrontCast.collider == null)
+                        if (rightValid && frontValid)
                         {
-                            rightFrontValid = true;
-                            legalMovesCounter++;
+                            rightFrontCast = Physics2D.Raycast(new Vector2(tf.position.x, tf.position.y), Vector2.right + Vector2.up, 1, ~playerAndEnemy);
+
+                            if (rightFrontCast.collider == null)
+                            {
+                                rightFrontValid = true;
+                                legalMovesCounter++;
+                            }
+                            else
+                            {
+                                rightFrontValid = false;
+                            }
                         }
                         else
                         {
                             rightFrontValid = false;
                         }
-                    }
-                    else
-                    {
-                        rightFrontValid = false;
-                    }
                     
-                    // Picking a random move to do
+                        // Picking a random move to do
 
-                    /*
-                    Random Logic Notes:
-                    Left:
-                        if whichMove = 0
-                    LeftFront:
-                        if whichMove = 1
-                        if whichMove = 0 && !Left
-                    Front:
-                        if whichMove = 2
-                        if whichMove = 1 || 0 && !LeftFront
-                    RightFront:
-                        if whichMove = 3
-                        if whichMove = 2 || 1 || 0 && !Front
-                    Right:
-                        if !RightFront
-                    */ 
-                    if (legalMovesCounter > 0)
-                    {
-                        whichMove = Random.Range(0, legalMovesCounter);
+                        /*
+                        Random Logic Notes:
+                        Left:
+                            if whichMove = 0
+                        LeftFront:
+                            if whichMove = 1
+                            if whichMove = 0 && !Left
+                        Front:
+                            if whichMove = 2
+                            if whichMove = 1 || 0 && !LeftFront
+                        RightFront:
+                            if whichMove = 3
+                            if whichMove = 2 || 1 || 0 && !Front
+                        Right:
+                            if !RightFront
+                        */ 
+                        if (legalMovesCounter > 0)
+                        {
+                            whichMove = Random.Range(0, legalMovesCounter);
 
-                        if (whichMove == 0)
-                        {
-                            if (leftValid)
+                            if (whichMove == 0)
                             {
-                                rotateToAngle = tf.rotation.z + 90;
+                                if (leftValid)
+                                {
+                                    rotateToAngle = tf.rotation.z + 90;
+                                }
+                                else if (leftFrontValid)
+                                {
+                                    rotateToAngle = tf.rotation.z + 45;
+                                }
+                                else if (frontValid)
+                                {
+                                    rotateToAngle = tf.rotation.z;
+                                }
+                                else if (rightFrontValid)
+                                {
+                                    rotateToAngle = tf.rotation.z - 45;
+                                }
+                                else
+                                {
+                                    rotateToAngle = tf.rotation.z - 90;
+                                }
                             }
-                            else if (leftFrontValid)
+                            else if (whichMove == 1)
                             {
-                                rotateToAngle = tf.rotation.z + 45;
+                                if (leftFrontValid)
+                                {
+                                    rotateToAngle = tf.rotation.z + 45;
+                                }
+                                else if (frontValid)
+                                {
+                                    rotateToAngle = tf.rotation.z;
+                                }
+                                else if (rightFrontValid)
+                                {
+                                    rotateToAngle = tf.rotation.z - 45;
+                                }
+                                else
+                                {
+                                    rotateToAngle = tf.rotation.z - 90;
+                                }
                             }
-                            else if (frontValid)
+                            else if (whichMove == 2)
                             {
-                                rotateToAngle = tf.rotation.z;
+                                if (frontValid)
+                                {
+                                    rotateToAngle = tf.rotation.z;
+                                }
+                                else if (rightFrontValid)
+                                {
+                                    rotateToAngle = tf.rotation.z - 45;
+                                }
+                                else
+                                {
+                                    rotateToAngle = tf.rotation.z - 90;
+                                }
                             }
-                            else if (rightFrontValid)
+                            else if (whichMove == 3)
                             {
-                                rotateToAngle = tf.rotation.z - 45;
+                                if (rightFrontValid)
+                                {
+                                    rotateToAngle = tf.rotation.z - 45;
+                                }
+                                else
+                                {
+                                    rotateToAngle = tf.rotation.z - 90;
+                                }
+                            }
+                            else if (whichMove == 4)
+                            {
+                                // The only valid move is Right
+                                rotateToAngle = tf.rotation.z - 90;
                             }
                             else
                             {
-                                rotateToAngle = tf.rotation.z - 90;
+                                Debug.LogError(this.gameObject.name + " cannot think of which move to do in EnemyMove under ET 4");
                             }
-                        }
-                        else if (whichMove == 1)
-                        {
-                            if (leftFrontValid)
-                            {
-                                rotateToAngle = tf.rotation.z + 45;
-                            }
-                            else if (frontValid)
-                            {
-                                rotateToAngle = tf.rotation.z;
-                            }
-                            else if (rightFrontValid)
-                            {
-                                rotateToAngle = tf.rotation.z - 45;
-                            }
-                            else
-                            {
-                                rotateToAngle = tf.rotation.z - 90;
-                            }
-                        }
-                        else if (whichMove == 2)
-                        {
-                            if (frontValid)
-                            {
-                                rotateToAngle = tf.rotation.z;
-                            }
-                            else if (rightFrontValid)
-                            {
-                                rotateToAngle = tf.rotation.z - 45;
-                            }
-                            else
-                            {
-                                rotateToAngle = tf.rotation.z - 90;
-                            }
-                        }
-                        else if (whichMove == 3)
-                        {
-                            if (rightFrontValid)
-                            {
-                                rotateToAngle = tf.rotation.z - 45;
-                            }
-                            else
-                            {
-                                rotateToAngle = tf.rotation.z - 90;
-                            }
-                        }
-                        else if (whichMove == 4)
-                        {
-                            // The only valid move is Right
-                            rotateToAngle = tf.rotation.z - 90;
-                        }
-                        else
-                        {
-                            Debug.LogError(this.gameObject.name + " cannot think of which move to do in EnemyMove under ET 4");
-                        }
 
                         
-                    }
-                    // Must've hit a dead end, turn around and go back
-                    else if (legalMovesCounter == 0)
-                    {
-                        rotateToAngle = tf.rotation.z - 180;
-                    }
+                        }
+                        // Must've hit a dead end, turn around and go back
+                        else if (legalMovesCounter == 0)
+                        {
+                            rotateToAngle = tf.rotation.z - 180;
+                        }
 
-                    if (rotateToAngle != transform.rotation.z)
-                    {
-                        StartCoroutine(RotateTo(rotateToAngle, baseSpeed));
-                    }
-                    StartCoroutine(MoveForward());
+                        if (rotateToAngle != transform.rotation.z)
+                        {
+                            StartCoroutine(RotateTo(rotateToAngle, baseSpeed));
+                        }
+                        StartCoroutine(MoveForward());
 
-                    ResetETFourVars();
+                        ResetETFourVars();
+                    }
                 }
-            }
-            else if (enemyType != 1)
-            {
-                Debug.LogError(this.gameObject.name + " is in state: PATROLING, and has no idea what to do");
-            }
-        }
-        else if (state == EnemyState.CHASINGPLAYER)
-        {
-            triggerPatrolingStateChange = true;
-
-            hit = Physics2D.Raycast(transform.position, player.transform.position, maxChaseDist, ~noEnemy);
-            
-            if (hit.collider == null)
-            {
-                if (!moving)
+                else if (enemyType != 1)
                 {
-                    StartCoroutine(EnemyChaseMove(player.transform.position.x, player.transform.position.y));
+                    Debug.LogError(this.gameObject.name + " is in state: PATROLING, and has no idea what to do");
                 }
             }
-            else
+            else if (state == EnemyState.CHASINGPLAYER)
             {
-                lastSawPlayer = new Vector2(Mathf.RoundToInt(player.transform.position.x), Mathf.RoundToInt(player.transform.position.y));
-                state = EnemyState.CHASINGLASTSEEN;
+                triggerPatrolingStateChange = true;
+
+                hit = Physics2D.Raycast(transform.position, player.transform.position, maxChaseDist, ~noEnemy);
+            
+                if (hit.collider == null)
+                {
+                    if (!moving)
+                    {
+                        StartCoroutine(EnemyChaseMove(player.transform.position.x, player.transform.position.y));
+                    }
+                }
+                else
+                {
+                    lastSawPlayer = new Vector2(Mathf.RoundToInt(player.transform.position.x), Mathf.RoundToInt(player.transform.position.y));
+                    state = EnemyState.CHASINGLASTSEEN;
+                }
             }
-        }
-        else if (state == EnemyState.CHASINGLASTSEEN)
-        {
-            StartCoroutine(GoToCoord(lastSawPlayer.x, lastSawPlayer.y));
+            else if (state == EnemyState.CHASINGLASTSEEN)
+            {
+                StartCoroutine(GoToCoord(lastSawPlayer.x, lastSawPlayer.y));
+            }
         }
     }
 

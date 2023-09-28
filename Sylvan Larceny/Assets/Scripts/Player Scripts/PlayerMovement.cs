@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     // 1 = N, 2 = NE, 3 = E, 4 = SE, 5 = S, 6 = SW, 7 = W, 8 = NW
     public int faceDir;
 
-    bool moving;
+    public bool moving;
 
     RaycastHit2D hit;
     bool moveLegal = true;
@@ -44,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         // If the move timer has hit 0, allow the player to input a movement
-        if (atu.actionTimer <= 0 && !moving)
+        if (atu.actionTimer <= 0 && !moving && Time.timeScale != 0)
         {
             if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
             {
@@ -170,27 +170,30 @@ public class PlayerMovement : MonoBehaviour
             }
 
             // The actual movement part
-            for (int i = 0; i <= timingVar; i++)
+            if (Time.timeScale != 0)
             {
-                if (xValue == 1)
+                for (int i = 0; i <= timingVar; i++)
                 {
-                    tf.position = new Vector2(tf.position.x + (1 / timingVar), tf.position.y);
-                }
-                else if (xValue == -1)
-                {
-                    tf.position = new Vector2(tf.position.x - (1 / timingVar), tf.position.y);
-                }
+                    if (xValue == 1)
+                    {
+                        tf.position = new Vector2(tf.position.x + (1 / timingVar), tf.position.y);
+                    }
+                    else if (xValue == -1)
+                    {
+                        tf.position = new Vector2(tf.position.x - (1 / timingVar), tf.position.y);
+                    }
 
-                if (yValue == 1)
-                {
-                    tf.position = new Vector2(tf.position.x, tf.position.y + (1 / timingVar));
-                }
-                else if (yValue == -1)
-                {
-                    tf.position = new Vector2(tf.position.x, tf.position.y - (1 / timingVar));
-                }
+                    if (yValue == 1)
+                    {
+                        tf.position = new Vector2(tf.position.x, tf.position.y + (1 / timingVar));
+                    }
+                    else if (yValue == -1)
+                    {
+                        tf.position = new Vector2(tf.position.x, tf.position.y - (1 / timingVar));
+                    }
 
-                yield return null;
+                    yield return null;
+                }
             }
         }
 

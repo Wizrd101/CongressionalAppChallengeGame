@@ -8,12 +8,17 @@ public class CameraMove : MonoBehaviour
     Transform camTf;
 
     Transform playerTf;
+    PlayerMovement pm;
 
-    Vector2 playerRelPos;
+    bool canCamMove;
+
+    [SerializeField] Vector2 playerRelPos;
 
     [SerializeField] float edgeDetectConstant;
 
     [SerializeField] float cameraMoveTimer;
+
+    [SerializeField] bool timePaused;
 
     void Start()
     {
@@ -21,11 +26,16 @@ public class CameraMove : MonoBehaviour
         camTf = GetComponent<Transform>();
 
         playerTf = GameObject.FindWithTag("Player").GetComponent<Transform>();
+        pm = GameObject.FindWithTag("Player").GetComponent<PlayerMovement>();
 
         if (cameraMoveTimer == 0)
         {
             cameraMoveTimer = 60;
         }
+
+        timePaused = false;
+
+        canCamMove = true;
     }
 
     void Update()
@@ -56,34 +66,49 @@ public class CameraMove : MonoBehaviour
 
     IEnumerator CameraMovePosition(int camMoveDir)
     {
-        Time.timeScale = 0;
-
-        for (float i = 0; i >= cameraMoveTimer; i++)
+        if (canCamMove)
         {
-            // Left
-            if (camMoveDir == 1)
-            {
-                camTf.position = new Vector2(camTf.position.x - 1 / cameraMoveTimer, camTf.position.y);
-            }
-            // Right
-            else if (camMoveDir == 2)
-            {
-                camTf.position = new Vector2(camTf.position.x + 1 / cameraMoveTimer, camTf.position.y);
-            }
-            // Top
-            else if (camMoveDir == 3)
-            {
-                camTf.position = new Vector2(camTf.position.x, camTf.position.y + 1 / cameraMoveTimer);
-            }
-            // Bottom
-            else
-            {
-                camTf.position = new Vector2(camTf.position.x, camTf.position.y - 1 / cameraMoveTimer);
-            }
+            canCamMove = false;
 
-            yield return new WaitForSecondsRealtime(0.02f);
+            Debug.Log("Cam move called");
+        
+            Time.timeScale = 0;
+            timePaused = true;
+
+            for (float i = 0; i <= cameraMoveTimer; i++)
+            {
+                // Left
+                if (camMoveDir == 1)
+                {
+                    camTf.position = new Vector3(camTf.position.x - ((cam.orthographicSize * cam.aspect * 2) - 1) / cameraMoveTimer, camTf.position.y, -10);
+                }
+                // Right
+                else if (camMoveDir == 2)
+                {
+                    camTf.position = new Vector3(camTf.position.x + ((cam.orthographicSize * cam.aspect * 2) - 1) / cameraMoveTimer, camTf.position.y, -10);
+                }
+                // Top
+                else if (camMoveDir == 3)
+                {
+                    camTf.position = new Vector3(camTf.position.x, camTf.position.y + ((cam.orthographicSize * 2) - 1) / cameraMoveTimer, -10);
+                }
+                // Bottom
+                else
+                {
+                    camTf.position = new Vector3(camTf.position.x, camTf.position.y - ((cam.orthographicSize * 2) - 1) / cameraMoveTimer, -10);
+                }
+
+                yield return new WaitForSecondsRealtime(1 / cameraMoveTimer);
+            }
+            
+            camTf.position = new Vector3(Mathf.RoundToInt(camTf.position.x), Mathf.RoundToInt(camTf.position.y), -10f);
+
+            timePaused = false;
+            Time.timeScale = 1;
+
+            canCamMove = true;
+
+            Debug.Log("Cam move finished");
         }
-
-        Time.timeScale = 1;
     }
 }
