@@ -130,6 +130,7 @@ GameObject:
   m_Component:
   - component: {fileID: 55508597}
   - component: {fileID: 55508598}
+  - component: {fileID: 55508599}
   m_Layer: 6
   m_Name: Bot-Left
   m_TagString: Untagged
@@ -198,6 +199,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.01, y: 0.01}
   m_EdgeRadius: 0
+--- !u!114 &55508599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 55508596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f262901e737f0e94f9b77a09ca70eb94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisColHide: 0
 --- !u!1 &55838419
 GameObject:
   m_ObjectHideFlags: 0
@@ -921,6 +935,7 @@ GameObject:
   m_Component:
   - component: {fileID: 302990163}
   - component: {fileID: 302990164}
+  - component: {fileID: 302990165}
   m_Layer: 6
   m_Name: Top-Left
   m_TagString: Untagged
@@ -989,6 +1004,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.01, y: 0.01}
   m_EdgeRadius: 0
+--- !u!114 &302990165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302990162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f262901e737f0e94f9b77a09ca70eb94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisColHide: 0
 --- !u!1 &327732961
 GameObject:
   m_ObjectHideFlags: 0
@@ -1363,7 +1391,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c898bc6bbb2a2444a3333367d885d25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapHideCol: {fileID: 0}
+  mapHideCol: {fileID: 9066582120143980946}
+  hiding: 0
 --- !u!1 &391488422
 GameObject:
   m_ObjectHideFlags: 0
@@ -2403,6 +2432,7 @@ GameObject:
   m_Component:
   - component: {fileID: 750837053}
   - component: {fileID: 750837054}
+  - component: {fileID: 750837055}
   m_Layer: 6
   m_Name: Top-Right
   m_TagString: Untagged
@@ -2471,6 +2501,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.01, y: 0.01}
   m_EdgeRadius: 0
+--- !u!114 &750837055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 750837052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f262901e737f0e94f9b77a09ca70eb94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisColHide: 0
 --- !u!1 &977203885
 GameObject:
   m_ObjectHideFlags: 0
@@ -2615,6 +2658,7 @@ GameObject:
   m_Component:
   - component: {fileID: 982986625}
   - component: {fileID: 982986626}
+  - component: {fileID: 982986627}
   m_Layer: 6
   m_Name: Bot-Right
   m_TagString: Untagged
@@ -2683,6 +2727,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.01, y: 0.01}
   m_EdgeRadius: 0
+--- !u!114 &982986627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982986624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f262901e737f0e94f9b77a09ca70eb94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisColHide: 0
 --- !u!1 &1050570093
 GameObject:
   m_ObjectHideFlags: 0
