@@ -5,6 +5,11 @@ using UnityEngine;
 public class OnSceneLoad : MonoBehaviour
 {
     GameObject player;
+    Animator playerAnim;
+
+    public GameObject tpCirclePrefab;
+    GameObject tpCircleGO;
+    Animator circleAnim;
 
     [SerializeField] Vector2 playerStartPos;
 
@@ -17,7 +22,12 @@ public class OnSceneLoad : MonoBehaviour
     {
         Physics2D.queriesHitTriggers = false;
 
-        player.transform.position = playerStartPos;
+        tpCircleGO = Instantiate(tpCirclePrefab, playerStartPos, Quaternion.identity);
+
+        //player.transform.position = playerStartPos;
+
+        playerAnim = player.GetComponentInChildren<Animator>();
+        circleAnim = tpCircleGO.GetComponentInChildren<Animator>();
 
         StartCoroutine(LateStart());
     }
