@@ -2770,6 +2770,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5bc2bd89cb6011468121b1bad975f20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tpCirclePrefab: {fileID: 0}
   playerStartPos: {x: 0, y: 0}
 --- !u!4 &1050570095
 Transform:
