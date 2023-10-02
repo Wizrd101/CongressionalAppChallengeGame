@@ -1,21 +1,32 @@
+using Pathfinding.Serialization;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
     Transform tf;
-    Rigidbody2D rb;
 
-    Slider moveSlider;
     ActionTimerUpdate atu;
 
     AdrenalineMode AMscript;
 
+    Camera cam;
+
+    List <Transform> enemies = new List <Transform>();
+
+    Vector2 enemyToPlayer;
+    Vector2 closestEnemyToPlayer;
+    Vector2 tempEnemyPos;
+    float atuTimerUpdate;
+    bool enemyOnScreen;
+
     public LayerMask playerAndEnemyMask;
 
     public float timingVar = 60;
+    [SerializeField] float atuTimerCoefficent;
 
     int xMove;
     int yMove;
@@ -32,10 +43,23 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         tf = GetComponent<Transform>();
-        rb = GetComponent<Rigidbody2D>();
         AMscript = GetComponent<AdrenalineMode>();
 
         atu = GameObject.Find("ActionTimerController").GetComponent<ActionTimerUpdate>();
+
+        cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+
+        foreach (GameObject enemyGO in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+            enemyGO.GetComponent<Transform>();
+        }
+
+        atuTimerUpdate = 0;
+
+        if (atuTimerCoefficent == 0)
+        {
+            atuTimerCoefficent = 4;
+        }
 
         moving = false;
     }
@@ -135,8 +159,6 @@ public class PlayerMovement : MonoBehaviour
             hit = Physics2D.Raycast(transform.position, new Vector2(xValue, 0), 1, ~playerAndEnemyMask);
             if (hit.collider != null)
             {
-                //Debug.Log(hit.collider.name);
-                Debug.Log("X check failed");
                 moveLegal = false;
             }
         }
@@ -166,7 +188,59 @@ public class PlayerMovement : MonoBehaviour
             // Update the action timer
             if (!AMscript.inAM)
             {
-                atu.UpdateTimer(2);
+                closestEnemyToPlayer = new Vector2(999, 999);
+                enemyOnScreen = false;
+
+                foreach (Transform enemy in enemies)
+                {
+                    tempEnemyPos = cam.WorldToViewportPoint(enemy.position);
+
+                    if (tempEnemyPos.x < 0.5f)
+                    {
+                        tempEnemyPos.x -= ((enemy.gameObject.GetComponent<BoxCollider2D>().size.x / 2) / Screen.width);
+                    }
+                    else
+                    {
+                        tempEnemyPos.x += ((enemy.gameObject.GetComponent<BoxCollider2D>().size.x / 2) / Screen.width);
+                    }
+
+                    if (tempEnemyPos.y < 0.5f)
+                    {
+                        tempEnemyPos.y -= ((enemy.gameObject.GetComponent<BoxCollider2D>().size.y / 2) / Screen.height);
+                    }
+                    else
+                    {
+                        tempEnemyPos.y += ((enemy.gameObject.GetComponent<BoxCollider2D>().size.y / 2) / Screen.height);
+                    }
+
+                    if (!enemy.gameObject.GetComponent<StunController>().stunned)
+                    {
+                        if ((0 < tempEnemyPos.x && tempEnemyPos.x < 1 && 0 < tempEnemyPos.y && tempEnemyPos.y < 1) || enemy.GetComponent<EnemyState>() == EnemyState.CHASINGPLAYER)
+                        {
+                            enemyToPlayer = enemy.position - tf.position;
+
+                            if (enemyToPlayer.magnitude < closestEnemyToPlayer.magnitude)
+                            {
+                                closestEnemyToPlayer = enemyToPlayer;
+                            }
+                        }
+                        else
+                        {
+                            enemyOnScreen = true;
+                        }
+                    }
+                }
+
+                if (enemyOnScreen)
+                {
+                    atuTimerUpdate = timingVar / 60;
+                }
+                else
+                {
+                    atuTimerUpdate = timingVar / 60 + closestEnemyToPlayer.magnitude / atuTimerCoefficent;
+                }
+
+                atu.UpdateTimer(atuTimerUpdate);
             }
 
             // The actual movement part

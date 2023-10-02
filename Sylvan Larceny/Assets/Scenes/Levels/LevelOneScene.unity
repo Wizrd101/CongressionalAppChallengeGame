@@ -754,7 +754,7 @@ GameObject:
   - component: {fileID: 265108573}
   - component: {fileID: 265108574}
   - component: {fileID: 265108575}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: PlayerSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3034,7 +3034,7 @@ GameObject:
   - component: {fileID: 1173639858}
   - component: {fileID: 1173639859}
   - component: {fileID: 1173639860}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: DetectionCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3938,7 +3938,7 @@ GameObject:
   - component: {fileID: 1553848015}
   - component: {fileID: 1553848016}
   - component: {fileID: 1553848017}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: EnemySprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

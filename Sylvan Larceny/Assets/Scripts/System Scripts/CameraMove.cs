@@ -8,7 +8,6 @@ public class CameraMove : MonoBehaviour
     Transform camTf;
 
     Transform playerTf;
-    PlayerMovement pm;
 
     bool canCamMove;
 
@@ -26,7 +25,6 @@ public class CameraMove : MonoBehaviour
         camTf = GetComponent<Transform>();
 
         playerTf = GameObject.FindWithTag("Player").GetComponent<Transform>();
-        pm = GameObject.FindWithTag("Player").GetComponent<PlayerMovement>();
 
         if (cameraMoveTimer == 0)
         {
