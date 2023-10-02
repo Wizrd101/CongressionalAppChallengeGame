@@ -1192,6 +1192,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 192
   timingVar: 60
+  atuTimerCoefficent: 0
   faceDir: 0
   moving: 0
 --- !u!61 &377557007

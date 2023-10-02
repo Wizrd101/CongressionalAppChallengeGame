@@ -18,5 +18,12 @@ public class OnSceneLoad : MonoBehaviour
         Physics2D.queriesHitTriggers = false;
 
         player.transform.position = playerStartPos;
+
+        StartCoroutine(LateStart());
+    }
+
+    IEnumerator LateStart()
+    {
+        yield return null;
     }
 }

@@ -14,8 +14,6 @@ public class EnemyMove : MonoBehaviour
 {
     Transform tf;
 
-    EnemyDetectPlayer detectScript;
-
     public GameObject player;
 
     public EnemyState state;
@@ -28,7 +26,6 @@ public class EnemyMove : MonoBehaviour
 
     bool triggerPatrolingStateChange;
     bool triggerPatrolingLogic;
-    bool triggerChaseLastSeenStateChange;
 
     bool moveLegal;
     bool moving;
@@ -84,8 +81,6 @@ public class EnemyMove : MonoBehaviour
     void Start()
     {
         tf = GetComponent<Transform>();
-
-        detectScript = GetComponentInChildren<EnemyDetectPlayer>();
 
         player = GameObject.FindGameObjectWithTag("Player");
 
