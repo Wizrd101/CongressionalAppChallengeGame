@@ -4435,7 +4435,7 @@ GameObject:
   - component: {fileID: 1819413842}
   - component: {fileID: 1819413841}
   - component: {fileID: 1819413840}
-  - component: {fileID: 1819413839}
+  - component: {fileID: 1819413844}
   - component: {fileID: 1819413843}
   m_Layer: 7
   m_Name: Enemy1
@@ -4444,24 +4444,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1819413839
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1819413838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1368b95f5755b4648a9985c1c7783234, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 377557005}
-  state: 0
-  playerAndEnemy:
-    serializedVersion: 2
-    m_Bits: 192
-  enemyType: 2
 --- !u!61 &1819413840
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4567,6 +4549,24 @@ MonoBehaviour:
   baseColor: {r: 0, g: 0, b: 0, a: 0}
   stunColor: {r: 0, g: 0, b: 0, a: 0}
   stunned: 0
+--- !u!114 &1819413844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819413838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1368b95f5755b4648a9985c1c7783234, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  state: 0
+  playerAndEnemy:
+    serializedVersion: 2
+    m_Bits: 0
+  enemyType: 0
 --- !u!1 &1820101785
 GameObject:
   m_ObjectHideFlags: 0
