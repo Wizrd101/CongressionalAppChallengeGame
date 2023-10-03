@@ -392,7 +392,19 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      forestfloortall_0: 1382826036970578500
+      forestfloortall_1: -4302958220817661115
+      forestfloortall_10: 292983509402095224
+      forestfloortall_11: 7783180761784843354
+      forestfloortall_2: 8065284824909699917
+      forestfloortall_3: 8724410138185484943
+      forestfloortall_4: 7261104420490793957
+      forestfloortall_5: -7867113889630321473
+      forestfloortall_6: 5650527590580404479
+      forestfloortall_7: -5447371540779481535
+      forestfloortall_8: -2146872552757212098
+      forestfloortall_9: 6815398466640079144
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
