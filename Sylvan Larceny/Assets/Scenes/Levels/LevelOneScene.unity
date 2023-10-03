@@ -1792,7 +1792,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAACAn+uiNXIUNQAAAD4AAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNEz0jM011FQSi9KLMgoBooYgDilmSkgdnQskFNSWZDql5ibChGoBQBQSwECLQAUAAAICAAAgJ/rojVyFDUAAAA+AAAACQAkAAAAAAAAAAAAAAAAAAAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAABAAEAWwAAAIAAAAAAAA==
+    dataString: UEsDBBQAAAgIAACAn+s35HZrbQIAACkFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFlVMFy2jAQ/RVG58LYBFPcW0sI6YGECe3k4otirbEGWfJIcoBk+PdqZYEdl4vt93bfvl2t+CRcmhpyq/Rac7ZRDMiPEcF38m3UkY9wonsld/wDrjGvnNkSg6iPeaGWK4fHmGZUBVbz/KfcCwyOHNhIXihdrdgelspY4+CCCgOO0spitnTQ54ic3GOcYso5pH7gc3RxbzlIC7qLixeTFH/zaQgfx/FkhsgiDonj+SRJ5km8GkffvUYjc0GrGhh200kld0HibubDpOszRKBUroTgJpgk9lz7IezqEjTgFBinrmfvDcNL4PvSuo9pP/e5KAzY0JWm53uu3ehaUfJLtfOsqDm0tt6paLBMEk+9pVZ08x8/jj1daFU9XuvGEdawJc8PL/ScU2N7A+/D91+NN/JIxYG+CXgtQT6ptVaNZI60usHUxsD0vvu8tbYsIT90eGt1ADZ1N+7h+WIPF9/9aSl49YbUZNYCO6H8uP1SgHYH89sZ9itjgoRD0cVfA3/ovr9bgXjg2lhHhS4l2ntTjcZQsvIzw24au1RagoeD6RokFfa8dTJ2eIQDrld2wDxQvEWheOCul2OQ4uEuPooG1FYdb4dlSnXcgCmfGyu4hM40Ek9uTkslZbth/Zlc03aNLmjeS9s3nH1dLZJPE8rmaQELlrIC6JhGKZ0lUQrFYpGzWUr87nHp+qRi2xoN43GnJjtx6fYMFZ1Zw1l7aTQ9rvlHpXrz5rJQu1wDyOc2/eYatKvgbiRbMe6mswNrufSHTT4zIlR+AJbdhDLf5upkNc06lYzU/F1ZRDKy9P8mGUH4tshbDe8cjlj8KnYhl39QSwMEFAAACAgAAICf61GKoTZtAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTXUVBKL0osyCgGihiCOKWZKSB2tFKykWliipllWqpFimVKWmqibqKBZaKJqYFlapqFRXKKiaVSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAAICf6zfkdmttAgAAKQUAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAAICf61GKoTZtAAAAeAAAAAkAJAAAAAAAAAAAAAAAugIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAAByAwAAAAA=
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
@@ -1824,7 +1824,7 @@ MonoBehaviour:
   heuristic: 2
   heuristicScale: 1
   threadCount: 1
-  maxFrameTime: 1
+  maxFrameTime: 10
   batchGraphUpdates: 0
   graphUpdateBatchingInterval: 0.2
   euclideanEmbedding:
@@ -1832,7 +1832,7 @@ MonoBehaviour:
     seed: 0
     pivotPointRoot: {fileID: 0}
     spreadOutCount: 1
-  showGraphs: 0
+  showGraphs: 1
 --- !u!4 &621178238
 Transform:
   m_ObjectHideFlags: 0
@@ -65760,7 +65760,7 @@ GameObject:
   - component: {fileID: 9092499991104682064}
   - component: {fileID: 5261587132765483302}
   - component: {fileID: 9092499991104682063}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Walls
   m_TagString: Walls
   m_Icon: {fileID: 0}
