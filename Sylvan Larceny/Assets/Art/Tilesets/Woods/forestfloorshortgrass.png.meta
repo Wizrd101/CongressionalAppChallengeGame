@@ -70,7 +70,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -84,7 +84,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -108,7 +108,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -392,7 +392,19 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      forestfloorshortgrass_0: 8705826536250961747
+      forestfloorshortgrass_1: 3437914569179247657
+      forestfloorshortgrass_10: 2122341348785878862
+      forestfloorshortgrass_11: 3770518799123729726
+      forestfloorshortgrass_2: -4396624275748614324
+      forestfloorshortgrass_3: -1494124185909336894
+      forestfloorshortgrass_4: -1131909776897495417
+      forestfloorshortgrass_5: 5735173875092863610
+      forestfloorshortgrass_6: -8760818188963003957
+      forestfloorshortgrass_7: -5570296545820928361
+      forestfloorshortgrass_8: -5377614448686663506
+      forestfloorshortgrass_9: -1239955639357707661
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
