@@ -16,6 +16,8 @@ public class OnSceneLoad : MonoBehaviour
     void Awake()
     {
         player = GameObject.FindWithTag("Player");
+
+        Screen.SetResolution(1920, 1080, true);
     }
 
     void Start()
