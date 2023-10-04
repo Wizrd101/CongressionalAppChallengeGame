@@ -422,7 +422,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 112342562}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: LastSawPlayerPoint
   m_TagString: Untagged
   m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
@@ -4599,6 +4599,8 @@ MonoBehaviour:
   playerAndEnemyLayerMask:
     serializedVersion: 2
     m_Bits: 0
+  baseSpeed: 0
+  chaseSpeed: 0
 --- !u!114 &1819413845
 MonoBehaviour:
   m_ObjectHideFlags: 0
