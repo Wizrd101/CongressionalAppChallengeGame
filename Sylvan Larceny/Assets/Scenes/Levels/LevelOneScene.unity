@@ -413,6 +413,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &112342561
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 112342562}
+  m_Layer: 7
+  m_Name: LastSawPlayerPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &112342562
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112342561}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1819413842}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &200419051
 GameObject:
   m_ObjectHideFlags: 0
@@ -2162,8 +2193,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c03cc4f35253da74ba496fcba40b6f76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
-  currentRes: {x: 0, y: 0}
 --- !u!1 &657441904
 GameObject:
   m_ObjectHideFlags: 0
@@ -4438,6 +4467,7 @@ GameObject:
   - component: {fileID: 1819413844}
   - component: {fileID: 1819413846}
   - component: {fileID: 1819413845}
+  - component: {fileID: 1819413847}
   - component: {fileID: 1819413843}
   m_Layer: 7
   m_Name: Enemy1
@@ -4534,6 +4564,7 @@ Transform:
   m_Children:
   - {fileID: 1553848015}
   - {fileID: 1173639858}
+  - {fileID: 112342562}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!114 &1819413843
@@ -4563,8 +4594,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d206858b4cdcf474bb1f0c747a8cf380, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyState: 0
   player: {fileID: 0}
+  enemyState: 0
   playerAndEnemyLayerMask:
     serializedVersion: 2
     m_Bits: 0
@@ -4592,8 +4623,8 @@ MonoBehaviour:
   centerOffsetCompatibility: NaN
   repathRateCompatibility: NaN
   canSearchCompability: 0
-  orientation: 0
-  enableRotation: 1
+  orientation: 1
+  enableRotation: 0
   autoRepath:
     mode: 2
     interval: 0.5
@@ -4638,6 +4669,20 @@ MonoBehaviour:
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
+--- !u!114 &1819413847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819413838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9679e68a0f1144e79c664d9a11ca121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  target: {fileID: 0}
 --- !u!1 &1820101785
 GameObject:
   m_ObjectHideFlags: 0
