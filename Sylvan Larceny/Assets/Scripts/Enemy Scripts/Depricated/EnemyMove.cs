@@ -8,7 +8,10 @@ using UnityEngine;
 using static UnityEditor.Experimental.GraphView.GraphView;
 using static UnityEngine.Rendering.DebugUI;
 
-public enum EnemyState { PATROLING, CHASINGPLAYER, CHASINGLASTSEEN}
+// IMPORTANT: Script has been depricated to allow the use of A* instead:
+// More recent script is called EnemyAI
+
+public enum EnemyState { PATROLING, CHASINGPLAYER, CHASINGLASTSEEN }
 
 public class EnemyMove : MonoBehaviour
 {

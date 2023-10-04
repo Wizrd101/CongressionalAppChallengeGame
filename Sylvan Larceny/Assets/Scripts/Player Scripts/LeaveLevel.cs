@@ -59,7 +59,7 @@ public class LeaveLevel : MonoBehaviour
         notTargeted = true;
         foreach (GameObject enemy in enemies)
         {
-            if (enemy.GetComponent<EnemyMove>().state != EnemyState.PATROLING)
+            if (enemy.GetComponent<EnemyAI>().enemyState != EnemyAIState.Patroling)
             {
                 notTargeted = false;
             }

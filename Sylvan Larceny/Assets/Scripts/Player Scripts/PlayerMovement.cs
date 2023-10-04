@@ -215,7 +215,7 @@ public class PlayerMovement : MonoBehaviour
 
                     if (!enemy.gameObject.GetComponent<StunController>().stunned)
                     {
-                        if ((0 < tempEnemyPos.x && tempEnemyPos.x < 1 && 0 < tempEnemyPos.y && tempEnemyPos.y < 1) || enemy.GetComponent<EnemyState>() == EnemyState.CHASINGPLAYER)
+                        if ((0 < tempEnemyPos.x && tempEnemyPos.x < 1 && 0 < tempEnemyPos.y && tempEnemyPos.y < 1) || enemy.GetComponent<EnemyAIState>() == EnemyAIState.ChasingPlayer)
                         {
                             enemyToPlayer = enemy.position - tf.position;
 
