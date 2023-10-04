@@ -27,7 +27,7 @@ public class AdrenalineMode : MonoBehaviour
 
     public bool inAM;
 
-    public List<EnemyMove> enemies = new List<EnemyMove>();
+    public List<EnemyAI> enemies = new List<EnemyAI>();
     bool enemyInSight;
     int enemyCounter;
 
@@ -51,9 +51,9 @@ public class AdrenalineMode : MonoBehaviour
 
         foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
         {
-            if (enemy.GetComponent<EnemyMove>() != null)
+            if (enemy.GetComponent<EnemyAI>() != null)
             {
-                enemies.Add(enemy.GetComponent<EnemyMove>());
+                enemies.Add(enemy.GetComponent<EnemyAI>());
             }
         }
 
@@ -71,9 +71,9 @@ public class AdrenalineMode : MonoBehaviour
 
     void Update()
     {
-        foreach (EnemyMove move in enemies)
+        foreach (EnemyAI move in enemies)
         {
-            if (move.state == EnemyState.CHASINGPLAYER)
+            if (move.enemyState == EnemyAIState.ChasingPlayer)
             {
                 enemyInSight = true;
                 enemyCounter++;

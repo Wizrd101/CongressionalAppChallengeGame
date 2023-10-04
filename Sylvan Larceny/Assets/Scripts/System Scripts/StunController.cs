@@ -1,3 +1,4 @@
+using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -11,7 +12,7 @@ public class StunController : MonoBehaviour
     ThrowRock ptr;
     AdrenalineMode am;
 
-    EnemyMove em;
+    AIPath ePath;
     EnemyDetectPlayer edp;
 
     Animator anim;
@@ -45,7 +46,7 @@ public class StunController : MonoBehaviour
         }
         else
         {
-            em = GetComponent<EnemyMove>();
+            ePath = GetComponent<AIPath>();
             edp = GetComponentInChildren<EnemyDetectPlayer>();
             
             isPlayer = false;
@@ -79,10 +80,10 @@ public class StunController : MonoBehaviour
         }
         else
         {
-            em.enabled = false;
+            ePath.canMove = false;
             edp.enabled = false;
             yield return new WaitForSeconds(enemyStunTime);
-            em.enabled = true;
+            ePath.canMove = true;
             edp.enabled = true;
         }
 
