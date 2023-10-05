@@ -5,7 +5,9 @@ using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public enum EnemyAIState { Patroling, ChasingPlayer, ChasingLastSeen}
+// This script controls the state changes of the 
+
+public enum EnemyAIState { Start, Patroling, ChasingPlayer, ChasingLastSeen}
 
 public class EnemyAI : MonoBehaviour
 {
@@ -23,7 +25,7 @@ public class EnemyAI : MonoBehaviour
     Animator anim;
 
     public GameObject player;
-    GameObject lastSawPlayerPoint;
+    Transform playerLastSeenPoint;
 
     public EnemyAIState enemyState;
     EnemyAIState oldEnemyState;
@@ -35,7 +37,6 @@ public class EnemyAI : MonoBehaviour
 
     void Start()
     {
-        enemyAStarScript = GetComponent<AIPath>();
         enemySetTargetScript = GetComponent<AIDestinationSetter>();
 
         anim = GetComponentInChildren<Animator>();
@@ -78,24 +79,30 @@ public class EnemyAI : MonoBehaviour
         }
 
         player = GameObject.FindWithTag("Player");
-        lastSawPlayerPoint = transform.GetChild(3).gameObject;
+        playerLastSeenPoint = player.transform;
 
+        oldEnemyState = EnemyAIState.Start;
         enemyState = EnemyAIState.Patroling;
 
         if (baseSpeed == 0)
             baseSpeed = 0.5f;
         if (chaseSpeed == 0)
             chaseSpeed = 1f;
-        enemyAStarScript.maxSpeed = baseSpeed;
     }
 
     void Update()
     {
         if (oldEnemyState != enemyState)
         {
+            if (oldEnemyState == EnemyAIState.Start)
+            {
+                oldEnemyState = EnemyAIState.Start;
+            }
+            
             if (enemyState == EnemyAIState.Patroling)
             {
                 enemyAStarScript.maxSpeed = baseSpeed;
+
                 if (epsBase == 1)
                     esBase.enabled = true;
                 else if (epsBase == 2) 
@@ -115,21 +122,29 @@ public class EnemyAI : MonoBehaviour
                     epBase.enabled = false;
                 else if (epsBase == 4)
                     ewBase.enabled = false;
+
                 enemyAStarScript.maxSpeed = chaseSpeed;
+
+                enemySetTargetScript.target = player.transform;
             }
+            // Transitioning to ChasingLastSeen
             else
             {
-                lastSawPlayerPoint.transform.position = player.transform.position;
+                playerLastSeenPoint.position = new Vector3 (Mathf.RoundToInt(player.transform.position.x), Mathf.RoundToInt(player.transform.position.y), 0);
+
+
+                enemySetTargetScript.target = playerLastSeenPoint;
             }
         }
+        else
+        {
+            if (enemyState == EnemyAIState.ChasingLastSeen)
+            {
+                if (transform.position == playerLastSeenPoint.position)
+                {
 
-        if (enemyState == EnemyAIState.ChasingPlayer)
-        {
-            enemySetTargetScript.target = player.transform;
-        }
-        else if (enemyState == EnemyAIState.ChasingLastSeen)
-        {
-            enemySetTargetScript.target = lastSawPlayerPoint.transform;
+                }
+            }
         }
     }
 

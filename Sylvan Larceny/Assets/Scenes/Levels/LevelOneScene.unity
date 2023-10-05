@@ -1823,7 +1823,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAACAn+sLoRYfbQIAACYFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VMFy2jAQ/RVG58LYBFPcW0tI0kMSJqSTiy/CWmMNssRIcoBk+PfuygY7dMrF+O3u27dPK38yqd0Ocm/svZXi0QhgPwaM/rNvgy74AAe+MXolP+Cc8yaFLymJh5wX7qVBPKYyZyrwVuY/9UZRcoRgrWVhbLUQG5gb5x3CBVcOMGSNp2qN0OeAHfAxTKnk2JZ+0HNwwn85aA+2y4tno5R+03GbPozj0YSQWdwWDqejJJkm8WIYfQ8ctc4Vr3YgaJqOKrlpKW4mIU3jnG0GUeVGKelakcwfd8GEF34kC4TkOHAQRnpLkJvS48u4X/hcFA58m2L58VZa9K1hZL9MY2bF3bbR9M5VTT2SeBz0NKSP/8SHcQgX1lQP575xRD18KfMtKsy58z23+/BtJzwO1uy52vK1grcS9JO5t6bWAoPe1lRaOxjfdq+X0eYl5NsOb6RegfWu8/r6cGmGU5j+MFeyWlNoNGmAlTLB67ARYPFUfqPgsC+upUCUVPxx8Mo3/cVqA3fSOo+hdkpN8tamtpTKFsEzmqb2c2M12D7DDjRX/rhEHn99hlex/1fdcbpDbfc2dr4aVyUB7vKj6Cq0NPvLabnS7B/Blc+1V1JDZzUFntCoudG6WTH3NUhVq9oWPO9VbWopvq4Wy8cJF9O0gJlIRQF8yKOUT5IohWI2y8UkZWH3pMYxuVo2Olt38NR0R65xz4gRtTqJHxC6NJbv7+VHZXripC7MKrcA+rkpP9vjwGIHvI5iISSaswLvpQ6HzT4zpky+BZFdiLIw5uLgLc86lozt5LvxhGRsHj4lGSP4sshLC+8S9tT8THZip79QSwMEFAAACAgAAICf61GKoTZtAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTXUVBKL0osyCgGihiCOKWZKSB2tFKykWliipllWqpFimVKWmqibqKBZaKJqYFlapqFRXKKiaVSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAAICf6wuhFh9tAgAAJgUAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAAICf61GKoTZtAAAAeAAAAAkAJAAAAAAAAAAAAAAAugIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAAByAwAAAAA=
+    dataString: UEsDBBQAAAgIAACAn+vniv02WgIAAA8FAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VMFy2jAQ/RVG55KxCXTi3lpCSA8kTGgmF18UaY01yBIjyQGS4d+7Kxts6PRke9++3bdvJX8xZfwWRLBu7pRcWAnsx4DRO/s26MBH2PO1NSv1CaecNyVDSUk85rzwoCzGU6J5W0FwSvw0a03JCQZrowrrqplcw9T64DFccO0BIWcDsQ2GvgZsj49hRpRDS/2k5+CIbwJMANflpVmbNkzTm8lFam2E5tUWJInuGJPblnE7jmkGx2kzSLqwWivfamHhsI2zvvADTSoVx7li/+SGOpeg1mXAz1Gf+lwUHkKr3fHDvXJoUFOT/bKNaxX3m0bVB9c1dZmko6ioKbr4Bx+mES6crR5PfdOEeoRSiQ1qFNyHnq398H0nPY3m7Lje8HcNbyWYJzt3tjYSweBqotYeRvfd53m0aQli08UbqVfBetu5fb1FmuEYp99Ptareo5PjJrDSNrodVw8O9/IbBceD4dsSGCUVrx7+8HX/BLXAg3I+INROaUjeu60dpbJZ9IymqcPUOgOuX2ELhutwWGKdcL3DK+z/rAdOl6Xt3mKnO3BFieEuP0muoKXdnbflS7tbgC+f66CVgc5qAp7QqKk1pjli/hIk1qp2BRc91rpW8vJoMTGacPk9K+BOZrIAPuRJxseTJIPi7k7Iccbi2VMGx+R62ehs3cGtma64wXNGFVGrV/inoGvj+G6uPivbE6dMYVfCAZjnhn6yx4PDDngh5UwqNGcFISgTl82+cqat2IDMz4XyOOZsHxzPuyo526oPGyiSs2n8Z+SMwueDvHTwoWBHzU/Fjuz4F1BLAwQUAAAICAAAgJ/rUYqhNm0AAAB4AAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAatWKkstKs7Mz1OyUjDRM9IzNNdRUEovSizIKAaKGII4pZkpIHa0UrKRaWKKmWVaqkWKZUpaaqJuooFloompgWVqmoVFcoqJpVIsUH1JZUGqX2JuKkRPQGJJRlpmXkpmXrqee1FmijvIaKXYWgBQSwECLQAUAAAICAAAgJ/r54r9NloCAAAPBQAACwAkAAAAAAAAAAAAAAAAAAAAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAICAAAgJ/rUYqhNm0AAAB4AAAACQAkAAAAAAAAAAAAAACnAgAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAACAAIAuAAAAF8DAAAAAA==
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
@@ -1851,7 +1851,39 @@ MonoBehaviour:
     _MeshEdgeColor: {r: 0, g: 0, b: 0, a: 0.5}
     _AreaColors:
     - {r: 0, g: 0, b: 0, a: 0}
-  tagNames: []
+  tagNames:
+  - Basic Ground
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  - 8
+  - 9
+  - 10
+  - 11
+  - 12
+  - 13
+  - 14
+  - 15
+  - 16
+  - 17
+  - 18
+  - 19
+  - 20
+  - 21
+  - 22
+  - 23
+  - 24
+  - 25
+  - 26
+  - 27
+  - 28
+  - 29
+  - 30
+  - 31
   heuristic: 2
   heuristicScale: 1
   threadCount: 1
@@ -3984,6 +4016,7 @@ GameObject:
   - component: {fileID: 1553848015}
   - component: {fileID: 1553848016}
   - component: {fileID: 1553848017}
+  - component: {fileID: 1553848018}
   m_Layer: 0
   m_Name: EnemySprite
   m_TagString: Untagged
@@ -4080,6 +4113,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1553848018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553848014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a2ee9d1a81449d409c4c48ef8dc0f4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1611922509
 GameObject:
   m_ObjectHideFlags: 0
@@ -4558,7 +4603,7 @@ Transform:
   m_GameObject: {fileID: 1819413838}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: 2, y: 3, z: 0}
+  m_LocalPosition: {x: -9.14, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4574,7 +4619,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1819413838}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b342ba4604d3ed647aa8b636884091c7, type: 3}
   m_Name: 
@@ -4589,7 +4634,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1819413838}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d206858b4cdcf474bb1f0c747a8cf380, type: 3}
   m_Name: 
@@ -4598,7 +4643,7 @@ MonoBehaviour:
   enemyState: 0
   playerAndEnemyLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 192
   baseSpeed: 0
   chaseSpeed: 0
 --- !u!114 &1819413845
@@ -4608,7 +4653,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1819413838}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
   m_Name: 
@@ -4650,7 +4695,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1819413838}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
   m_Name: 
@@ -4678,7 +4723,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1819413838}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c9679e68a0f1144e79c664d9a11ca121, type: 3}
   m_Name: 
