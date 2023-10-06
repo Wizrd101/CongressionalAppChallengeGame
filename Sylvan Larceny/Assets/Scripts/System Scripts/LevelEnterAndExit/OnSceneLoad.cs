@@ -24,6 +24,8 @@ public class OnSceneLoad : MonoBehaviour
     {
         Physics2D.queriesHitTriggers = false;
 
+        Time.timeScale = 1.0f;
+
         tpCircleGO = Instantiate(tpCirclePrefab, playerStartPos, Quaternion.identity);
 
         //player.transform.position = playerStartPos;

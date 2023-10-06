@@ -8,7 +8,9 @@ public class PauseMenuController : MonoBehaviour
 {
     Canvas pauseCv;
 
-    bool gamePaused;
+    public bool gamePaused;
+
+    public bool gamePausable;
 
     void Start()
     {
@@ -17,6 +19,8 @@ public class PauseMenuController : MonoBehaviour
         pauseCv.enabled = false;
 
         gamePaused = false;
+
+        gamePausable = true;
     }
 
     void Update()
@@ -57,12 +61,15 @@ public class PauseMenuController : MonoBehaviour
 
     void PauseGame()
     {
-        Time.timeScale = 1.0f;
-        pauseCv.enabled = true;
-        gamePaused = false;
+        if (gamePausable)
+        {
+            Time.timeScale = 1.0f;
+            pauseCv.enabled = true;
+            gamePaused = false;
+        }
     }
 
-    void UnpauseGame()
+    public void UnpauseGame()
     {
         Time.timeScale = 1.0f;
         pauseCv.enabled = false;
