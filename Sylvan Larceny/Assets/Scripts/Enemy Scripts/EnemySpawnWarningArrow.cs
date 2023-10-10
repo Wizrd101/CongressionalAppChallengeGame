@@ -10,6 +10,7 @@ public class EnemySpawnWarningArrow : MonoBehaviour
     [SerializeField] GameObject rightPrefab;
 
     GameObject activePrefab;
+    int typeOfPrefab;
 
     Camera cam;
 
@@ -29,6 +30,8 @@ public class EnemySpawnWarningArrow : MonoBehaviour
 
         cam = Camera.main.GetComponent<Camera>();
 
+        typeOfPrefab = 0;
+
         if (generalWarnDist == 0)
             generalWarnDist = 3;
         xWarnDist = generalWarnDist / 16;
@@ -47,21 +50,25 @@ public class EnemySpawnWarningArrow : MonoBehaviour
                 if (enemyRelPos.y > 1)
                 {
                     activePrefab = Instantiate(upPrefab, new Vector3(transform.position.x, rightTop.y, 0), Quaternion.identity);
+                    typeOfPrefab = 1;
                 }
                 // Bottom
                 else if (enemyRelPos.y < 0)
                 {
                     activePrefab = Instantiate(upPrefab, new Vector3(transform.position.x, leftBottom.y, 0), Quaternion.identity);
+                    typeOfPrefab = 2;
                 }
                 // Right
                 else if (enemyRelPos.x > 1)
                 {
                     activePrefab = Instantiate(upPrefab, new Vector3(rightTop.x, transform.position.y, 0), Quaternion.identity);
+                    typeOfPrefab = 3;
                 }
                 // Left
                 else if (enemyRelPos.x < 0)
                 {
                     activePrefab = Instantiate(upPrefab, new Vector3(leftBottom.x, transform.position.y, 0), Quaternion.identity);
+                    typeOfPrefab = 4;
                 }
                 // Logic Error
                 else
