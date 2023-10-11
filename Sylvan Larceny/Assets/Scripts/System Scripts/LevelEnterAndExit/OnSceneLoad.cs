@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class OnSceneLoad : MonoBehaviour
 {
@@ -39,5 +40,12 @@ public class OnSceneLoad : MonoBehaviour
     IEnumerator LateStart()
     {
         yield return null;
+        // DONT FORGET TO SET THIS
+        circleAnim.Play("");
+
+        if (SceneManager.GetActiveScene().name == "MainMenuScene")
+        {
+            StartCoroutine(gameObject.GetComponent<MainMenuEnter>().MenuLateStart());
+        }
     }
 }

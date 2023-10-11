@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.Xml;
+using UnityEngine.SceneManagement;
 
 // Script goes on the player
 
@@ -81,7 +82,7 @@ public class LeaveLevel : MonoBehaviour
                 if (ableToLeave)
                 {
                     cc.SaveCoins();
-                    // Leave logic
+                    LeaveThisLevel();
                 }
                 else if (textPromptsShow)
                 {
@@ -118,6 +119,11 @@ public class LeaveLevel : MonoBehaviour
         {
             inCircle = false;
         }
+    }
+
+    public void LeaveThisLevel()
+    {
+        PlayerPrefs.SetInt("LevelLeft", SceneManager.GetActiveScene().buildIndex);
     }
 
     IEnumerator MoveUpAndFade(TextMeshProUGUI scrollText, bool wait)
