@@ -11,6 +11,7 @@ public class EnemySpawnWarningArrow : MonoBehaviour
 
     GameObject activePrefab;
     int typeOfPrefab;
+    bool destroyActiveThisFrame;
 
     Camera cam;
 
@@ -22,6 +23,9 @@ public class EnemySpawnWarningArrow : MonoBehaviour
     public float generalWarnDist;
     float xWarnDist;
     float yWarnDist;
+
+    float dontDestroyTimer;
+    [SerializeField] float dontDestroyTimerMax;
 
     void Start()
     {
@@ -36,15 +40,22 @@ public class EnemySpawnWarningArrow : MonoBehaviour
             generalWarnDist = 3;
         xWarnDist = generalWarnDist / 16;
         yWarnDist = generalWarnDist / 9;
+
+        dontDestroyTimer = 0;
+        if (dontDestroyTimerMax == 0)
+            dontDestroyTimerMax = 0.25f;
     }
 
     void Update()
     {
         enemyRelPos = cam.WorldToViewportPoint(transform.position);
-        
+
         if (!activePrefab)
         {
-            if ((enemyRelPos.x < 0 || enemyRelPos.x > 1) ^ (enemyRelPos.y < 0 || enemyRelPos.y > 1))
+            if (((enemyRelPos.x < 0 && enemyRelPos.x > -xWarnDist) 
+                || (1 + xWarnDist > enemyRelPos.x && enemyRelPos.x > 1)) 
+                ^ ((enemyRelPos.y < 0 && enemyRelPos.y > -yWarnDist)
+                || (1 + yWarnDist > enemyRelPos.y && enemyRelPos.y > 1)))
             {
                 // Top
                 if (enemyRelPos.y > 1)
@@ -55,19 +66,19 @@ public class EnemySpawnWarningArrow : MonoBehaviour
                 // Bottom
                 else if (enemyRelPos.y < 0)
                 {
-                    activePrefab = Instantiate(upPrefab, new Vector3(transform.position.x, leftBottom.y, 0), Quaternion.identity);
+                    activePrefab = Instantiate(downPrefab, new Vector3(transform.position.x, leftBottom.y, 0), Quaternion.identity);
                     typeOfPrefab = 2;
                 }
                 // Right
                 else if (enemyRelPos.x > 1)
                 {
-                    activePrefab = Instantiate(upPrefab, new Vector3(rightTop.x, transform.position.y, 0), Quaternion.identity);
+                    activePrefab = Instantiate(rightPrefab, new Vector3(rightTop.x, transform.position.y, 0), Quaternion.identity);
                     typeOfPrefab = 3;
                 }
                 // Left
                 else if (enemyRelPos.x < 0)
                 {
-                    activePrefab = Instantiate(upPrefab, new Vector3(leftBottom.x, transform.position.y, 0), Quaternion.identity);
+                    activePrefab = Instantiate(leftPrefab, new Vector3(leftBottom.x, transform.position.y, 0), Quaternion.identity);
                     typeOfPrefab = 4;
                 }
                 // Logic Error
@@ -79,7 +90,57 @@ public class EnemySpawnWarningArrow : MonoBehaviour
         }
         else
         {
+            dontDestroyTimer += Time.deltaTime;
 
+            if (dontDestroyTimer >= dontDestroyTimerMax)
+            {
+                if (typeOfPrefab == 1)
+                {
+                    if (enemyRelPos.y <= 1 + yWarnDist)
+                        destroyActiveThisFrame = true;
+                }
+                else if (typeOfPrefab == 2)
+                {
+                    if (enemyRelPos.y >= -yWarnDist)
+                        destroyActiveThisFrame = true;
+                }
+                else if (typeOfPrefab == 3)
+                {
+                    if (enemyRelPos.x <= 1 + xWarnDist)
+                        destroyActiveThisFrame = true;
+                }
+                else if (typeOfPrefab == 4)
+                {
+                    if (enemyRelPos.x >= -xWarnDist)
+                        destroyActiveThisFrame = true;
+                }
+            }
+
+            if (destroyActiveThisFrame)
+            {
+                Destroy(activePrefab);
+                destroyActiveThisFrame = false;
+                dontDestroyTimer = 0;
+            }
+            else
+            {
+                if (typeOfPrefab == 1)
+                {
+
+                }
+                else if (typeOfPrefab == 2)
+                {
+
+                }
+                else if (typeOfPrefab == 3)
+                {
+
+                }
+                else if (typeOfPrefab == 4)
+                {
+
+                }
+            }
         }
     }
 }
