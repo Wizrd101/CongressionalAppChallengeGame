@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using System.Xml;
 using UnityEngine.SceneManagement;
 
 // Script goes on the player
