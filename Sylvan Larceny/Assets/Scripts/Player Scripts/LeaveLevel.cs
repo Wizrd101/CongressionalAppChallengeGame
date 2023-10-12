@@ -123,7 +123,14 @@ public class LeaveLevel : MonoBehaviour
 
     public void LeaveThisLevel()
     {
-        PlayerPrefs.SetInt("LevelLeft", SceneManager.GetActiveScene().buildIndex);
+        if (SceneManager.GetActiveScene().buildIndex >= 3)
+        {
+            PlayerPrefs.SetInt("LevelLeft", SceneManager.GetActiveScene().buildIndex - 2);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("LevelLeft", 0);
+        }
     }
 
     IEnumerator MoveUpAndFade(TextMeshProUGUI scrollText, bool wait)
