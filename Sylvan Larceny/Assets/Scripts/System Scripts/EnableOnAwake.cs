@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class EnableOnAwake : MonoBehaviour
 {
+    [SerializeField] GameObject[] objectsToEnable;
+
     void Awake()
     {
-        gameObject.SetActive(true);
+        foreach (GameObject obj in objectsToEnable)
+        {
+            obj.SetActive(true);
+        }
     }
 }
