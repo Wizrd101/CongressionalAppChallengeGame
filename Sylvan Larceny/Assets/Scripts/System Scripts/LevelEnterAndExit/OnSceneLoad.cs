@@ -45,7 +45,7 @@ public class OnSceneLoad : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "MainMenuScene")
         {
-            StartCoroutine(gameObject.GetComponent<MainMenuEnter>().MenuLateStart());
+            StartCoroutine(gameObject.GetComponent<MainMenuLoad>().MenuLateStart());
         }
     }
 }

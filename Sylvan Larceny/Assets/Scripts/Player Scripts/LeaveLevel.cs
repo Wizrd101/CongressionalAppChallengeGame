@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 // Script goes on the player
 
@@ -18,12 +18,22 @@ public class LeaveLevel : MonoBehaviour
 
     GameObject[] enemies;
 
+    Animator sceneTransition;
+
     bool notTargeted;
     bool inCircle;
     bool ableToLeave;
 
     bool textPromptsShow;
     [SerializeField] float textPromptsTimer;
+
+    void Awake()
+    {
+        if (SceneManager.GetActiveScene().name == "MainMenuScene")
+            this.enabled = false;
+        else
+            this.enabled = true;
+    }
 
     void Start()
     {
@@ -41,6 +51,8 @@ public class LeaveLevel : MonoBehaviour
         gemPrompt.enabled = false;
 
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        sceneTransition = GameObject.Find("CrossfadeImage").GetComponent<Animator>();
 
         notTargeted = false;
         inCircle = false;
@@ -81,7 +93,7 @@ public class LeaveLevel : MonoBehaviour
                 if (ableToLeave)
                 {
                     cc.SaveCoins();
-                    LeaveThisLevel();
+                    StartCoroutine(LeaveThisLevel());
                 }
                 else if (textPromptsShow)
                 {
@@ -120,7 +132,7 @@ public class LeaveLevel : MonoBehaviour
         }
     }
 
-    public void LeaveThisLevel()
+    IEnumerator LeaveThisLevel()
     {
         if (SceneManager.GetActiveScene().buildIndex >= 3)
         {
@@ -130,6 +142,12 @@ public class LeaveLevel : MonoBehaviour
         {
             PlayerPrefs.SetInt("LevelLeft", 0);
         }
+
+        sceneTransition.SetTrigger("Start");
+
+        yield return new WaitForSeconds(1f);
+
+        SceneManager.LoadScene("MainMenuScene");
     }
 
     IEnumerator MoveUpAndFade(TextMeshProUGUI scrollText, bool wait)

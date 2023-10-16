@@ -19,6 +19,11 @@ public class EnterGameController : MonoBehaviour
 
     void Start()
     {
+        if (PlayerPrefs.GetInt("SaveFileExitsts", 0) != 1)
+            loadGameButton.GetComponent<Button>().interactable = false;
+        else
+            loadGameButton.GetComponent<Button>().interactable = true;
+
         startGameButton.SetActive(true);
         newGameButton.SetActive(false);
         loadGameButton.SetActive(false);

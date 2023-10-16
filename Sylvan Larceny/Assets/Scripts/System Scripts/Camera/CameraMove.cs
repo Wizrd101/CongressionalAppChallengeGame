@@ -17,8 +17,6 @@ public class CameraMove : MonoBehaviour
 
     [SerializeField] float cameraMoveTimer;
 
-    [SerializeField] bool timePaused;
-
     void Start()
     {
         cam = GetComponent<Camera>();
@@ -30,8 +28,6 @@ public class CameraMove : MonoBehaviour
         {
             cameraMoveTimer = 60;
         }
-
-        timePaused = false;
 
         canCamMove = true;
     }
@@ -71,7 +67,6 @@ public class CameraMove : MonoBehaviour
             Debug.Log("Cam move called");
         
             Time.timeScale = 0;
-            timePaused = true;
 
             for (float i = 0; i <= cameraMoveTimer; i++)
             {
@@ -101,7 +96,6 @@ public class CameraMove : MonoBehaviour
             
             camTf.position = new Vector3(Mathf.RoundToInt(camTf.position.x), Mathf.RoundToInt(camTf.position.y), -10f);
 
-            timePaused = false;
             Time.timeScale = 1;
 
             canCamMove = true;
