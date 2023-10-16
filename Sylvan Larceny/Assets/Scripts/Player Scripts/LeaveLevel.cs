@@ -143,6 +143,7 @@ public class LeaveLevel : MonoBehaviour
             PlayerPrefs.SetInt("LevelLeft", 0);
         }
 
+        sceneTransition.SetBool("LoopBack", false);
         sceneTransition.SetTrigger("Start");
 
         yield return new WaitForSeconds(1f);
