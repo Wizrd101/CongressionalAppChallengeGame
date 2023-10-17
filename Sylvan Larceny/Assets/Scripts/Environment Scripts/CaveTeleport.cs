@@ -7,6 +7,8 @@ public class CaveTeleport : MonoBehaviour
 {
     CaveTeleport caveMatch;
 
+    LightsController lc;
+
     GameObject player;
 
     Canvas tpCv;
@@ -30,6 +32,8 @@ public class CaveTeleport : MonoBehaviour
 
     void Start()
     {
+        lc = GameObject.Find("LightsController").GetComponent<LightsController>();
+
         sceneTransition = GameObject.Find("LevelLoader").GetComponent<Animator>();
 
         if (recievePos == Vector2.zero)
@@ -79,6 +83,7 @@ public class CaveTeleport : MonoBehaviour
         
         yield return new WaitForSeconds(1);
 
+        lc.FlipLightState();
         player.transform.position = caveMatch.recievePos;
     }
 }
