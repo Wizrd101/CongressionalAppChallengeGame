@@ -31,7 +31,6 @@ public class EnterGameController : MonoBehaviour
 
     public void StartGameButtonClick()
     {
-        Debug.Log("StartGameButtonClick called");
         startGameButton.SetActive(false);
         newGameButton.SetActive(true);
         loadGameButton.SetActive(true);
