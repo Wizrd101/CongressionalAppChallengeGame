@@ -1,4 +1,3 @@
-using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -11,9 +10,6 @@ public enum EnemyAIState { Start, Patroling, ChasingPlayer, ChasingLastSeen}
 
 public class EnemyAI : MonoBehaviour
 {
-    AIPath enemyAStarScript;
-    AIDestinationSetter enemySetTargetScript;
-
     // Enemy Patrol Script Base: 1 = Stationary, 2 = Rotating, 3 = Patroling, 4 = Wandering
     int epsBase;
     int epsCounter;
@@ -37,8 +33,6 @@ public class EnemyAI : MonoBehaviour
 
     void Start()
     {
-        enemySetTargetScript = GetComponent<AIDestinationSetter>();
-
         anim = GetComponentInChildren<Animator>();
 
         esBase = GetComponent<EnemyStationary>();
@@ -101,8 +95,6 @@ public class EnemyAI : MonoBehaviour
             
             if (enemyState == EnemyAIState.Patroling)
             {
-                enemyAStarScript.maxSpeed = baseSpeed;
-
                 if (epsBase == 1)
                     esBase.enabled = true;
                 else if (epsBase == 2) 
@@ -122,18 +114,11 @@ public class EnemyAI : MonoBehaviour
                     epBase.enabled = false;
                 else if (epsBase == 4)
                     ewBase.enabled = false;
-
-                enemyAStarScript.maxSpeed = chaseSpeed;
-
-                enemySetTargetScript.target = player.transform;
             }
             // Transitioning to ChasingLastSeen
             else
             {
                 playerLastSeenPoint.position = new Vector3 (Mathf.RoundToInt(player.transform.position.x), Mathf.RoundToInt(player.transform.position.y), 0);
-
-
-                enemySetTargetScript.target = playerLastSeenPoint;
             }
         }
         else
