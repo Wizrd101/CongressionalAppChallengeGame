@@ -1,0 +1,724 @@
+fileFormatVersion: 2
+guid: b2e34ad378121544c9e1fc2e352faa5f
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: Candle anim_Frame_0
+    originalName: 
+    pivot: {x: 0.5945946, y: -0.15789473}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 91
+      y: 65
+      width: 37
+      height: 19
+    spriteID: 5c1a9a70ff6e70f4aa5e55aa8e2521e1
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 91, y: 65}
+  - name: Candle anim_Frame_1
+    originalName: 
+    pivot: {x: 0.6, y: -0.21052632}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 94
+      width: 35
+      height: 19
+    spriteID: d4b0ada80b2f02c48a5f892a7e0a4cf7
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 94}
+  - name: Candle anim_Frame_2
+    originalName: 
+    pivot: {x: 0.6, y: -0.21052632}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 47
+      y: 94
+      width: 35
+      height: 19
+    spriteID: dbf3944a75220c844b3f31489a42a98b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 47, y: 94}
+  - name: Candle anim_Frame_3
+    originalName: 
+    pivot: {x: 0.6, y: -0.21052632}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 90
+      y: 94
+      width: 35
+      height: 19
+    spriteID: 77c47a9865f152a4d96f50bb0ff626d1
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 90, y: 94}
+  - name: Candle anim_Frame_4
+    originalName: 
+    pivot: {x: 0.6, y: -0.21052632}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 133
+      y: 94
+      width: 35
+      height: 19
+    spriteID: 1a421b078e21b664fa23ca9d2f32fd59
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 133, y: 94}
+  - name: Candle anim_Frame_5
+    originalName: 
+    pivot: {x: 0.6, y: -0.21052632}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 176
+      y: 94
+      width: 35
+      height: 19
+    spriteID: 11dc6a3d7f167734680d90a901d25914
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 176, y: 94}
+  - name: Candle anim_Frame_6
+    originalName: 
+    pivot: {x: 0.6, y: -0.1904762}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 48
+      y: 36
+      width: 35
+      height: 21
+    spriteID: 904998adc9c2c644088bc5b1dc1248ce
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 48, y: 36}
+  - name: Candle anim_Frame_7
+    originalName: 
+    pivot: {x: 0.6, y: -0.2}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 136
+      y: 65
+      width: 35
+      height: 20
+    spriteID: f4af83b62eff779458ab772df2224bcc
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 136, y: 65}
+  - name: Candle anim_Frame_8
+    originalName: 
+    pivot: {x: 0.6, y: -0.1904762}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 91
+      y: 36
+      width: 35
+      height: 21
+    spriteID: 634c7488194d551428903d56a7536365
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 91, y: 36}
+  - name: Candle anim_Frame_9
+    originalName: 
+    pivot: {x: 0.6, y: -0.1904762}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 134
+      y: 36
+      width: 35
+      height: 21
+    spriteID: a1065ed2b34d9644e9b76af990a58c11
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 134, y: 36}
+  - name: Candle anim_Frame_10
+    originalName: 
+    pivot: {x: 0.6, y: -0.1904762}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 177
+      y: 36
+      width: 35
+      height: 21
+    spriteID: 807ec673be9e2c74f814a88d7816edee
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 177, y: 36}
+  - name: Candle anim_Frame_11
+    originalName: 
+    pivot: {x: 0.6, y: -0.1904762}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 65
+      width: 35
+      height: 21
+    spriteID: e3ab4cc433dea4f47a19c272fcee93dd
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 65}
+  - name: Candle anim_Frame_12
+    originalName: 
+    pivot: {x: 0.6, y: -0.2}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 179
+      y: 65
+      width: 35
+      height: 20
+    spriteID: 0c15b619165f6e645a5d2a4b4c5b3ee6
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 179, y: 65}
+  - name: Candle anim_Frame_13
+    originalName: 
+    pivot: {x: 0.61111116, y: -0.2}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 47
+      y: 65
+      width: 36
+      height: 20
+    spriteID: 97c3a7d0cb9da1845ab972108289ac6f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 47, y: 65}
+  - name: Candle anim_Frame_14
+    originalName: 
+    pivot: {x: 0.61111116, y: -0.1904762}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 186
+      y: 4
+      width: 36
+      height: 21
+    spriteID: 7a308b44b0b1b374fb75a83e6fcfd6af
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 186, y: 4}
+  - name: Candle anim_Frame_15
+    originalName: 
+    pivot: {x: 0.61111116, y: -0.18181819}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 142
+      y: 4
+      width: 36
+      height: 22
+    spriteID: d2fe31231eaba994090f6a254fdc3570
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 142, y: 4}
+  - name: Candle anim_Frame_16
+    originalName: 
+    pivot: {x: 0.61111116, y: -0.1904762}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 36
+      width: 36
+      height: 21
+    spriteID: c67ce457a1dc05c4ea770e6e7bbeee31
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 36}
+  - name: Candle anim_Frame_17
+    originalName: 
+    pivot: {x: 0.6315789, y: -0.17391305}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 50
+      y: 4
+      width: 38
+      height: 23
+    spriteID: c58483067deb55544b09b42931b5f816
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 50, y: 4}
+  - name: Candle anim_Frame_18
+    originalName: 
+    pivot: {x: 0.6315789, y: -0.16666667}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 38
+      height: 24
+    spriteID: 77ae0b482d8d0ec4a90617959125af92
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: Candle anim_Frame_19
+    originalName: 
+    pivot: {x: 0.6315789, y: -0.18181819}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 96
+      y: 4
+      width: 38
+      height: 22
+    spriteID: 60e3ad79a9b8ae34eafe666672e41314
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 96, y: 4}
+  - name: Candle anim_Frame_20
+    originalName: 
+    pivot: {x: 0.6, y: -0.21052632}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 121
+      width: 35
+      height: 19
+    spriteID: b91d2f5adba105b4e88d0e68c945287b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 121}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: 1342599848
+    name: Candle anim
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: Candle anim_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: 2
+        y: 3
+        width: 37
+        height: 19
+      spriteId: 5c1a9a70ff6e70f4aa5e55aa8e2521e1
+    - name: Candle anim_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 3
+        y: 4
+        width: 35
+        height: 19
+      spriteId: d4b0ada80b2f02c48a5f892a7e0a4cf7
+    - name: Candle anim_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 3
+        y: 4
+        width: 35
+        height: 19
+      spriteId: dbf3944a75220c844b3f31489a42a98b
+    - name: Candle anim_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 3
+        y: 4
+        width: 35
+        height: 19
+      spriteId: 77c47a9865f152a4d96f50bb0ff626d1
+    - name: Candle anim_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 3
+        y: 4
+        width: 35
+        height: 19
+      spriteId: 1a421b078e21b664fa23ca9d2f32fd59
+    - name: Candle anim_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 3
+        y: 4
+        width: 35
+        height: 19
+      spriteId: 11dc6a3d7f167734680d90a901d25914
+    - name: Candle anim_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 3
+        y: 4
+        width: 35
+        height: 21
+      spriteId: 904998adc9c2c644088bc5b1dc1248ce
+    - name: Candle anim_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 3
+        y: 4
+        width: 35
+        height: 20
+      spriteId: f4af83b62eff779458ab772df2224bcc
+    - name: Candle anim_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 3
+        y: 4
+        width: 35
+        height: 21
+      spriteId: 634c7488194d551428903d56a7536365
+    - name: Candle anim_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: 3
+        y: 4
+        width: 35
+        height: 21
+      spriteId: a1065ed2b34d9644e9b76af990a58c11
+    - name: Candle anim_Frame_10
+      frameIndex: 10
+      cellRect:
+        x: 3
+        y: 4
+        width: 35
+        height: 21
+      spriteId: 807ec673be9e2c74f814a88d7816edee
+    - name: Candle anim_Frame_11
+      frameIndex: 11
+      cellRect:
+        x: 3
+        y: 4
+        width: 35
+        height: 21
+      spriteId: e3ab4cc433dea4f47a19c272fcee93dd
+    - name: Candle anim_Frame_12
+      frameIndex: 12
+      cellRect:
+        x: 3
+        y: 4
+        width: 35
+        height: 20
+      spriteId: 0c15b619165f6e645a5d2a4b4c5b3ee6
+    - name: Candle anim_Frame_13
+      frameIndex: 13
+      cellRect:
+        x: 2
+        y: 4
+        width: 36
+        height: 20
+      spriteId: 97c3a7d0cb9da1845ab972108289ac6f
+    - name: Candle anim_Frame_14
+      frameIndex: 14
+      cellRect:
+        x: 2
+        y: 4
+        width: 36
+        height: 21
+      spriteId: 7a308b44b0b1b374fb75a83e6fcfd6af
+    - name: Candle anim_Frame_15
+      frameIndex: 15
+      cellRect:
+        x: 2
+        y: 4
+        width: 36
+        height: 22
+      spriteId: d2fe31231eaba994090f6a254fdc3570
+    - name: Candle anim_Frame_16
+      frameIndex: 16
+      cellRect:
+        x: 2
+        y: 4
+        width: 36
+        height: 21
+      spriteId: c67ce457a1dc05c4ea770e6e7bbeee31
+    - name: Candle anim_Frame_17
+      frameIndex: 17
+      cellRect:
+        x: 0
+        y: 4
+        width: 38
+        height: 23
+      spriteId: c58483067deb55544b09b42931b5f816
+    - name: Candle anim_Frame_18
+      frameIndex: 18
+      cellRect:
+        x: 0
+        y: 4
+        width: 38
+        height: 24
+      spriteId: 77ae0b482d8d0ec4a90617959125af92
+    - name: Candle anim_Frame_19
+      frameIndex: 19
+      cellRect:
+        x: 0
+        y: 4
+        width: 38
+        height: 22
+      spriteId: 60e3ad79a9b8ae34eafe666672e41314
+    - name: Candle anim_Frame_20
+      frameIndex: 20
+      cellRect:
+        x: 3
+        y: 4
+        width: 35
+        height: 19
+      spriteId: b91d2f5adba105b4e88d0e68c945287b
+    linkedCells: []
+    parentIndex: -1
+  platformSettings: []
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 48, y: 32}
