@@ -96,23 +96,35 @@ public class EnemySpawnWarningArrow : MonoBehaviour
             {
                 if (typeOfPrefab == 1)
                 {
-                    if (enemyRelPos.y <= 1 + yWarnDist)
+                    if (enemyRelPos.y >= 1 + yWarnDist)
+                    {
                         destroyActiveThisFrame = true;
+                        Debug.Log("Type 1 Destroyed");
+                    }
                 }
                 else if (typeOfPrefab == 2)
                 {
-                    if (enemyRelPos.y >= -yWarnDist)
+                    if (enemyRelPos.y <= -yWarnDist)
+                    {
                         destroyActiveThisFrame = true;
+                        Debug.Log("Type 2 Destroyed");
+                    }
                 }
                 else if (typeOfPrefab == 3)
                 {
-                    if (enemyRelPos.x <= 1 + xWarnDist)
+                    if (enemyRelPos.x >= 1 + xWarnDist)
+                    {
                         destroyActiveThisFrame = true;
+                        Debug.Log("Type 3 Destroyed");
+                    }
                 }
                 else if (typeOfPrefab == 4)
                 {
-                    if (enemyRelPos.x >= -xWarnDist)
+                    if (enemyRelPos.x <= -xWarnDist)
+                    {
                         destroyActiveThisFrame = true;
+                        Debug.Log("Type 4 Destroyed, enemyRelPos.x = " + enemyRelPos.x + ", -xWarnDist = " + -xWarnDist);
+                    }
                 }
             }
 
