@@ -13,6 +13,8 @@ public class EnemySpawnWarningArrow : MonoBehaviour
     int typeOfPrefab;
     bool destroyActiveThisFrame;
 
+    GameObject thisEnemy;
+
     Camera cam;
 
     Vector2 enemyRelPos;
@@ -31,6 +33,8 @@ public class EnemySpawnWarningArrow : MonoBehaviour
     {
         if (!upPrefab || !downPrefab || !leftPrefab || !rightPrefab)
             Debug.LogWarning("Spawn Warning Arrows script on " + this.gameObject.name + " does not have all the prefabs it needs");
+
+        thisEnemy = transform.parent.gameObject;
 
         cam = Camera.main.GetComponent<Camera>();
 
@@ -60,25 +64,25 @@ public class EnemySpawnWarningArrow : MonoBehaviour
                 // Top
                 if (enemyRelPos.y > 1)
                 {
-                    activePrefab = Instantiate(upPrefab, new Vector3(transform.position.x, rightTop.y, 0), Quaternion.identity);
+                    activePrefab = Instantiate(upPrefab, new Vector3(thisEnemy.transform.position.x, rightTop.y, 0), Quaternion.identity);
                     typeOfPrefab = 1;
                 }
                 // Bottom
                 else if (enemyRelPos.y < 0)
                 {
-                    activePrefab = Instantiate(downPrefab, new Vector3(transform.position.x, leftBottom.y, 0), Quaternion.identity);
+                    activePrefab = Instantiate(downPrefab, new Vector3(thisEnemy.transform.position.x, leftBottom.y, 0), Quaternion.identity);
                     typeOfPrefab = 2;
                 }
                 // Right
                 else if (enemyRelPos.x > 1)
                 {
-                    activePrefab = Instantiate(rightPrefab, new Vector3(rightTop.x, transform.position.y, 0), Quaternion.identity);
+                    activePrefab = Instantiate(rightPrefab, new Vector3(rightTop.x, thisEnemy.transform.position.y, 0), Quaternion.identity);
                     typeOfPrefab = 3;
                 }
                 // Left
                 else if (enemyRelPos.x < 0)
                 {
-                    activePrefab = Instantiate(leftPrefab, new Vector3(leftBottom.x, transform.position.y, 0), Quaternion.identity);
+                    activePrefab = Instantiate(leftPrefab, new Vector3(leftBottom.x, thisEnemy.transform.position.y, 0), Quaternion.identity);
                     typeOfPrefab = 4;
                 }
                 // Logic Error
@@ -97,34 +101,22 @@ public class EnemySpawnWarningArrow : MonoBehaviour
                 if (typeOfPrefab == 1)
                 {
                     if (enemyRelPos.y >= 1 + yWarnDist)
-                    {
                         destroyActiveThisFrame = true;
-                        Debug.Log("Type 1 Destroyed");
-                    }
                 }
                 else if (typeOfPrefab == 2)
                 {
                     if (enemyRelPos.y <= -yWarnDist)
-                    {
                         destroyActiveThisFrame = true;
-                        Debug.Log("Type 2 Destroyed");
-                    }
                 }
                 else if (typeOfPrefab == 3)
                 {
                     if (enemyRelPos.x >= 1 + xWarnDist)
-                    {
                         destroyActiveThisFrame = true;
-                        Debug.Log("Type 3 Destroyed");
-                    }
                 }
                 else if (typeOfPrefab == 4)
                 {
                     if (enemyRelPos.x <= -xWarnDist)
-                    {
                         destroyActiveThisFrame = true;
-                        Debug.Log("Type 4 Destroyed, enemyRelPos.x = " + enemyRelPos.x + ", -xWarnDist = " + -xWarnDist);
-                    }
                 }
             }
 
@@ -138,19 +130,19 @@ public class EnemySpawnWarningArrow : MonoBehaviour
             {
                 if (typeOfPrefab == 1)
                 {
-
+                    activePrefab.transform.position = new Vector2(thisEnemy.transform.position.x, rightTop.y);
                 }
                 else if (typeOfPrefab == 2)
                 {
-
+                    activePrefab.transform.position = new Vector2(thisEnemy.transform.position.x, leftBottom.y);
                 }
                 else if (typeOfPrefab == 3)
                 {
-
+                    activePrefab.transform.position = new Vector2(rightTop.x, thisEnemy.transform.position.y);
                 }
                 else if (typeOfPrefab == 4)
                 {
-
+                    activePrefab.transform.position = new Vector2(leftBottom.x, thisEnemy.transform.position.y);
                 }
             }
         }

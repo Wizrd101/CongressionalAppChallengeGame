@@ -27,12 +27,12 @@ public class OnSceneLoad : MonoBehaviour
 
         Time.timeScale = 1.0f;
 
-        tpCircleGO = Instantiate(tpCirclePrefab, playerStartPos, Quaternion.identity);
+        //tpCircleGO = Instantiate(tpCirclePrefab, playerStartPos, Quaternion.identity);
 
-        //player.transform.position = playerStartPos;
+        player.transform.position = playerStartPos;
 
-        playerAnim = player.GetComponentInChildren<Animator>();
-        circleAnim = tpCircleGO.GetComponentInChildren<Animator>();
+        //playerAnim = player.GetComponentInChildren<Animator>();
+        //circleAnim = tpCircleGO.GetComponentInChildren<Animator>();
 
         StartCoroutine(LateStart());
     }
@@ -40,12 +40,14 @@ public class OnSceneLoad : MonoBehaviour
     IEnumerator LateStart()
     {
         yield return null;
-        // DONT FORGET TO SET THIS
-        circleAnim.Play("");
 
-        if (SceneManager.GetActiveScene().name == "MainMenuScene")
+        if (gameObject.GetComponent<MainMenuLoad>())
         {
             StartCoroutine(gameObject.GetComponent<MainMenuLoad>().MenuLateStart());
+        }
+        else if (gameObject.GetComponent<LevelLoad>())
+        {
+            StartCoroutine(gameObject.GetComponent<LevelLoad>().LevelLateStart());
         }
     }
 }
