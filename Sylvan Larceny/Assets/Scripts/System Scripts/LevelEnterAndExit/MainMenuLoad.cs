@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MainMenuLoad : MonoBehaviour
 {
+    Animator gScaleImageAnim;
+    
     Animator gemAnim;
 
     int tempLevelLeft;
@@ -18,6 +20,8 @@ public class MainMenuLoad : MonoBehaviour
         if (PlayerPrefs.GetInt("SaveFileExists", 0) == 0)
             PlayerPrefs.SetInt("SaveFileExists", 1);
 
+        gScaleImageAnim = GameObject.Find("PLRCGrayscaleImage").GetComponent<Animator>();
+
         tempLevelLeft = PlayerPrefs.GetInt("LevelLeft");
     }
 
@@ -26,9 +30,10 @@ public class MainMenuLoad : MonoBehaviour
         yield return null;
 
         UpdateGemAnimation();
+        gScaleImageAnim.SetTrigger("Play");
     }
 
-    void UpdateGemAnimation()
+    IEnumerator UpdateGemAnimation()
     {
         if (tempLevelLeft == 0)
         {
@@ -38,5 +43,7 @@ public class MainMenuLoad : MonoBehaviour
         {
             // A level was left, play the appropriate trigger
         }
+
+        yield return new WaitForSeconds(1);
     }
 }
