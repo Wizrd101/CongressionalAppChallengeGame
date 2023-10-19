@@ -8,14 +8,14 @@ public class LoseGame : MonoBehaviour
 {
     // Don't forget to set the anim name in the coroutine
     Animator playerAnim;
-    Animator cvAnim;
+    Animator levelLoaderAnim;
 
     [SerializeField] float loseAnimTimer;
 
     void Start()
     {
         playerAnim = GetComponentInChildren<Animator>();
-        cvAnim = GameObject.Find("LoseCanvas").GetComponent<Animator>();
+        levelLoaderAnim = GameObject.Find("LevelLoader").transform.GetChild(0).transform.GetChild(0).GetComponent<Animator>();
         
         if (loseAnimTimer == 0)
             loseAnimTimer = 1;
@@ -40,8 +40,8 @@ public class LoseGame : MonoBehaviour
         
         yield return new WaitForSeconds(loseAnimTimer);
 
-        // SET THIS BEFORE IT WORKS
-        cvAnim.Play("");
+        levelLoaderAnim.SetBool("LoopBack", false);
+        levelLoaderAnim.SetTrigger("Start");
 
         Time.timeScale = 0;
     }

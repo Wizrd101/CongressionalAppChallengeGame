@@ -18,6 +18,9 @@ public class LeaveLevel : MonoBehaviour
 
     GameObject[] enemies;
 
+    Animator playerAnim;
+    Animator circleAnim;
+
     Animator sceneTransition;
 
     bool notTargeted;
@@ -30,9 +33,9 @@ public class LeaveLevel : MonoBehaviour
     void Awake()
     {
         if (SceneManager.GetActiveScene().name == "MainMenuScene")
-            this.enabled = false;
+            enabled = false;
         else
-            this.enabled = true;
+            enabled = true;
     }
 
     void Start()
@@ -52,6 +55,9 @@ public class LeaveLevel : MonoBehaviour
 
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
+        playerAnim = GameObject.FindWithTag("Player").GetComponentInChildren<Animator>();
+        circleAnim = GameObject.FindWithTag("TeleportCircle").GetComponentInChildren<Animator>();
+
         sceneTransition = GameObject.Find("CrossfadeImage").GetComponent<Animator>();
 
         notTargeted = false;
@@ -61,9 +67,7 @@ public class LeaveLevel : MonoBehaviour
         textPromptsShow = true;
 
         if (textPromptsTimer == 0)
-        {
             textPromptsTimer = 60;
-        }
     }
 
     void Update()
@@ -72,9 +76,7 @@ public class LeaveLevel : MonoBehaviour
         foreach (GameObject enemy in enemies)
         {
             if (enemy.GetComponent<EnemyAI>().enemyState != EnemyAIState.Patroling)
-            {
                 notTargeted = false;
-            }
         }
 
         if (inCircle)
@@ -98,14 +100,10 @@ public class LeaveLevel : MonoBehaviour
                 else if (textPromptsShow)
                 {
                     if (!notTargeted)
-                    {
                         StartCoroutine(MoveUpAndFade(enemyPrompt, false));
-                    }
 
                     if (!gc.gemCollected)
-                    {
                         StartCoroutine(MoveUpAndFade(gemPrompt, !notTargeted));
-                    }
                 }
             }
         }
@@ -119,29 +117,26 @@ public class LeaveLevel : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "TeleportCircle")
-        {
             inCircle = true;
-        }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
         if (other.gameObject.tag == "TeleportCircle")
-        {
             inCircle = false;
-        }
     }
 
     IEnumerator LeaveThisLevel()
     {
         if (SceneManager.GetActiveScene().buildIndex >= 3)
-        {
             PlayerPrefs.SetInt("LevelLeft", SceneManager.GetActiveScene().buildIndex - 2);
-        }
         else
-        {
             PlayerPrefs.SetInt("LevelLeft", 0);
-        }
+
+        playerAnim.Play("");
+        circleAnim.Play("");
+
+        yield return new WaitForSeconds(1f);
 
         sceneTransition.SetBool("LoopBack", false);
         sceneTransition.SetTrigger("Start");
@@ -156,9 +151,7 @@ public class LeaveLevel : MonoBehaviour
         textPromptsShow = false;
         
         if (wait)
-        {
             yield return new WaitForSeconds(0.75f);
-        }
 
         Color textColor = new Color(scrollText.color.r, scrollText.color.g, scrollText.color.b, 1);
         float stYValue = 75;
