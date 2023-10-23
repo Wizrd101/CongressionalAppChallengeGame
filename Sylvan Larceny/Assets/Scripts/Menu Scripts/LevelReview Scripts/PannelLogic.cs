@@ -11,5 +11,8 @@ public class PannelLogic : MonoBehaviour
         
     }
 
-    
+    public IEnumerator PannelExit()
+    {
+        yield return null;
+    }
 }

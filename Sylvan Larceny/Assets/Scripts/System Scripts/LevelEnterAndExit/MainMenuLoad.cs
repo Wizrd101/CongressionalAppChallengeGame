@@ -30,18 +30,23 @@ public class MainMenuLoad : MonoBehaviour
         yield return null;
 
         UpdateGemAnimation();
-        gScaleImageAnim.SetTrigger("Play");
     }
 
     IEnumerator UpdateGemAnimation()
     {
-        if (tempLevelLeft == 0)
+        
+
+        if (PlayerPrefs.GetInt("LevelSuccess") == 1)
         {
-            // Tutorial was left
-        }
-        else
-        {
-            // A level was left, play the appropriate trigger
+            if (1 <= tempLevelLeft && tempLevelLeft <= 5)
+            {
+                if (PlayerPrefs.GetInt("LevelsCompleted") < tempLevelLeft)
+                {
+                    gemAnim.SetInteger("LevelSuccessfullyLeft", tempLevelLeft);
+                    gemAnim.SetTrigger("UpdateGem");
+                    PlayerPrefs.SetInt("LevelsCompleted", tempLevelLeft);
+                }
+            }
         }
 
         yield return new WaitForSeconds(1);

@@ -128,13 +128,15 @@ public class LeaveLevel : MonoBehaviour
 
     IEnumerator LeaveThisLevel()
     {
+        PlayerPrefs.SetInt("LevelSuccess", 1);
+
         if (SceneManager.GetActiveScene().buildIndex >= 3)
             PlayerPrefs.SetInt("LevelLeft", SceneManager.GetActiveScene().buildIndex - 2);
         else
             PlayerPrefs.SetInt("LevelLeft", 0);
 
-        playerAnim.Play("");
-        circleAnim.Play("");
+        playerAnim.SetTrigger("");
+        circleAnim.SetTrigger("");
 
         yield return new WaitForSeconds(1f);
 
