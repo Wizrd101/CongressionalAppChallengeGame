@@ -31,12 +31,14 @@ public class LoseGame : MonoBehaviour
 
     IEnumerator LoseGameSequence()
     {
+        PlayerPrefs.SetInt("LevelSuccess", 2);
+
         GameObject.Find("PauseCanvas").GetComponent<PauseMenuController>().gamePausable = false;
         if (GameObject.Find("PauseCanvas").GetComponent<PauseMenuController>().gamePaused)
             GameObject.Find("PauseCanvas").GetComponent<PauseMenuController>().UnpauseGame();
 
-        // SET THIS BEFORE IT WORKS
-        playerAnim.Play("");
+        // SET THIS BEFORE IT WORKS (To the lose anim)
+        playerAnim.SetTrigger("");
         
         yield return new WaitForSeconds(loseAnimTimer);
 
