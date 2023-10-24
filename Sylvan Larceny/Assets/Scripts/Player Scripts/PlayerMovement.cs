@@ -16,11 +16,14 @@ public class PlayerMovement : MonoBehaviour
 
     List <Transform> enemies = new List <Transform>();
 
+    InteractPointController ipc;
+
     Vector2 enemyToPlayer;
     Vector2 closestEnemyToPlayer;
     Vector2 tempEnemyPos;
     float atuTimerUpdate;
     bool enemyOnScreen;
+    [SerializeField] float enemyUpdateTimerDist;
 
     public LayerMask playerAndEnemyMask;
 
@@ -53,12 +56,15 @@ public class PlayerMovement : MonoBehaviour
             enemyGO.GetComponent<Transform>();
         }
 
+        ipc = GetComponentInChildren<InteractPointController>();
+
+        if (enemyUpdateTimerDist == 0)
+            enemyUpdateTimerDist = 5;
+
         atuTimerUpdate = 0;
 
         if (atuTimerCoefficent == 0)
-        {
             atuTimerCoefficent = 4;
-        }
 
         moving = false;
     }
@@ -149,14 +155,16 @@ public class PlayerMovement : MonoBehaviour
     // General Moving function
     IEnumerator PlayerMove(int xValue, int yValue)
     {
+        Debug.Log("PlayerMove called, X: " + xValue + ", Y: " + yValue);
         moving = true;
+        moveLegal = true;
 
         // Collision detection, the code won't register an attempt to move into a wall as a move attempt
         // Side to Side
         if (xValue != 0)
         {
             hit = Physics2D.Raycast(transform.position, new Vector2(xValue, 0), 1, ~playerAndEnemyMask);
-            if (hit.collider != null)
+            if (hit.collider != null && hit.collider.name != "InteractPoint")
             {
                 moveLegal = false;
             }
@@ -166,7 +174,7 @@ public class PlayerMovement : MonoBehaviour
         if (yValue != 0)
         {
             hit = Physics2D.Raycast(transform.position, new Vector2(0, yValue), 1, ~playerAndEnemyMask);
-            if (hit.collider != null)
+            if (hit.collider != null && hit.collider.name != "InteractPoint")
             {
                 moveLegal = false;
             }
@@ -230,13 +238,13 @@ public class PlayerMovement : MonoBehaviour
                     }
                 }
 
-                if (enemyOnScreen)
+                if (enemyOnScreen && closestEnemyToPlayer.magnitude <= enemyUpdateTimerDist)
                 {
-                    atuTimerUpdate = timingVar / 60;
+                    atuTimerUpdate = timingVar / 60 + ((closestEnemyToPlayer.magnitude - enemyUpdateTimerDist) / atuTimerCoefficent);
                 }
                 else
                 {
-                    atuTimerUpdate = timingVar / 60 + closestEnemyToPlayer.magnitude / atuTimerCoefficent;
+                    atuTimerUpdate = timingVar / 60;
                 }
 
                 atu.UpdateTimer(atuTimerUpdate);
@@ -269,11 +277,15 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
-
-        moveLegal = true;
+        else
+        {
+            Debug.Log("Move is not legal");
+        }
 
         // Rounds off the position, so the player can move around for forever and still be on tile-based movement
         tf.position = new Vector2(Mathf.RoundToInt(tf.position.x), Mathf.RoundToInt(tf.position.y));
+
+        ipc.UpdatePointPos(faceDir);
 
         moving = false;
     }

@@ -8,9 +8,12 @@ public class EnableOnAwake : MonoBehaviour
 
     void Awake()
     {
-        foreach (GameObject obj in objectsToEnable)
+        if (objectsToEnable.Length > 0)
         {
-            obj.SetActive(true);
+            foreach (GameObject obj in objectsToEnable)
+            {
+                obj.SetActive(true);
+            }
         }
     }
 }
