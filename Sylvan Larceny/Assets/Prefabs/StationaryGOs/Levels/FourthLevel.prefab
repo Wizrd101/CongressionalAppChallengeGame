@@ -72045,7 +72045,7 @@ GameObject:
   - component: {fileID: 5844035814351676155}
   - component: {fileID: 3652821233967804828}
   m_Layer: 0
-  m_Name: Coins
+  m_Name: Coin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72493,7 +72493,7 @@ GameObject:
   - component: {fileID: 119161461217523878}
   - component: {fileID: 7195683822339378028}
   m_Layer: 0
-  m_Name: Walls
+  m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

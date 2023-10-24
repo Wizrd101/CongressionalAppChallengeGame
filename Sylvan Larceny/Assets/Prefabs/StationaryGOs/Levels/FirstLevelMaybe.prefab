@@ -49438,7 +49438,7 @@ GameObject:
   - component: {fileID: 6394134151306787364}
   - component: {fileID: 2298567256520134880}
   m_Layer: 0
-  m_Name: Walls
+  m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67860,7 +67860,7 @@ GameObject:
   - component: {fileID: 1463928223305133179}
   - component: {fileID: 5966869007445406568}
   m_Layer: 0
-  m_Name: Coins
+  m_Name: Coin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
