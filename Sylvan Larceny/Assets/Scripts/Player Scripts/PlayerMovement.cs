@@ -18,6 +18,8 @@ public class PlayerMovement : MonoBehaviour
 
     InteractPointController ipc;
 
+    public bool playerCanMove;
+
     Vector2 enemyToPlayer;
     Vector2 closestEnemyToPlayer;
     Vector2 tempEnemyPos;
@@ -73,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         // If the move timer has hit 0, allow the player to input a movement
-        if (atu.actionTimer <= 0 && !moving && Time.timeScale != 0)
+        if (atu.actionTimer <= 0 && !moving && Time.timeScale != 0 && playerCanMove)
         {
             if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
             {
@@ -155,7 +157,6 @@ public class PlayerMovement : MonoBehaviour
     // General Moving function
     IEnumerator PlayerMove(int xValue, int yValue)
     {
-        Debug.Log("PlayerMove called, X: " + xValue + ", Y: " + yValue);
         moving = true;
         moveLegal = true;
 

@@ -18,12 +18,12 @@ public class GemCollect : MonoBehaviour
         gemCollected = false;
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    /*void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "GemShard")
         {
             gemCollected = true;
             Destroy(other.gameObject);
         }
-    }
+    }*/
 }

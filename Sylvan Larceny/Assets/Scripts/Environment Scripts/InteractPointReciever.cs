@@ -4,20 +4,33 @@ using UnityEngine;
 
 public class InteractPointReciever : MonoBehaviour
 {
-    
+    public bool ableToRecieve;
+    public bool interactionInPlace;
 
     void Start()
     {
-        
+        ableToRecieve = true;
     }
 
-    void Update()
+    public void RecieveInteractionActivate()
     {
-        
-    }
+        if (ableToRecieve)
+        {
+            interactionInPlace = true;
 
-    public void InteractActivate()
-    {
+            if (gameObject.tag == "GemFragment")
+            {
+                DisplayGemController gemFragCv = GameObject.Find("DisplayGemFragmentCanvas").GetComponent<DisplayGemController>();
+                StartCoroutine(gemFragCv.TriggerGemGrab());
+            }
+            else if (gameObject.tag == "MainMenuGem")
+            {
 
+            }
+            else
+            {
+                Debug.LogError("InteractionPointReciever on gameObject " + gameObject.name + " could not determine what interaction it has to do. Incorrectly assigned tag.");
+            }
+        }
     }
 }

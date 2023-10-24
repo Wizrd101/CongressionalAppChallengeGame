@@ -6,26 +6,51 @@ public class InteractPointController : MonoBehaviour
 {
     [SerializeField] Transform pointTf;
 
+    Canvas interactCv;
+    
+    InteractPointReciever currentReciever;
+
     public bool ableToInteract;
-
-
     
     void Start()
     {
         pointTf = GetComponent<Transform>();
+
+        interactCv = GameObject.Find("InteractPromptCanvas").GetComponent<Canvas>();
 
         ableToInteract = true;
     }
 
     void Update()
     {
-        
+        if (gameObject.GetComponentInParent<PlayerMovement>().moving && !currentReciever.interactionInPlace)
+            ableToInteract = true;
+        else
+            ableToInteract = false;
+
+        if (ableToInteract && currentReciever.ableToRecieve)
+        {
+            interactCv.enabled = true;
+
+            if (Input.GetKeyDown(KeyCode.X))
+                currentReciever.RecieveInteractionActivate();
+        }
+        else
+        {
+            interactCv.enabled = false;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.GetComponent<InteractPointReciever>() != null)
-            ableToInteract = true;
+        if (other.gameObject.GetComponent<InteractPointReciever>())
+            currentReciever = other.gameObject.GetComponent<InteractPointReciever>();
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.GetComponent<InteractPointReciever>() == currentReciever)
+            currentReciever = null;
     }
 
     public void UpdatePointPos(int faceDir)

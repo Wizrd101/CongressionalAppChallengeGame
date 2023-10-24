@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - Rock
   - TeleportCircle
+  - Gem
+  - GemFragment
   layers:
   - Default
   - TransparentFX
@@ -21,7 +23,7 @@ TagManager:
   - A*Obstacle
   - WarningArrow
   - Gem
-  - 
+  - GemGlow
   - 
   - 
   - 
