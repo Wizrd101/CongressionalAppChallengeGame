@@ -155,14 +155,16 @@ public class PlayerMovement : MonoBehaviour
     // General Moving function
     IEnumerator PlayerMove(int xValue, int yValue)
     {
+        Debug.Log("PlayerMove called, X: " + xValue + ", Y: " + yValue);
         moving = true;
+        moveLegal = true;
 
         // Collision detection, the code won't register an attempt to move into a wall as a move attempt
         // Side to Side
         if (xValue != 0)
         {
             hit = Physics2D.Raycast(transform.position, new Vector2(xValue, 0), 1, ~playerAndEnemyMask);
-            if (hit.collider != null)
+            if (hit.collider != null && hit.collider.name != "InteractPoint")
             {
                 moveLegal = false;
             }
@@ -172,7 +174,7 @@ public class PlayerMovement : MonoBehaviour
         if (yValue != 0)
         {
             hit = Physics2D.Raycast(transform.position, new Vector2(0, yValue), 1, ~playerAndEnemyMask);
-            if (hit.collider != null)
+            if (hit.collider != null && hit.collider.name != "InteractPoint")
             {
                 moveLegal = false;
             }
@@ -275,8 +277,10 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
-
-        moveLegal = true;
+        else
+        {
+            Debug.Log("Move is not legal");
+        }
 
         // Rounds off the position, so the player can move around for forever and still be on tile-based movement
         tf.position = new Vector2(Mathf.RoundToInt(tf.position.x), Mathf.RoundToInt(tf.position.y));

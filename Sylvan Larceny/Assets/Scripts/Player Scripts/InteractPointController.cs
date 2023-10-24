@@ -30,21 +30,22 @@ public class InteractPointController : MonoBehaviour
 
     public void UpdatePointPos(int faceDir)
     {
+
         if (faceDir == 1)
-            pointTf.position = Vector2.up;
+            pointTf.localPosition = Vector2.up;
         else if (faceDir == 2)
-            pointTf.position = Vector2.up + Vector2.right;
+            pointTf.localPosition = Vector2.up + Vector2.right;
         else if (faceDir == 3)
-            pointTf.position = Vector2.right;
+            pointTf.localPosition = Vector2.right;
         else if (faceDir == 4)
-            pointTf.position = Vector2.down + Vector2.right;
+            pointTf.localPosition = Vector2.down + Vector2.right;
         else if (faceDir == 5)
-            pointTf.position = Vector2.down;
+            pointTf.localPosition = Vector2.down;
         else if (faceDir == 6)
-            pointTf.position = Vector2.down + Vector2.left;
+            pointTf.localPosition = Vector2.down + Vector2.left;
         else if (faceDir == 7)
-            pointTf.position = Vector2.left;
+            pointTf.localPosition = Vector2.left;
         else if (faceDir == 8)
-            pointTf.position = Vector2.up + Vector2.left;
+            pointTf.localPosition = Vector2.up + Vector2.left;
     }
 }
