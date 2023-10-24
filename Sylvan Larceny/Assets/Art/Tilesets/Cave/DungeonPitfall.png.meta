@@ -128,7 +128,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      DungeonPitfall_0: -3612215576248488437
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
