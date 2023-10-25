@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GemSceneChange : MonoBehaviour
 {
-    
+    public bool doSceneChange;
 
     void Start()
     {

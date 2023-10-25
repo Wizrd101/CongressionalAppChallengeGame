@@ -30,7 +30,7 @@ public class GemCollect : MonoBehaviour
 
     private void Update()
     {
-        if (gsc && gemCollected && !gemPickUpEventTriggered)
+        if (gsc.doSceneChange && gemCollected && !gemPickUpEventTriggered)
         {
             gemPickUpEventTriggered = true;
 

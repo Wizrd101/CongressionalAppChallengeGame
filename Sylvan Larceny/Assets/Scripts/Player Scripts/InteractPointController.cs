@@ -1,14 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class InteractPointController : MonoBehaviour
 {
     [SerializeField] Transform pointTf;
 
-    Canvas interactCv;
-    
-    InteractPointReciever currentReciever;
+    public InteractPointReciever currentReciever;
 
     public bool ableToInteract;
     
@@ -16,21 +15,18 @@ public class InteractPointController : MonoBehaviour
     {
         pointTf = GetComponent<Transform>();
 
-        interactCv = GameObject.Find("InteractPromptCanvas").GetComponent<Canvas>();
-
         ableToInteract = true;
     }
 
     void Update()
     {
-        Debug.Log("PlayerMove: " + gameObject.GetComponentInParent<PlayerMovement>().moving);
-        Debug.Log("currentRecieverExists: " + currentReciever);
-        Debug.Log("Current Reciever Have Interaction: " + !currentReciever.interactionInPlace);
-
         if (currentReciever)
         {
-            if (gameObject.GetComponentInParent<PlayerMovement>().moving && !currentReciever.interactionInPlace)
+            Debug.Log("CurrentReciever is active");
+            if (!gameObject.GetComponentInParent<PlayerMovement>().moving && !currentReciever.interactionInPlace)
                 ableToInteract = true;
+            else
+                ableToInteract = false;
         }
         else
         {
@@ -39,14 +35,11 @@ public class InteractPointController : MonoBehaviour
 
         if (ableToInteract && currentReciever.ableToRecieve)
         {
-            interactCv.enabled = true;
-
             if (Input.GetKeyDown(KeyCode.X))
+            {
                 currentReciever.RecieveInteractionActivate();
-        }
-        else
-        {
-            interactCv.enabled = false;
+                //ableToInteract = false;
+            }
         }
     }
 

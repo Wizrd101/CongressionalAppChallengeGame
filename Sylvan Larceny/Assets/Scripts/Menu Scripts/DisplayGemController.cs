@@ -68,9 +68,14 @@ public class DisplayGemController : MonoBehaviour
             {
                 freezeEndTriggered = true;
 
-                if (!player.GetComponent<GemCollect>().gsc)
+                if (!player.GetComponent<GemCollect>().gsc.doSceneChange)
                 {
+                    Debug.Log("Can move");
                     player.GetComponent<PlayerMovement>().playerCanMove = true;
+                }
+                else
+                {
+                    Debug.Log("Player can't move still");
                 }
             }
         }
@@ -78,12 +83,13 @@ public class DisplayGemController : MonoBehaviour
 
     public void TriggerEndCoroutine()
     {
+        Debug.Log("End Trigger Called");
         StartCoroutine(TriggerAnimEnd());
     }
 
     public IEnumerator TriggerGemGrab()
     {
-        Debug.Log("Trigger Gem Grab Coroutine");
+        Time.timeScale = 0;
 
         if (!interactionTriggered)
         {
@@ -96,6 +102,9 @@ public class DisplayGemController : MonoBehaviour
             fragmentImageAnim.SetTrigger("Start");
 
             yield return new WaitForSecondsRealtime(1f);
+
+            Destroy(gemFragment);
+
             startAnimsFinished = true;
         }
     }
@@ -117,6 +126,8 @@ public class DisplayGemController : MonoBehaviour
             fragmentImageAnim.enabled = false;*/
 
             endAnimsFinished = true;
+
+            Time.timeScale = 1;
         }
     }
 }

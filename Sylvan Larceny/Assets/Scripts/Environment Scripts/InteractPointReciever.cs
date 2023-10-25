@@ -10,6 +10,7 @@ public class InteractPointReciever : MonoBehaviour
     void Start()
     {
         ableToRecieve = true;
+        interactionInPlace = false;
     }
 
     public void RecieveInteractionActivate()
