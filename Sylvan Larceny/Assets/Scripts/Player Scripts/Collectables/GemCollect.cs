@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 // Put this script on the player, not the gem shard
@@ -11,19 +12,29 @@ using UnityEngine;
 
 public class GemCollect : MonoBehaviour
 {
+    [DoNotSerialize] public GemSceneChange gsc;
+
     public bool gemCollected;
+
+    bool gemPickUpEventTriggered;
 
     void Start()
     {
+        if (GameObject.Find("GemSceneChangeGO").GetComponent<GemSceneChange>())
+        {
+            gsc = GameObject.Find("GemSceneChangeGO").GetComponent<GemSceneChange>();
+        }
+
         gemCollected = false;
     }
 
-    /*void OnTriggerEnter2D(Collider2D other)
+    private void Update()
     {
-        if (other.gameObject.tag == "GemShard")
+        if (gsc && gemCollected && !gemPickUpEventTriggered)
         {
-            gemCollected = true;
-            Destroy(other.gameObject);
+            gemPickUpEventTriggered = true;
+
+            // Add stuff that changes when the gem is picked up
         }
-    }*/
+    }
 }

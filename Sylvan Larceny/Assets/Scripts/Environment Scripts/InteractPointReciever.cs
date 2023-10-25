@@ -14,7 +14,7 @@ public class InteractPointReciever : MonoBehaviour
 
     public void RecieveInteractionActivate()
     {
-        if (ableToRecieve)
+        if (ableToRecieve && !interactionInPlace)
         {
             interactionInPlace = true;
 

@@ -17,7 +17,7 @@ public class DisplayGemController : MonoBehaviour
     Animator backgroundImageAnim;
     Animator fragmentImageAnim;
 
-    bool interactionTriggered;
+    [SerializeField] bool interactionTriggered;
     bool startAnimsFinished;
     bool interactionFinished;
     bool endAnimsFinished;
@@ -46,27 +46,45 @@ public class DisplayGemController : MonoBehaviour
         startAnimsFinished = false;
         interactionFinished = false;
         endAnimsFinished = false;
+
+        freezeStartTriggered = false;
+        freezeEndTriggered = false;
     }
 
     void Update()
     {
-        if (interactionTriggered && !freezeStartTriggered)
+        if (!freezeEndTriggered)
         {
-            freezeStartTriggered = true;
+            if (interactionTriggered && !freezeStartTriggered)
+            {
+                freezeStartTriggered = true;
 
-            player.GetComponent<GemCollect>().gemCollected = true;
+                player.GetComponent<GemCollect>().gemCollected = true;
 
-            player.GetComponent<PlayerMovement>().playerCanMove = false;
+                player.GetComponent<PlayerMovement>().playerCanMove = false;
+            }
+
+            if (freezeStartTriggered && endAnimsFinished)
+            {
+                freezeEndTriggered = true;
+
+                if (!player.GetComponent<GemCollect>().gsc)
+                {
+                    player.GetComponent<PlayerMovement>().playerCanMove = true;
+                }
+            }
         }
+    }
 
-        if (freezeStartTriggered && endAnimsFinished)
-        {
-
-        }
+    public void TriggerEndCoroutine()
+    {
+        StartCoroutine(TriggerAnimEnd());
     }
 
     public IEnumerator TriggerGemGrab()
     {
+        Debug.Log("Trigger Gem Grab Coroutine");
+
         if (!interactionTriggered)
         {
             interactionTriggered = true;
@@ -82,7 +100,7 @@ public class DisplayGemController : MonoBehaviour
         }
     }
 
-    public IEnumerator TriggerAnimEnd()
+    IEnumerator TriggerAnimEnd()
     {
         if (startAnimsFinished && !interactionFinished)
         {
@@ -94,6 +112,9 @@ public class DisplayGemController : MonoBehaviour
 
             yield return new WaitForSecondsRealtime(1f);
             thisCv.enabled = false;
+
+            /*backgroundImageAnim.enabled = false;
+            fragmentImageAnim.enabled = false;*/
 
             endAnimsFinished = true;
         }

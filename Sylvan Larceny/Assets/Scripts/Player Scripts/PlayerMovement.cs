@@ -60,6 +60,8 @@ public class PlayerMovement : MonoBehaviour
 
         ipc = GetComponentInChildren<InteractPointController>();
 
+        playerCanMove = true;
+
         if (enemyUpdateTimerDist == 0)
             enemyUpdateTimerDist = 5;
 

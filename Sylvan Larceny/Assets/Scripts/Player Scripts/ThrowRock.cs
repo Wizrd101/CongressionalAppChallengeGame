@@ -69,7 +69,6 @@ public class ThrowRock : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    //Debug.Log("E pressed");
                     rtCv.enabled = true;
                     throwCharge += chargeIncrement;
                     throwCharge = 0;
@@ -80,7 +79,6 @@ public class ThrowRock : MonoBehaviour
 
                 if (Input.GetKey(KeyCode.E) && keyHeldTimer >= keyHeldTimerIncrement)
                 {
-                    //Debug.Log("E held");
                     keyHeldTimer = 0;
                     throwCharge += chargeIncrement;
                     throwCharge = Mathf.Clamp01(throwCharge);
@@ -90,12 +88,10 @@ public class ThrowRock : MonoBehaviour
                     {
                         sliderShake.shaking = true;
                     }
-                    //Debug.Log(throwCharge);
                 }
 
                 if (Input.GetKeyUp(KeyCode.E))
                 {
-                    //Debug.Log("E released");
                     rtCv.enabled = false;
                     sliderShake.shaking = false;
                     rockSupply--;
@@ -144,11 +140,8 @@ public class ThrowRock : MonoBehaviour
                     }
 
                     randomSprite = Random.Range(0, 6);
-                    Debug.Log("Sprite Chosen: " + randomSprite);
                     sr.sprite = rockArray[randomSprite];
 
-                    //Debug.Log(throwCharge);
-                    //Debug.Log(throwCharge * atuIncrement);
                     atu.UpdateTimer(throwCharge * atuIncrement);
                     rockText.text = "x " + rockSupply;
                 }

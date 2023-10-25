@@ -45,7 +45,8 @@ public class ActionTimerUpdate : MonoBehaviour
 
     public void UpdateTimer(float actionValue)
     {
-        Debug.Log("ATU Updated: " + actionValue);
+        //Debug.Log("ATU Updated: " + actionValue);
+        
         if (crippled)
         {
             actionValue = actionValue * 2;

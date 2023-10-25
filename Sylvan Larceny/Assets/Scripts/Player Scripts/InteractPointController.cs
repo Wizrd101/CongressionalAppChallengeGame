@@ -23,10 +23,19 @@ public class InteractPointController : MonoBehaviour
 
     void Update()
     {
-        if (gameObject.GetComponentInParent<PlayerMovement>().moving && !currentReciever.interactionInPlace)
-            ableToInteract = true;
+        Debug.Log("PlayerMove: " + gameObject.GetComponentInParent<PlayerMovement>().moving);
+        Debug.Log("currentRecieverExists: " + currentReciever);
+        Debug.Log("Current Reciever Have Interaction: " + !currentReciever.interactionInPlace);
+
+        if (currentReciever)
+        {
+            if (gameObject.GetComponentInParent<PlayerMovement>().moving && !currentReciever.interactionInPlace)
+                ableToInteract = true;
+        }
         else
+        {
             ableToInteract = false;
+        }
 
         if (ableToInteract && currentReciever.ableToRecieve)
         {
