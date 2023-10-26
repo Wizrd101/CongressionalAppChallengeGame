@@ -35,7 +35,7 @@ public class ThrowRock : MonoBehaviour
 
     float atuIncrement = 1.2f;
 
-    void Awake()
+    void Start()
     {
         rtCv = GameObject.Find("RockThrowBarCanvas").GetComponent<Canvas>();
         throwSlider = rtCv.GetComponentInChildren<Slider>();
@@ -46,10 +46,7 @@ public class ThrowRock : MonoBehaviour
         atu = GameObject.Find("ActionTimerController").GetComponent<ActionTimerUpdate>();
 
         rockText = GameObject.Find("RockText").GetComponent<TextMeshProUGUI>();
-    }
 
-    void Start()
-    {
         rockSupply = 2;
 
         rockText.text = "x " + rockSupply;
