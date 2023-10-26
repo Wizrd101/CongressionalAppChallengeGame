@@ -26,7 +26,7 @@ public class InteractPointReciever : MonoBehaviour
             }
             else if (gameObject.tag == "MainMenuGem")
             {
-
+                Canvas levelSelectCv = GameObject.Find("LevelSelectCanvas").GetComponent<Canvas>();
             }
             else
             {
