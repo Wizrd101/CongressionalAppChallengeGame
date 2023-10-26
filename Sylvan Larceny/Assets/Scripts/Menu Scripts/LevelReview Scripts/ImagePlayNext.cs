@@ -13,6 +13,7 @@ public class ImagePlayNext : MonoBehaviour
 
     public void StartPannelAnim()
     {
-        pannelAnim.SetTrigger("Play");
+        Debug.Log("Play Next");
+        pannelAnim.SetTrigger("Start");
     }
 }

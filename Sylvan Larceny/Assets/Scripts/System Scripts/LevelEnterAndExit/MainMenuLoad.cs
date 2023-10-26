@@ -30,12 +30,12 @@ public class MainMenuLoad : MonoBehaviour
         yield return null;
 
         UpdateGemAnimation();
+
+        gScaleImageAnim.SetTrigger("Start");
     }
 
     IEnumerator UpdateGemAnimation()
     {
-        
-
         if (PlayerPrefs.GetInt("LevelSuccess") == 1)
         {
             if (1 <= tempLevelLeft && tempLevelLeft <= 5)

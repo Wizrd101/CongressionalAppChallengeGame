@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class PannelPlayNext : MonoBehaviour
 {
-    Animator textAnim;
+    Animator coinsTextAnim;
 
     void Start()
     {
-        
+        coinsTextAnim = GameObject.Find("CoinsTextParent").GetComponent<Animator>();
     }
 
-    void Update()
+    public void StartCoinsTextAnim()
     {
-        
+        coinsTextAnim.SetTrigger("Start");
     }
 }
