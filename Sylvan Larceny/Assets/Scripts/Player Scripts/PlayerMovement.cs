@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
@@ -49,7 +50,8 @@ public class PlayerMovement : MonoBehaviour
         tf = GetComponent<Transform>();
         AMscript = GetComponent<AdrenalineMode>();
 
-        atu = GameObject.Find("ActionTimerController").GetComponent<ActionTimerUpdate>();
+        if (SceneManager.GetActiveScene().name != "MainMenuScene")
+            atu = GameObject.Find("ActionTimerController").GetComponent<ActionTimerUpdate>();
 
         cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
 
@@ -77,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         // If the move timer has hit 0, allow the player to input a movement
-        if (atu.actionTimer <= 0 && !moving && Time.timeScale != 0 && playerCanMove)
+        if (SceneManager.GetActiveScene().name == "MainMenuScene" || (atu.actionTimer <= 0 && !moving && Time.timeScale != 0 && playerCanMove))
         {
             if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
             {
