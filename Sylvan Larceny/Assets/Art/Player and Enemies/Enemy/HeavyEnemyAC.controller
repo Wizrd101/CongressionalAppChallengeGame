@@ -9,7 +9,13 @@ AnimatorController:
   m_Name: HeavyEnemyAC
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: Blend
+  - m_Name: xInput
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: yInput
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -57,14 +63,54 @@ BlendTree:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Blend Tree
-  m_Childs: []
-  m_BlendParameter: Blend
-  m_BlendParameterY: Blend
+  m_Childs:
+  - serializedVersion: 2
+    m_Motion: {fileID: 7400000, guid: 0a06b7f4169465541b80f719a3cd206b, type: 2}
+    m_Threshold: 0
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: xInput
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 7400000, guid: bf57d1253dc734d4eb3b2fc936720f20, type: 2}
+    m_Threshold: 0.25
+    m_Position: {x: 0, y: -0.1}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: xInput
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 7400000, guid: b32993c203a2b554c8389b7b4c591c41, type: 2}
+    m_Threshold: 0.5
+    m_Position: {x: -0.1, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: xInput
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 7400000, guid: 4481929d9897694498951f78bac765fc, type: 2}
+    m_Threshold: 0.75
+    m_Position: {x: 0.1, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: xInput
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 7400000, guid: ec61256ea0503d44b854e5191313af3a, type: 2}
+    m_Threshold: 1
+    m_Position: {x: 0, y: 0.1}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: xInput
+    m_Mirror: 0
+  m_BlendParameter: xInput
+  m_BlendParameterY: yInput
   m_MinThreshold: 0
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 1
   m_NormalizedBlendValues: 0
-  m_BlendType: 0
+  m_BlendType: 1
 --- !u!1102 &8977159315022284086
 AnimatorState:
   serializedVersion: 6
@@ -72,7 +118,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Movement
+  m_Name: HeavyEnemyMoveTree
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
