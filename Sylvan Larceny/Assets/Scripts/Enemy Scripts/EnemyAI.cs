@@ -225,4 +225,6 @@ public class EnemyAI : MonoBehaviour
 
         oldEnemyState = enemyState;
     }
+
+    
 }

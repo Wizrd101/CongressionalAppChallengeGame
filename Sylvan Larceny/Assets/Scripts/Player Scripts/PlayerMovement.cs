@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class PlayerMovement : MonoBehaviour
 {
     Transform tf;
+    Animator anim;
 
     ActionTimerUpdate atu;
 
@@ -48,6 +49,8 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         tf = GetComponent<Transform>();
+        anim = GetComponentInChildren<Animator>();
+
         AMscript = GetComponent<AdrenalineMode>();
 
         if (SceneManager.GetActiveScene().name != "MainMenuScene")
@@ -281,6 +284,9 @@ public class PlayerMovement : MonoBehaviour
                     yield return null;
                 }
             }
+
+            anim.SetFloat("xInput", xValue);
+            anim.SetFloat("yInput", yValue);
         }
         else
         {
