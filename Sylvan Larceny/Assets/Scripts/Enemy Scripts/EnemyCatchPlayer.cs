@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyCatchPlayer : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class EnemyCatchPlayer : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             // Player Loses
+            SceneManager.LoadScene("MainMenuScene");
         }
     }
 }
