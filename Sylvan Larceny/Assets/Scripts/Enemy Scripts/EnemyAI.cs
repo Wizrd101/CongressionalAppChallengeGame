@@ -179,6 +179,8 @@ public class EnemyAI : MonoBehaviour
             baseSpeed = 0.5f;
         if (chaseSpeed == 0)
             chaseSpeed = 1f;
+
+        transform.position = new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y), 0);
     }
 
     void Update()
