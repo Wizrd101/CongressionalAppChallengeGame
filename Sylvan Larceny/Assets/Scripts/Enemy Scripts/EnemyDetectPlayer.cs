@@ -24,7 +24,7 @@ public class EnemyDetectPlayer : MonoBehaviour
         if (other.tag == "Player" && eAIScript.enemyState != EnemyAIState.ChasingPlayer && !phc.hiding)
         {
             // Check to make sure that the player didn't hit the collider through a wall or something
-            hit = Physics2D.Raycast(transform.position, eAIScript.player.transform.position, Mathf.Infinity, ~eAIScript.playerAndEnemyLayerMask);
+            hit = Physics2D.Raycast(transform.position, eAIScript.player.transform.position, Mathf.Infinity, ~eAIScript.enemyLayerMask);
 
             if (hit.collider == null)
             {
