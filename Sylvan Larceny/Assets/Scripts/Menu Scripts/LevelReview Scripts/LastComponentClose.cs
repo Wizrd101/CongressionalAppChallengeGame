@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class LastComponentClose : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public bool ableToClose;
+
     void Start()
     {
-        
+        ableToClose = false;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AbleToClose()
     {
-        
+        ableToClose = true;
     }
 }

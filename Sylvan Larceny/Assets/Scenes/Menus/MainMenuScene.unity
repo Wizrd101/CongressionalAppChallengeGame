@@ -17701,6 +17701,7 @@ GameObject:
   - component: {fileID: 1371035593}
   - component: {fileID: 1371035597}
   - component: {fileID: 1371035596}
+  - component: {fileID: 1371035598}
   m_Layer: 5
   m_Name: PLRCGrayscaleImage
   m_TagString: Untagged
@@ -17816,18 +17817,30 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: 
+        - m_Target: {fileID: 1371035598}
+          m_TargetAssemblyTypeName: ClosePLRC, Assembly-CSharp
+          m_MethodName: OnClickClose
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: 
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &1371035598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1371035591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7da906fe2255c22449680c94fc4419f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1380538538
 GameObject:
   m_ObjectHideFlags: 0
@@ -18270,6 +18283,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1497562095}
   - component: {fileID: 1497562096}
+  - component: {fileID: 1497562097}
   m_Layer: 5
   m_Name: CoinsTextParent
   m_TagString: Untagged
@@ -18320,6 +18334,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1497562097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1497562094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9d8e2f13e3d8e947a2f4effa24739f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ableToClose: 0
 --- !u!1 &1553814851
 GameObject:
   m_ObjectHideFlags: 0
@@ -19353,6 +19380,7 @@ SceneRoots:
   - {fileID: 1955488609}
   - {fileID: 1380538542}
   - {fileID: 1598823427}
+  - {fileID: 1894090062}
   - {fileID: 533762415}
   - {fileID: 1048128073}
   - {fileID: 2078691235}
@@ -19361,4 +19389,3 @@ SceneRoots:
   - {fileID: 107576163}
   - {fileID: 708139640}
   - {fileID: 106512957}
-  - {fileID: 1894090062}

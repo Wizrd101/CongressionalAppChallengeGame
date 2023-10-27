@@ -4,15 +4,31 @@ using UnityEngine;
 
 public class ClosePLRC : MonoBehaviour
 {
-    // Start is called before the first frame update
+    Animator imageAnim;
+    Animator pannelAnim;
+
+    LastComponentClose lcc;
+
     void Start()
     {
-        
+        imageAnim = GetComponent<Animator>();
+        pannelAnim = GameObject.Find("PLRCPannelImage").GetComponent<Animator>();
+
+        lcc = GameObject.Find("CoinsTextParent").GetComponent<LastComponentClose>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnClickClose()
     {
-        
+        if (lcc.ableToClose)
+        {
+            StartCoroutine(CloseReview());
+        }
+    }
+
+    IEnumerator CloseReview()
+    {
+        pannelAnim.SetTrigger("End");
+        yield return new WaitForSeconds(0.5f);
+        imageAnim.SetTrigger("End");
     }
 }
