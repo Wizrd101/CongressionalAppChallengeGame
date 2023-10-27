@@ -1,3 +1,4 @@
+using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -10,7 +11,7 @@ public enum EnemyAIState { Start, Patroling, ChasingPlayer, ChasingLastSeen}
 
 public class EnemyAI : MonoBehaviour
 {
-    // Enemy Patrol Script Base: 1 = Stationary, 2 = Rotating, 3 = Patroling, 4 = Wandering
+    /*// Enemy Patrol Script Base: 1 = Stationary, 2 = Rotating, 3 = Patroling, 4 = Wandering
     int epsBase;
     int epsCounter;
     EnemyStationary esBase;
@@ -135,6 +136,91 @@ public class EnemyAI : MonoBehaviour
 
     void LateUpdate()
     {
+        oldEnemyState = enemyState;
+    }*/
+
+    AIPath aStarPathfinder;
+    AIDestinationSetter aStarDestinationSetter;
+    Animator anim;
+
+    public GameObject player;
+    Transform playerLastSeenPoint;
+
+    public EnemyAIState enemyState;
+    EnemyAIState oldEnemyState;
+
+    Transform homePos;
+
+    RaycastHit2D sightHit;
+
+    public LayerMask enemyLayerMask;
+
+    [SerializeField] float baseSpeed;
+    [SerializeField] float chaseSpeed;
+
+    void Start()
+    {
+        aStarPathfinder = GetComponent<AIPath>();
+        aStarDestinationSetter = GetComponent<AIDestinationSetter>();
+        anim = GetComponentInChildren<Animator>();
+        
+        player = GameObject.FindWithTag("Player");
+        playerLastSeenPoint = transform.GetChild(2).transform;
+
+        oldEnemyState = EnemyAIState.Patroling;
+        enemyState = EnemyAIState.Patroling;
+
+        homePos = transform.GetChild(4).transform;
+        homePos.position = new Vector3(Mathf.RoundToInt(homePos.position.x), Mathf.RoundToInt(homePos.position.y), 0);
+
+        enemyLayerMask = LayerMask.GetMask("Enemy");
+
+        if (baseSpeed == 0)
+            baseSpeed = 0.5f;
+        if (chaseSpeed == 0)
+            chaseSpeed = 1f;
+    }
+
+    void Update()
+    {
+        if (enemyState == EnemyAIState.ChasingPlayer)
+        {
+            sightHit = Physics2D.Linecast(transform.position, player.transform.position, ~enemyLayerMask);
+
+            if (sightHit.collider.tag != "Player")
+            {
+                enemyState = EnemyAIState.ChasingLastSeen;
+            }
+        }
+        else if (enemyState == EnemyAIState.ChasingLastSeen)
+        {
+            if (0.1f <= Vector3.Distance(transform.position, playerLastSeenPoint.position))
+            {
+                enemyState = EnemyAIState.Patroling;
+            }
+        }
+
+        if (oldEnemyState != enemyState)
+        {
+            if (enemyState == EnemyAIState.Patroling)
+            {
+                playerLastSeenPoint.position = homePos.position;
+                aStarPathfinder.maxSpeed = baseSpeed;
+                aStarDestinationSetter.target = homePos;
+            }
+            else if (enemyState == EnemyAIState.ChasingPlayer)
+            {
+                aStarPathfinder.maxSpeed = chaseSpeed;
+                aStarDestinationSetter.target = player.transform;
+            }
+            else if (enemyState == EnemyAIState.ChasingLastSeen)
+            {
+                playerLastSeenPoint.position = new Vector3(Mathf.RoundToInt(player.transform.position.x), Mathf.RoundToInt(player.transform.position.y), 0);
+                aStarPathfinder.maxSpeed = chaseSpeed;
+                aStarDestinationSetter.target = playerLastSeenPoint;
+            }
+        }
+
         oldEnemyState = enemyState;
     }
 }
