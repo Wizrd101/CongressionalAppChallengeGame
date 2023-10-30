@@ -94,7 +94,7 @@ public class CameraMove : MonoBehaviour
                 yield return new WaitForSecondsRealtime(1 / cameraMoveTimer);
             }
             
-            camTf.position = new Vector3(Mathf.RoundToInt(camTf.position.x), Mathf.RoundToInt(camTf.position.y), -10f);
+            camTf.position = new Vector3(Mathf.RoundToInt(camTf.position.x) + 0.5f, Mathf.RoundToInt(camTf.position.y), -10f);
 
             Time.timeScale = 1;
 

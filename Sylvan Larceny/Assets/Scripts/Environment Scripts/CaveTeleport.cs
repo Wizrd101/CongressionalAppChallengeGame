@@ -26,13 +26,13 @@ public class CaveTeleport : MonoBehaviour
         teleportChannel = int.Parse(name);
 
         player = GameObject.FindWithTag("Player");
-
-        tpCv = GameObject.Find("CaveTeleportCanvas").GetComponent<Canvas>();
     }
 
     void Start()
     {
-        lc = GameObject.Find("LightsController").GetComponent<LightsController>();
+        tpCv = GameObject.Find("CaveTeleportCanvas").GetComponent<Canvas>();
+        
+        //lc = GameObject.Find("LightsController").GetComponent<LightsController>();
 
         sceneTransition = GameObject.Find("LevelLoader").GetComponent<Animator>();
 
@@ -83,7 +83,7 @@ public class CaveTeleport : MonoBehaviour
         
         yield return new WaitForSeconds(1);
 
-        lc.FlipLightState();
+        //lc.FlipLightState();
         player.transform.position = caveMatch.recievePos;
     }
 }

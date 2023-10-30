@@ -5,6 +5,8 @@ using UnityEngine.Tilemaps;
 
 public class PlayerHideController : MonoBehaviour
 {
+    Animator anim;
+
     PlayerHideCollider[] playerHideCols;
     public TilemapCollider2D mapHideCol;
 
@@ -14,6 +16,8 @@ public class PlayerHideController : MonoBehaviour
 
     void Start()
     {
+        anim = GameObject.FindWithTag("Player").GetComponentInChildren<Animator>();
+
         playerHideCols = GameObject.FindWithTag("Player").transform.GetChild(1).GetComponentsInChildren<PlayerHideCollider>();
     }
 
@@ -37,5 +41,7 @@ public class PlayerHideController : MonoBehaviour
         {
             hiding = false;
         }
+
+        anim.SetBool("Hiding", hiding);
     }
 }

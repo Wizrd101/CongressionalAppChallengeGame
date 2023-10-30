@@ -39,7 +39,7 @@ public class EnterGameController : MonoBehaviour
     public void NewGameButtonClick()
     {
         PlayerPrefs.DeleteAll();
-        SceneManager.LoadScene("TutorialScene");
+        SceneManager.LoadScene("LevelOneScene");
     }
 
     public void LoadGameButtonClick()
