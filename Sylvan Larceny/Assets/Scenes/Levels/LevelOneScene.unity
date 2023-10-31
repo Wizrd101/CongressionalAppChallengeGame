@@ -1659,6 +1659,7 @@ GameObject:
   - component: {fileID: 1018047043}
   - component: {fileID: 1018047046}
   - component: {fileID: 1018047045}
+  - component: {fileID: 1018047047}
   - component: {fileID: 1018047044}
   m_Layer: 0
   m_Name: NoiseTrap
@@ -1837,6 +1838,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.9, y: 0.9}
   m_EdgeRadius: 0
+--- !u!114 &1018047047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018047042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba3de7804e5953d41a327a852be87ca0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trapTriggered: 0
 --- !u!1001 &1072873778
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4829,7 +4843,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7249108293456109738, guid: 067c678c8e1beb04db2aca99b518dc13, type: 3}
       propertyPath: playerStartPos.x
-      value: -1
+      value: 74
       objectReference: {fileID: 0}
     - target: {fileID: 7249108293456109738, guid: 067c678c8e1beb04db2aca99b518dc13, type: 3}
       propertyPath: playerStartPos.y
