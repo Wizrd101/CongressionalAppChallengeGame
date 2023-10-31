@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class TrapLogic : MonoBehaviour
 {
+    BoxCollider2D triggerCol;
+
     ArrowTrapTrigger att;
     NoiseTrapTrigger ntt;
 
-    bool trapTriggered;
+    public bool trapTriggered;
 
     void Start()
     {
+        triggerCol = GetComponent<BoxCollider2D>();
+
         att = GetComponent<ArrowTrapTrigger>();
         ntt = GetComponent<NoiseTrapTrigger>();
 
@@ -23,13 +27,16 @@ public class TrapLogic : MonoBehaviour
             Debug.LogError("Trap: " + this.gameObject.name + " has neither an ArrowTrapTrigger and a NoiseTrapTrigger attatched");
         }
 
+        triggerCol.enabled = true;
+
         trapTriggered = false;
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Player" && !trapTriggered)
+        if ((other.gameObject.tag == "Player" || other.gameObject.tag == "Rock") && !trapTriggered)
         {
+            Debug.Log("Trap Triggered");
             trapTriggered = true;
             if (att != null)
             {
@@ -40,5 +47,7 @@ public class TrapLogic : MonoBehaviour
                 ntt.NoiseTrapTriggered();
             }
         }
+
+        triggerCol.enabled = false;
     }
 }

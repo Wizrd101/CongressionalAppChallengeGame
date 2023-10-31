@@ -16,7 +16,8 @@ public class NoiseTrapTrigger : MonoBehaviour
 
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
-        noiseRadius = 5f;
+        if (noiseRadius == 0)
+            noiseRadius = 5f;
     }
 
     public void NoiseTrapTriggered()
@@ -31,7 +32,5 @@ public class NoiseTrapTrigger : MonoBehaviour
                 // Tell the enemy to go to where the trap was
             }
         }
-
-        Destroy(this.gameObject);
     }
 }
