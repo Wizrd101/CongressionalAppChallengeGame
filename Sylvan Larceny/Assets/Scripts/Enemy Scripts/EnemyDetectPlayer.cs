@@ -11,11 +11,15 @@ public class EnemyDetectPlayer : MonoBehaviour
 
     RaycastHit2D hit;
 
+    LayerMask playerOnly;
+
     void Start()
     {
         eAIScript = GetComponentInParent<EnemyAI>();
 
         phc = GameObject.FindWithTag("Player").GetComponent<PlayerHideController>();
+
+        playerOnly = LayerMask.GetMask("Player");
     }
 
     // Logic for when the Enemy is in the PATROLING state (or the CHASINGLASTSEEN ig)
@@ -24,7 +28,9 @@ public class EnemyDetectPlayer : MonoBehaviour
         if (other.tag == "Player" && eAIScript.enemyState != EnemyAIState.ChasingPlayer && !phc.hiding)
         {
             // Check to make sure that the player didn't hit the collider through a wall or something
-            hit = Physics2D.Raycast(transform.position, eAIScript.player.transform.position, Mathf.Infinity, ~eAIScript.enemyLayerMask);
+            hit = Physics2D.Raycast(transform.position, eAIScript.player.transform.position, Mathf.Infinity, playerOnly);
+
+            Debug.Log(hit.collider.gameObject.name);
 
             if (hit.collider == null)
             {

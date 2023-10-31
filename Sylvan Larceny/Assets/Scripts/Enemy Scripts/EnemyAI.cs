@@ -187,10 +187,13 @@ public class EnemyAI : MonoBehaviour
     {
         if (enemyState == EnemyAIState.ChasingPlayer)
         {
+            Debug.Log("Do raycast");
+
             sightHit = Physics2D.Linecast(transform.position, player.transform.position, ~enemyLayerMask);
 
             if (sightHit.collider.tag != "Player")
             {
+                Debug.Log("Raycast change state");
                 enemyState = EnemyAIState.ChasingLastSeen;
             }
         }
